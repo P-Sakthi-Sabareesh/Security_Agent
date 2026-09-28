@@ -1,86 +1,127 @@
-# SOC Memory Agent
+# Hindy — Experience-Driven SOC Memory Agent
 
-A security operations center (SOC) memory agent that leverages [Hindsight Cloud](https://hindsight.vectorize.io/) to retain, recall, and reason over past security investigation experiences and alert outcomes.
+> *"Remembers everything. Verifies before trusting."*
 
----
-
-## 1. Required Python Package Installation
-
-Install the required dependencies using `pip`:
-
-```bash
-pip install hindsight-client python-dotenv
-```
-
-- `hindsight-client`: Official Python SDK for Hindsight Cloud and local Hindsight daemons.
-- `python-dotenv`: Loads configuration and credentials securely from `.env`.
+Hindy is an experience-driven Security Operations Center (SOC) investigation assistant. It combines long-term episodic memory via **Hindsight Cloud** with deep analytical reasoning via **Groq LLM** to analyze incoming security alerts against historical analyst decisions, investigations, and context signals.
 
 ---
 
-## 2. Required `.env` Variables
+## 1. Project Overview
 
-Create a `.env` file in the root directory with the following variables:
+Modern SOC teams face severe alert fatigue and repetitive triage. When an alert arrives, Hindy:
+1. **Recalls** relevant historical alert resolutions and senior analyst notes from the Hindsight memory bank.
+2. **Performs deterministic context verification**, comparing categorical and boolean environment signals (user role, destination host, subnet, device trust, authentication flags).
+3. **Identifies critical signal deviations** (e.g., lookalike domains, privilege mismatches, off-hours anomaly) before trusting past benign outcomes.
+4. **Synthesizes transparent reasoning** without automated closure or fabricated confidence percentages.
 
-```dotenv
-# Hindsight Cloud API Key (from https://ui.hindsight.vectorize.io)
+---
+
+## 2. Requirements
+
+- **Python**: 3.10+
+- **Node.js**: 18+ and `npm`
+- **Hindsight Cloud** account with API credentials
+- **Groq Cloud** API key for fast inference
+
+---
+
+## 3. Environment Variables
+
+Create a `.env` file in the project root with your credentials:
+
+```env
+# Hindsight Cloud Configuration
 HINDSIGHT_API_KEY=your_hindsight_api_key_here
+HINDSIGHT_BANK_ID=your_hindsight_bank_id_here
 
-# Target Memory Bank ID
-HINDSIGHT_BANK_ID=soc-memory
-
-# Optional: API base URL (defaults to https://api.hindsight.vectorize.io)
-HINDSIGHT_API_URL=https://api.hindsight.vectorize.io
+# Groq Cloud Configuration
+GROQ_API_KEY=your_groq_api_key_here
 ```
 
-> **Security Note**: Never commit `.env` or hardcode API keys. Ensure `.env` is listed in `.gitignore`.
+> **Security Guarantee**: All API keys and authentication tokens are strictly backend-only. The FastAPI server acts as a secure boundary and never exposes any secret or credential to the browser client or frontend bundle.
 
 ---
 
-## 3. How to Run `scripts/load_history.py`
+## 4. How to Run the Backend (FastAPI)
 
-The ingestion script supports safety verification, bulk ingestion, and memory recall testing:
-
-### Step A: Run Safety One-Memory Test First
-Before bulk ingestion, verify that Hindsight Cloud accepts memories and returns relevant context via recall:
+From the project root:
 
 ```bash
-python scripts/load_history.py --test-only
+uvicorn api.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-What this does:
-1. Validates `data/alerts.json` and calculates the actual historical alert count (phase == `history`).
-2. Retains **only the first historical alert** (`ALRT-00001`) with structured security-experience text, metadata, and tags.
-3. Verifies that the retain call succeeds and records the ID into `data/loaded_ids.json`.
-4. Executes a recall query (`"2 AM large backup transfer from db-prod-01"`) and prints the top 5 recalled memory units.
-5. **Safely stops** without modifying or ingesting the remaining alerts.
-
-### Step B: Bulk Ingestion of Remaining Historical Alerts
-Once the test succeeds, bulk load all remaining historical alerts:
-
-```bash
-python scripts/load_history.py --bulk
-```
-
-What this does:
-1. Reads `data/loaded_ids.json` to skip already-ingested alerts.
-2. Sequentially sends each pending historical alert with exponential backoff retries on network/rate limit errors.
-3. Updates `data/loaded_ids.json` immediately after each successful retention.
-4. Prints real-time progress (e.g., `50/514`, `100/514`) and a final summary report with token usage and elapsed time.
-
-### Step C: Test Memory Recall
-You can run ad-hoc recall queries against your memory bank at any time:
-
-```bash
-python scripts/load_history.py --recall "2 AM large backup transfer from db-prod-01"
-```
+The API will be available at `http://127.0.0.1:8000`.
 
 ---
 
-## 4. How Idempotent Resume Works
+## 5. How to Run the Frontend (React + Vite + TypeScript + Tailwind CSS)
 
-Idempotency and resume capability are managed via `data/loaded_ids.json`:
+From the project root:
 
-1. **State Persistence**: Each time an alert is successfully retained in Hindsight Cloud, its `alert_id` is recorded in `data/loaded_ids.json`.
-2. **Safe Restart**: If ingestion is interrupted (e.g. network disconnection, process termination), re-running `python scripts/load_history.py --bulk` loads `data/loaded_ids.json` and skips all previously ingested alerts.
-3. **No Partial State**: Failed alerts are not added to `data/loaded_ids.json` and will be retried automatically on subsequent runs.
-4. **Atomic Updates**: `data/loaded_ids.json` is updated atomically on each successful retention to prevent file corruption.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The frontend will start at `http://127.0.0.1:5173`.
+
+---
+
+## 6. Cache Warming Script
+
+To pre-compute and store cached analysis results for key demonstration alerts (`ALRT-00661`, `ALRT-00662`, `ALRT-00663`) across both memory and ablation modes:
+
+```bash
+python scripts/warm_cache.py
+```
+
+Results are saved to `results/demo_cache.json`. When cached, subsequent requests return instantaneously with `"cached": true` and maintain resilience against external API hiccups.
+
+---
+
+## 7. API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/health` | Health status of the memory core and reasoning engine |
+| `GET` | `/api/alerts` | List all replay queue alerts (id, title, severity, host, user, cached_state) |
+| `GET` | `/api/alerts/{id}` | Full detail and context signals for a specific alert |
+| `POST` | `/api/analyze/{id}?mode=memory` | Run full memory recall, context verification, and reasoning |
+| `POST` | `/api/analyze/{id}?mode=nomemory` | Run isolated reasoning without historical memory recall |
+
+---
+
+## 8. Demonstration Flow
+
+1. **Login Screen**:
+   - Status indicator displays `● Memory Core Online` when `/api/health` is verified.
+   - Pre-filled credentials (`analyst.priya` / `demo`) allow one-click entry into the workspace.
+2. **Alert Queue**:
+   - `ALRT-00663` is pinned at the top with a prominent `DEMO ALERT` tag.
+   - Real-time search enables filtering by ID, host, user, severity, and title.
+3. **Investigation & Analysis**:
+   - Click `Analyze with Hindy` to trigger live or cached analysis.
+   - **State Badge**: Shows honest SOC risk states:
+     - `GREEN`: "LOW RISK. Analyst quick-confirm recommended."
+     - `YELLOW`: "REVIEW REQUIRED"
+     - `RED`: "HIGH RISK. Human investigation required."
+   - **Memory Badges**: Highlights whether memory was found and whether memory applies based on zero key-signal differences.
+   - **Context Match Meter**: Segmented indicator displaying exact match count (e.g., `4 / 10 signals match`).
+   - **Git-Style Context Diff**: Highlighting exact signal divergence between historical cases and current alert.
+   - **Memory Trail**: Recalled cases with senior analyst notes and verdicts.
+   - **Why This Memory?**: Deterministic explanation breakdown without secondary LLM latency.
+   - **Compare Without Memory**: Side-by-side comparison illustrating how isolated reasoning lacks context.
+4. **Hindy Agent Panel (Right Side)**:
+   - Three quick-action focus buttons:
+     - *"Why did you decide this?"* → Scrolls to synthesized reasoning and recommendation.
+     - *"Show context differences"* → Highlights the git-style context diff.
+     - *"Show previous investigation"* → Focuses the historical memory trail.
+
+---
+
+## 9. Security & Architecture Integrity
+
+- **Backend-Only Secrets**: Neither Groq nor Hindsight API keys are ever transmitted across browser requests or bundled into client assets.
+- **Ground Truth Isolation**: The API and Frontend never read, import, or reference `data/ground_truth.json`.
+- **No Fabricated Confidence**: All states, signals, and diffs reflect genuine engine outputs.
