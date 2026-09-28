@@ -1,0 +1,9 @@
+{
+  "first_alert_id": "ALRT-00602",
+  "second_alert_id": "ALRT-00687",
+  "title": "Multiple failed sign-in attempts",
+  "category": "CredentialAccess",
+  "user": "deepa.joshi",
+  "host": "LT-0056",
+  "description": "Real replay alert learning pair for user deepa.joshi on host LT-0056."
+}

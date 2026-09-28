@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import type { AlertSummary } from '../types';
-import { Search, ShieldAlert, Clock, User, Server, Sparkles } from 'lucide-react';
+import { Search, ShieldAlert, Clock, User, Server, Sparkles, CheckCircle2, ArrowUpRight } from 'lucide-react';
 
 interface AlertQueueProps {
   alerts: AlertSummary[];
@@ -17,7 +17,7 @@ export const AlertQueue: React.FC<AlertQueueProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Pin ALRT-00663 at the top
+  // Pin ALRT-00663 first, then learning pair ALRT-00602 and ALRT-00687
   const sortedAndFilteredAlerts = useMemo(() => {
     let filtered = alerts.filter((alert) => {
       if (!searchQuery.trim()) return true;
@@ -31,10 +31,18 @@ export const AlertQueue: React.FC<AlertQueueProps> = ({
       );
     });
 
-    // Sort so ALRT-00663 is strictly pinned first
+    // Custom priority sort
     return filtered.sort((a, b) => {
+      // 1. ALRT-00663 always pinned top
       if (a.id === 'ALRT-00663') return -1;
       if (b.id === 'ALRT-00663') return 1;
+
+      // 2. Learning pair pinned next
+      if (a.id === 'ALRT-00602') return -1;
+      if (b.id === 'ALRT-00602') return 1;
+      if (a.id === 'ALRT-00687') return -1;
+      if (b.id === 'ALRT-00687') return 1;
+
       return a.id.localeCompare(b.id);
     });
   }, [alerts, searchQuery]);
@@ -111,6 +119,7 @@ export const AlertQueue: React.FC<AlertQueueProps> = ({
           sortedAndFilteredAlerts.map((alert) => {
             const isSelected = selectedAlertId === alert.id;
             const isDemoPinned = alert.id === 'ALRT-00663';
+            const isLearningPair = alert.id === 'ALRT-00602' || alert.id === 'ALRT-00687';
 
             return (
               <div
@@ -121,12 +130,14 @@ export const AlertQueue: React.FC<AlertQueueProps> = ({
                     ? 'bg-cyan-950/30 border-l-cyan-400 text-slate-100 shadow-[inset_0_0_12px_rgba(6,182,212,0.08)]'
                     : isDemoPinned
                     ? 'bg-slate-900/60 border-l-amber-500/80 hover:bg-slate-900 text-slate-300'
+                    : isLearningPair
+                    ? 'bg-slate-900/40 border-l-cyan-500/60 hover:bg-slate-900/80 text-slate-300'
                     : 'bg-transparent border-l-transparent hover:bg-slate-900/40 text-slate-400 hover:text-slate-200'
                 }`}
               >
                 {/* Pinned Tag / State Dot */}
                 <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-1.5 flex-wrap gap-y-1">
                     <span className="text-xs font-mono font-bold text-slate-200 tracking-tight">
                       {alert.id}
                     </span>
@@ -134,6 +145,24 @@ export const AlertQueue: React.FC<AlertQueueProps> = ({
                       <span className="flex items-center space-x-1 px-1.5 py-0.2 bg-amber-500/15 border border-amber-500/40 text-amber-300 text-[9px] font-bold uppercase tracking-wider rounded">
                         <Sparkles className="w-2.5 h-2.5 text-amber-400" />
                         <span>DEMO ALERT</span>
+                      </span>
+                    )}
+                    {isLearningPair && (
+                      <span className="flex items-center space-x-1 px-1.5 py-0.2 bg-cyan-500/15 border border-cyan-500/40 text-cyan-300 text-[9px] font-bold uppercase tracking-wider rounded">
+                        <Sparkles className="w-2.5 h-2.5 text-cyan-400" />
+                        <span>DEMO: LEARNING PAIR</span>
+                      </span>
+                    )}
+                    {alert.is_decided && (
+                      <span className="flex items-center space-x-1 px-1.5 py-0.2 bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-[9px] font-bold uppercase rounded">
+                        <CheckCircle2 className="w-2.5 h-2.5 text-emerald-400" />
+                        <span>decided</span>
+                      </span>
+                    )}
+                    {alert.is_escalated && (
+                      <span className="flex items-center space-x-1 px-1.5 py-0.2 bg-rose-500/15 border border-rose-500/40 text-rose-300 text-[9px] font-semibold rounded">
+                        <ArrowUpRight className="w-2.5 h-2.5 text-rose-400" />
+                        <span>Escalated to Tier 2 (demo status)</span>
                       </span>
                     )}
                   </div>

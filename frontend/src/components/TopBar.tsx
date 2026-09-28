@@ -1,13 +1,22 @@
 import React from 'react';
-import { UserCircle, Shield, Sparkles } from 'lucide-react';
+import { UserCircle, Shield, Sparkles, RotateCcw, CheckCircle2 } from 'lucide-react';
 import type { HealthStatus } from '../types';
 
 interface TopBarProps {
   analystName: string;
   health: HealthStatus | null;
+  onResetDemo: () => Promise<void>;
+  isResetting: boolean;
+  resetNotification: string | null;
 }
 
-export const TopBar: React.FC<TopBarProps> = ({ analystName, health }) => {
+export const TopBar: React.FC<TopBarProps> = ({
+  analystName,
+  health,
+  onResetDemo,
+  isResetting,
+  resetNotification,
+}) => {
   const isOnline = health?.memory_core_online === true;
 
   return (
@@ -22,8 +31,27 @@ export const TopBar: React.FC<TopBarProps> = ({ analystName, health }) => {
         <span className="text-xs text-slate-400 font-mono">Live Triage Queue</span>
       </div>
 
-      {/* Right Side: Status & Analyst profile */}
-      <div className="flex items-center gap-6">
+      {/* Right Side: Status & Analyst profile & Reset Action */}
+      <div className="flex items-center gap-4">
+        {/* Reset Notification Toast */}
+        {resetNotification && (
+          <div className="flex items-center space-x-1.5 px-3 py-1 rounded-md bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 text-xs animate-in fade-in duration-150">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+            <span>{resetNotification}</span>
+          </div>
+        )}
+
+        {/* Reset Demo Memory Button */}
+        <button
+          onClick={onResetDemo}
+          disabled={isResetting}
+          title="Reset only live demo memory overrides and live documents"
+          className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-slate-300 hover:text-slate-100 text-xs font-semibold transition-all disabled:opacity-50"
+        >
+          <RotateCcw className={`w-3.5 h-3.5 text-cyan-400 ${isResetting ? 'animate-spin' : ''}`} />
+          <span>{isResetting ? 'Resetting...' : 'Reset Demo Memory'}</span>
+        </button>
+
         {/* Memory Core Status Indicator */}
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs">
           {isOnline ? (
@@ -40,7 +68,7 @@ export const TopBar: React.FC<TopBarProps> = ({ analystName, health }) => {
           <span className="text-slate-700">|</span>
           <span className="text-[11px] text-slate-400 font-mono flex items-center gap-1">
             <Sparkles className="w-3 h-3 text-cyan-400" />
-            Hindsight Bank: <span className="text-slate-300 font-semibold">{health?.bank_id || 'soc-memory'}</span>
+            Bank: <span className="text-slate-300 font-semibold">{health?.bank_id || 'soc-memory'}</span>
           </span>
         </div>
 

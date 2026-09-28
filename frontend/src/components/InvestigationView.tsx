@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import type { AlertDetail, AnalysisResult, ComparedCase } from '../types';
+import React, { useState, useEffect } from 'react';
+import type { AlertDetail, AnalysisResult, ComparedCase, DecisionResponse, SuggestedChecksResponse } from '../types';
 import {
   ShieldAlert,
   ShieldCheck,
@@ -18,8 +18,12 @@ import {
   ToggleLeft,
   ToggleRight,
   Terminal,
+  ArrowUpRight,
+  ListChecks,
 } from 'lucide-react';
 import { WhyThisMemoryModal } from './WhyThisMemoryModal';
+import { AnalystDecisionForm } from './AnalystDecisionForm';
+import { BeforeAfterPanel } from './BeforeAfterPanel';
 
 interface InvestigationViewProps {
   alert: AlertDetail | null;
@@ -32,6 +36,14 @@ interface InvestigationViewProps {
   onToggleNoMemory: (enabled: boolean) => void;
   showNoMemory: boolean;
   highlightedSection: string | null;
+  isDecided: boolean;
+  isEscalated: boolean;
+  isFirstLearningPair: boolean;
+  isSecondLearningPair: boolean;
+  beforeLearningAnalysis: AnalysisResult | null;
+  onDecisionSuccess: (resp: DecisionResponse) => void;
+  onEscalate: (alertId: string) => void;
+  onNavigateNextSimilar?: () => void;
 }
 
 export const InvestigationView: React.FC<InvestigationViewProps> = ({
@@ -45,9 +57,35 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
   onToggleNoMemory,
   showNoMemory,
   highlightedSection,
+  isDecided,
+  isEscalated,
+  isFirstLearningPair,
+  isSecondLearningPair,
+  beforeLearningAnalysis,
+  onDecisionSuccess,
+  onEscalate,
+  onNavigateNextSimilar,
 }) => {
   const [whyMemoryOpen, setWhyMemoryOpen] = useState(false);
   const [_selectedCaseDetail, setSelectedCaseDetail] = useState<ComparedCase | null>(null);
+
+  // Suggested checks for RED alert action area
+  const [redChecks, setRedChecks] = useState<SuggestedChecksResponse | null>(null);
+  const [loadingRedChecks, setLoadingRedChecks] = useState(false);
+
+  useEffect(() => {
+    // If analysis is RED, fetch suggested checks for prominent action area
+    if (alert && memoryAnalysis?.state === 'red') {
+      setLoadingRedChecks(true);
+      fetch(`http://127.0.0.1:8000/api/checks/${alert.alert_id}`, { method: 'POST' })
+        .then((res) => res.json())
+        .then((data: SuggestedChecksResponse) => setRedChecks(data))
+        .catch(() => setRedChecks(null))
+        .finally(() => setLoadingRedChecks(false));
+    } else {
+      setRedChecks(null);
+    }
+  }, [alert?.alert_id, memoryAnalysis?.state]);
 
   if (loadingAlert) {
     return (
@@ -91,7 +129,6 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
   }> = [];
 
   if (bestMatch) {
-    // Add differences
     (bestMatch.differences || []).forEach((diff) => {
       allDiffRows.push({
         signal: diff.signal,
@@ -102,9 +139,7 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
       });
     });
 
-    // Add matches
     (bestMatch.matches || []).forEach((sig) => {
-      // Find current value from alert
       const val: any = (alert.context && alert.context[sig] !== undefined)
         ? alert.context[sig]
         : (alert as any)[sig];
@@ -168,6 +203,12 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
               {alert.category && (
                 <span className="px-2 py-0.5 rounded text-[10px] font-medium bg-slate-950 text-slate-400 border border-slate-800">
                   {alert.category}
+                </span>
+              )}
+              {isEscalated && (
+                <span className="px-2 py-0.5 rounded text-[10px] font-semibold bg-rose-950 text-rose-300 border border-rose-800 flex items-center space-x-1">
+                  <ArrowUpRight className="w-3 h-3" />
+                  <span>Escalated to Tier 2 (demo status)</span>
                 </span>
               )}
             </div>
@@ -244,7 +285,15 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
         </div>
       </div>
 
-      {/* 2. Analysis Results Container */}
+      {/* 2. Before/After Panel if second learning pair */}
+      {isSecondLearningPair && (
+        <BeforeAfterPanel
+          beforeAnalysis={beforeLearningAnalysis}
+          afterAnalysis={memoryAnalysis}
+        />
+      )}
+
+      {/* 3. Analysis Results Container */}
       {memoryAnalysis && (
         <div className="space-y-5 animate-in fade-in duration-200">
           {/* 8A. State Badge & 8B. Memory Badges Bar */}
@@ -254,7 +303,6 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
             </div>
 
             <div className="md:col-span-5 flex items-center space-x-2">
-              {/* Badge 1: Memory Found */}
               <div
                 className={`flex-1 p-2 rounded-lg border flex flex-col items-center justify-center ${
                   memoryFound
@@ -268,7 +316,6 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
                 </span>
               </div>
 
-              {/* Badge 2: Memory Applies */}
               <div
                 className={`flex-1 p-2 rounded-lg border flex flex-col items-center justify-center ${
                   memoryApplies
@@ -290,6 +337,64 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
             </div>
           </div>
 
+          {/* 3C: RED ALERT ACTION AREA */}
+          {memoryAnalysis.state === 'red' && (
+            <div className="p-4 rounded-xl bg-rose-950/30 border border-rose-700/60 space-y-3.5 shadow-md">
+              <div className="flex items-center justify-between border-b border-rose-800/60 pb-2.5">
+                <div className="flex items-center space-x-2 text-rose-300 font-bold text-xs uppercase tracking-wider">
+                  <ShieldAlert className="w-4 h-4 text-rose-400" />
+                  <span>High Risk Triage & Escalation Protocol</span>
+                </div>
+
+                <button
+                  onClick={() => onEscalate(alert.alert_id)}
+                  className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-rose-950/60 flex items-center space-x-1.5 transition-all"
+                >
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  <span>ESCALATE</span>
+                </button>
+              </div>
+
+              {/* Prominent Suggested Checks */}
+              {loadingRedChecks && (
+                <div className="p-3 text-xs text-rose-300/80 flex items-center space-x-2">
+                  <div className="w-3.5 h-3.5 border-2 border-rose-400 border-t-transparent rounded-full animate-spin" />
+                  <span>Loading suggested investigation checks...</span>
+                </div>
+              )}
+
+              {redChecks && (
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-1.5 text-rose-300 font-semibold text-[11px] uppercase tracking-wider">
+                    <ListChecks className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Suggested Investigation Checks:</span>
+                  </div>
+                  <ol className="space-y-1.5 text-xs text-slate-200 font-sans">
+                    {redChecks.suggested_checks.map((c, i) => (
+                      <li key={i} className="flex items-start space-x-2 bg-slate-950/50 p-2 rounded border border-rose-900/40">
+                        <span className="text-rose-400 font-mono font-bold flex-shrink-0">{i + 1}.</span>
+                        <span className="leading-relaxed">{c}</span>
+                      </li>
+                    ))}
+                  </ol>
+                  <div className="text-[10px] text-slate-400 italic">
+                    {redChecks.note}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* 4. Analyst Human Decision & Learning Form */}
+          <AnalystDecisionForm
+            alert={alert}
+            analysis={memoryAnalysis}
+            isDecided={isDecided}
+            isFirstLearningPair={isFirstLearningPair}
+            onDecisionSuccess={onDecisionSuccess}
+            onNavigateNextSimilar={onNavigateNextSimilar}
+          />
+
           {/* 8C. Context Match Meter */}
           {bestMatch && totalSignalsCount > 0 && (
             <div className="p-4 bg-slate-900/80 border border-slate-800 rounded-xl space-y-2.5">
@@ -308,7 +413,6 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
 
               {/* Segmented Horizontal Meter */}
               <div className="flex items-center space-x-1 h-3.5 bg-slate-950 p-1 rounded-md border border-slate-800">
-                {/* Render matched segments (green) */}
                 {Array.from({ length: matchedSignalsCount }).map((_, i) => (
                   <div
                     key={`match-${i}`}
@@ -316,7 +420,6 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
                     title="Matched Context Signal"
                   />
                 ))}
-                {/* Render differing segments (red) */}
                 {Array.from({ length: differingSignalsCount }).map((_, i) => (
                   <div
                     key={`diff-${i}`}
@@ -453,6 +556,8 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {(memoryAnalysis.recalled_cases || []).map((cCase) => {
                 const isBest = cCase.alert_id === memoryAnalysis.best_match_id;
+                const isLive = cCase.alert_id?.endsWith('-live');
+
                 return (
                   <div
                     key={cCase.alert_id}
@@ -464,13 +569,18 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
                     }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-2 flex-wrap gap-y-1">
                         <span className="text-xs font-mono font-bold text-cyan-400">
                           {cCase.alert_id}
                         </span>
                         {isBest && (
                           <span className="px-1.5 py-0.2 text-[9px] uppercase font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 rounded">
                             BEST MATCH
+                          </span>
+                        )}
+                        {isLive && (
+                          <span className="px-1.5 py-0.2 text-[9px] uppercase font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded">
+                            Confirmed live by Priya Nair (demo)
                           </span>
                         )}
                       </div>
@@ -624,7 +734,6 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
                   </div>
                 ) : noMemoryAnalysis ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* With Memory summary */}
                     <div className="p-3 bg-slate-950 rounded-lg border border-cyan-800/40 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-bold uppercase text-cyan-400">
@@ -644,7 +753,6 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
                       </div>
                     </div>
 
-                    {/* Without Memory summary */}
                     <div className="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="text-[11px] font-bold uppercase text-slate-400">

@@ -6,6 +6,9 @@ export interface AlertSummary {
   host: string;
   user: string;
   cached_state?: string | null;
+  is_learning_pair?: boolean;
+  is_decided?: boolean;
+  is_escalated?: boolean;
 }
 
 export interface AlertDetail {
@@ -85,4 +88,29 @@ export interface HealthStatus {
   reasoning_engine_online: boolean;
   bank_id: string;
   agent: string;
+}
+
+export interface SuggestedChecksResponse {
+  alert_id: string;
+  suggested_checks: string[];
+  note: string;
+  cached?: boolean;
+}
+
+export interface DecisionResponse {
+  success: boolean;
+  message: string;
+  live_alert_id: string;
+  summary: string;
+  record: any;
+}
+
+export interface DemoPair {
+  first_alert_id: string;
+  second_alert_id: string;
+  title: string;
+  category: string;
+  user: string;
+  host: string;
+  description: string;
 }

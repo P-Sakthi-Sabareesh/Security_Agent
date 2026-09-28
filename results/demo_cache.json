@@ -13017,5 +13017,4755 @@
       "Rule 2: Key signal discrepancies detected against baseline ALRT-00374 (hosts_probed (past=recurring range [54.0..246.0], current=3751.0)) -> State CANNOT be GREEN (downgraded to YELLOW)."
     ],
     "cached": false
+  },
+  "ALRT-00663:checks": {
+    "alert_id": "ALRT-00663",
+    "suggested_checks": [
+      "Verify whether a scheduled backup job (e.g., BK-NIGHTLY-01) exists for user svc-backup on host db-prod-01 and why the alert shows scheduled_job = null.",
+      "Inspect SMB session logs for the 10.0.3.13 \u2192 194.193.192.201 transfer: confirm the initiating process, timestamps, and whether the connection was authenticated with the svc-backup account.",
+      "Cross\u2011reference destination IP 194.193.192.201 against the asset inventory and approved backup endpoints; determine if this IP is an authorized backup target or an unknown external host.",
+      "Review authentication and authorization events for the svc-backup account around the alert time to see if the account was used in an atypical context (account_normal_for_action = false).",
+      "Identify the files/directories transferred (500\u202fGB) and verify if they contain sensitive data as indicated; check file classifications and any recent changes to data classification tags.",
+      "Examine activity on the initiating host build-srv-01 to determine why it launched the SMB transfer (e.g., scheduled task, script, or user\u2011initiated process) and whether this aligns with normal operational behavior."
+    ],
+    "note": "These are suggestions, not findings.",
+    "cached": false
+  },
+  "ALRT-00602:memory": {
+    "alert_id": "ALRT-00602",
+    "memory_used": true,
+    "recalled_cases": [
+      {
+        "alert_id": "ALRT-00472",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0039",
+        "user": "shreya.joshi",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "6 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "shreya.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0039",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-19T14:12:00",
+        "day": 19,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00229",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0033",
+        "user": "kiran.singh",
+        "verdict": "TruePositive",
+        "outcome": "Escalated to incident response",
+        "investigation_note": "Sustained repeated attempts on one account from an unfamiliar IP. Escalated; account locked.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.singh",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0033",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:47:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00137",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0056",
+        "user": "deepa.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "deepa.joshi mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "user",
+          "host",
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [],
+        "key_difference_count": 0,
+        "total_difference_count": 0,
+        "timestamp": "2026-08-06T12:00:00",
+        "day": 6,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00329",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0049",
+        "user": "naveen.reddy",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "naveen.reddy mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "naveen.reddy",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0049",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-14T11:22:00",
+        "day": 14,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00225",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0021",
+        "user": "deepa.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "deepa.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0021",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:08:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00227",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0016",
+        "user": "nandini.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.joshi mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0016",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:25:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00008",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0056",
+        "user": "deepa.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "deepa.joshi mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "user",
+          "host",
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [],
+        "key_difference_count": 0,
+        "total_difference_count": 0,
+        "timestamp": "2026-08-01T11:07:00",
+        "day": 1,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00226",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0054",
+        "user": "deepa.sharma",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "6 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "deepa.sharma",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0054",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:22:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00508",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0006",
+        "user": "gautam.joshi",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "8 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A06 Imran Khan",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "gautam.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0006",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-20T16:23:00",
+        "day": 20,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00060",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0016",
+        "user": "nandini.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.joshi mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0016",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:49:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00287",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0018",
+        "user": "suresh.shetty",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "suresh.shetty mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0018",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-12T14:51:00",
+        "day": 12,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00096",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0055",
+        "user": "kiran.bose",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kiran.bose mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.bose",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0055",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-04T17:06:00",
+        "day": 4,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00059",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0028",
+        "user": "kavya.joshi",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "8 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kavya.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0028",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:39:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00139",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0013",
+        "user": "nandini.das",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.das mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0013",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-06T12:15:00",
+        "day": 6,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00224",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0013",
+        "user": "nandini.das",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.das mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0013",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:05:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00049",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0006",
+        "user": "gautam.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "gautam.joshi mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "gautam.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0006",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T09:19:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00076",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0008",
+        "user": "ashwin.pillai",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "ashwin.pillai mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ashwin.pillai",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0008",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-04T08:22:00",
+        "day": 4,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00111",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0031",
+        "user": "ananya.menon",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "ananya.menon mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ananya.menon",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0031",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-05T13:54:00",
+        "day": 5,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00402",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0051",
+        "user": "ananya.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ananya.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0051",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-17T08:26:00",
+        "day": 17,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00405",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0012",
+        "user": "ashwin.menon",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "ashwin.menon mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ashwin.menon",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0012",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-17T10:14:00",
+        "day": 17,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00078",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0047",
+        "user": "lakshmi.iyer",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "lakshmi.iyer mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "lakshmi.iyer",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0047",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-04T09:33:00",
+        "day": 4,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00158",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0023",
+        "user": "varun.verma",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "varun.verma",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0023",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-07T08:54:00",
+        "day": 7,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00116",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0036",
+        "user": "varun.khan",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "varun.khan mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "varun.khan",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0036",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-05T14:46:00",
+        "day": 5,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00052",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0051",
+        "user": "ananya.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "9 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ananya.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0051",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T09:49:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00491",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0055",
+        "user": "kiran.bose",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kiran.bose mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.bose",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0055",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-20T09:57:00",
+        "day": 20,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00184",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0046",
+        "user": "sanjay.nair",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "sanjay.nair",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0046",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-08T12:54:00",
+        "day": 8,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00056",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0055",
+        "user": "kiran.bose",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.bose",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0055",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:12:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00358",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0002",
+        "user": "suresh.kumar",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "8 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A06 Imran Khan",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.kumar",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0002",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-15T16:12:00",
+        "day": 15,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00480",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0022",
+        "user": "karthik.das",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "karthik.das mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "karthik.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0022",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-19T17:27:00",
+        "day": 19,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00331",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0007",
+        "user": "pooja.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "6 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "pooja.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0007",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-14T11:58:00",
+        "day": 14,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00062",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0002",
+        "user": "suresh.kumar",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.kumar",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0002",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:59:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00047",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0025",
+        "user": "rohan.nair",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "rohan.nair mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "rohan.nair",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0025",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T08:33:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00406",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0051",
+        "user": "ananya.shetty",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "ananya.shetty mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ananya.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0051",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-17T10:35:00",
+        "day": 17,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00336",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0046",
+        "user": "sanjay.nair",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "sanjay.nair mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "sanjay.nair",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0046",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-14T13:12:00",
+        "day": 14,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00048",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0018",
+        "user": "suresh.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0018",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T08:51:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00228",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0055",
+        "user": "kiran.bose",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kiran.bose mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.bose",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0055",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:29:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00260",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0018",
+        "user": "suresh.shetty",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "suresh.shetty mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0018",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-11T12:39:00",
+        "day": 11,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00353",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0022",
+        "user": "karthik.das",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign after human confirmation",
+        "investigation_note": "Failures came from the user's home broadband (new IP); user confirmed; MFA passed. Benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "karthik.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0022",
+            "current": "LT-0056",
+            "is_key_signal": false
+          },
+          {
+            "signal": "source_known_ip",
+            "past": false,
+            "current": true,
+            "is_key_signal": true
+          }
+        ],
+        "key_difference_count": 1,
+        "total_difference_count": 3,
+        "timestamp": "2026-08-15T11:42:00",
+        "day": 15,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00061",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0035",
+        "user": "isha.menon",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "isha.menon mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "isha.menon",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0035",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:49:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00250",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0032",
+        "user": "kiran.kumar",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kiran.kumar mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.kumar",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0032",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-11T08:13:00",
+        "day": 11,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00317",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0016",
+        "user": "nandini.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.joshi mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0016",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-13T16:22:00",
+        "day": 13,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00264",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0003",
+        "user": "harsha.gupta",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "harsha.gupta",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0003",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-11T15:52:00",
+        "day": 11,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00218",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0052",
+        "user": "rohan.khan",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "rohan.khan",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0052",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T08:14:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00438",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0022",
+        "user": "karthik.das",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "8 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "karthik.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0022",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-18T10:57:00",
+        "day": 18,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00490",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0013",
+        "user": "nandini.das",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0013",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-20T09:05:00",
+        "day": 20,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00489",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0029",
+        "user": "kavya.mehta",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kavya.mehta mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kavya.mehta",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0029",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-20T08:53:00",
+        "day": 20,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00219",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0052",
+        "user": "rohan.khan",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "rohan.khan mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "rohan.khan",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0052",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T08:21:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00431",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0005",
+        "user": "ashwin.kapoor",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ashwin.kapoor",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0005",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-18T08:06:00",
+        "day": 18,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00386",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0022",
+        "user": "karthik.das",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "karthik.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0022",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-16T10:45:00",
+        "day": 16,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00408",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0011",
+        "user": "farhan.verma",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "farhan.verma mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "farhan.verma",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0011",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-17T10:46:00",
+        "day": 17,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00217",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0023",
+        "user": "varun.verma",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "varun.verma mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "varun.verma",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0023",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T08:07:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00281",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0042",
+        "user": "manoj.menon",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "manoj.menon mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "manoj.menon",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0042",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-12T12:03:00",
+        "day": 12,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00267",
+        "title": "Impossible travel activity",
+        "category": "InitialAccess",
+        "severity": "Medium",
+        "host": "LT-0056",
+        "user": "deepa.joshi",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "VPN exit-node geolocation false positive: both sign-ins were the same laptop via the company VPN.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "user",
+          "host",
+          "destination",
+          "attempts"
+        ],
+        "differences": [
+          {
+            "signal": "known_device",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "mfa_passed",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "same_device_both",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "single_account",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "source_country_normal",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "source_known_ip",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "success_from_same_device",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "vpn_exit_node",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "accounts_targeted",
+            "past": "<missing>",
+            "current": 1,
+            "is_key_signal": false
+          },
+          {
+            "signal": "country_a",
+            "past": "IN",
+            "current": "<missing>",
+            "is_key_signal": false
+          },
+          {
+            "signal": "country_b",
+            "past": "US",
+            "current": "<missing>",
+            "is_key_signal": false
+          },
+          {
+            "signal": "source_country",
+            "past": "<missing>",
+            "current": "IN",
+            "is_key_signal": false
+          },
+          {
+            "signal": "then_success",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": false
+          },
+          {
+            "signal": "via_vpn",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          }
+        ],
+        "key_difference_count": 9,
+        "total_difference_count": 14,
+        "timestamp": "2026-08-11T20:59:00",
+        "day": 11,
+        "mitre_technique": "T1078"
+      },
+      {
+        "alert_id": "ALRT-00163",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0049",
+        "user": "naveen.reddy",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "6 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "naveen.reddy",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0049",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-07T11:14:00",
+        "day": 7,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00479",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0045",
+        "user": "amit.pillai",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "9 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A06 Imran Khan",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "amit.pillai",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0045",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-19T16:15:00",
+        "day": 19,
+        "mitre_technique": "T1110"
+      }
+    ],
+    "best_match_id": "ALRT-00137",
+    "best_match": {
+      "alert_id": "ALRT-00137",
+      "title": "Multiple failed sign-in attempts",
+      "category": "CredentialAccess",
+      "severity": "Low",
+      "host": "LT-0056",
+      "user": "deepa.joshi",
+      "verdict": "BenignPositive",
+      "outcome": "Closed - benign (recurring pattern)",
+      "investigation_note": "deepa.joshi mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+      "analyst": "A01 Priya Nair",
+      "matches": [
+        "user",
+        "host",
+        "destination",
+        "single_account",
+        "source_country_normal",
+        "source_known_ip",
+        "success_from_same_device",
+        "attempts",
+        "source_country",
+        "then_success"
+      ],
+      "differences": [],
+      "key_difference_count": 0,
+      "total_difference_count": 0,
+      "timestamp": "2026-08-06T12:00:00",
+      "day": 6,
+      "mitre_technique": "T1110"
+    },
+    "llm_result": {
+      "state": "green",
+      "reasons": [
+        "Exact match to a previously closed benign alert (ALRT-00137) with identical user, host, and key contextual signals.",
+        "All contextual factors (source IP known, country normal, same device success, number of failed attempts, and successful login thereafter) align with a typical user error scenario documented in historical data."
+      ],
+      "recalled_case_ids": [
+        "ALRT-00137"
+      ],
+      "recommended_action": "Close the alert as benign; no further investigation needed. Log the closure for audit continuity.",
+      "explanation": "The current sign\u2011in pattern replicates a previously resolved benign case where the user mistyped the password several times before successfully authenticating from the usual device and IP. No anomalies suggest an elevated threat.",
+      "model_used": "openai/gpt-oss-safeguard-20b",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "openai/gpt-oss-20b",
+        "openai/gpt-oss-safeguard-20b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "openai/gpt-oss-20b",
+      "openai/gpt-oss-safeguard-20b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Analyst review recommended.",
+    "reasons": [
+      "Exact match to a previously closed benign alert (ALRT-00137) with identical user, host, and key contextual signals.",
+      "All contextual factors (source IP known, country normal, same device success, number of failed attempts, and successful login thereafter) align with a typical user error scenario documented in historical data."
+    ],
+    "explanation": "The current sign\u2011in pattern replicates a previously resolved benign case where the user mistyped the password several times before successfully authenticating from the usual device and IP. No anomalies suggest an elevated threat.",
+    "safety_overrides": [
+      "Rule E: Recalled close matches were previously escalated (['ALRT-00229']) -> Downgraded GREEN to YELLOW."
+    ],
+    "cached": false
+  },
+  "ALRT-00687:memory": {
+    "alert_id": "ALRT-00687",
+    "memory_used": true,
+    "recalled_cases": [
+      {
+        "alert_id": "ALRT-00602-live",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0056",
+        "user": "deepa.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - analyst-confirmed benign (live)",
+        "investigation_note": "Verified user deepa.joshi had a temporary password typo; subsequent sign-in succeeded from the same recognized internal device.",
+        "analyst": "Priya Nair (demo)",
+        "matches": [
+          "user",
+          "host",
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [],
+        "key_difference_count": 0,
+        "total_difference_count": 0,
+        "timestamp": "2026-09-28T08:42:02.314210+00:00",
+        "day": null,
+        "mitre_technique": null
+      },
+      {
+        "alert_id": "ALRT-00472",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0039",
+        "user": "shreya.joshi",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "6 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "shreya.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0039",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-19T14:12:00",
+        "day": 19,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00329",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0049",
+        "user": "naveen.reddy",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "naveen.reddy mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "naveen.reddy",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0049",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-14T11:22:00",
+        "day": 14,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00229",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0033",
+        "user": "kiran.singh",
+        "verdict": "TruePositive",
+        "outcome": "Escalated to incident response",
+        "investigation_note": "Sustained repeated attempts on one account from an unfamiliar IP. Escalated; account locked.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.singh",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0033",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:47:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00137",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0056",
+        "user": "deepa.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "deepa.joshi mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "user",
+          "host",
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [],
+        "key_difference_count": 0,
+        "total_difference_count": 0,
+        "timestamp": "2026-08-06T12:00:00",
+        "day": 6,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00225",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0021",
+        "user": "deepa.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "deepa.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0021",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:08:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00227",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0016",
+        "user": "nandini.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.joshi mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0016",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:25:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00508",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0006",
+        "user": "gautam.joshi",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "8 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A06 Imran Khan",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "gautam.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0006",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-20T16:23:00",
+        "day": 20,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00008",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0056",
+        "user": "deepa.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "deepa.joshi mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "user",
+          "host",
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [],
+        "key_difference_count": 0,
+        "total_difference_count": 0,
+        "timestamp": "2026-08-01T11:07:00",
+        "day": 1,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00226",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0054",
+        "user": "deepa.sharma",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "6 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "deepa.sharma",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0054",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:22:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00060",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0016",
+        "user": "nandini.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.joshi mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0016",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:49:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00139",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0013",
+        "user": "nandini.das",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.das mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0013",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-06T12:15:00",
+        "day": 6,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00059",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0028",
+        "user": "kavya.joshi",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "8 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kavya.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0028",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:39:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00336",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0046",
+        "user": "sanjay.nair",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "sanjay.nair mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "sanjay.nair",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0046",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-14T13:12:00",
+        "day": 14,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00049",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0006",
+        "user": "gautam.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "gautam.joshi mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "gautam.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0006",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T09:19:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00287",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0018",
+        "user": "suresh.shetty",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "suresh.shetty mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0018",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-12T14:51:00",
+        "day": 12,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00480",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0022",
+        "user": "karthik.das",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "karthik.das mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "karthik.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0022",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-19T17:27:00",
+        "day": 19,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00096",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0055",
+        "user": "kiran.bose",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kiran.bose mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.bose",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0055",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-04T17:06:00",
+        "day": 4,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00224",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0013",
+        "user": "nandini.das",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.das mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0013",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:05:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00228",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0055",
+        "user": "kiran.bose",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kiran.bose mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.bose",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0055",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T09:29:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00111",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0031",
+        "user": "ananya.menon",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "ananya.menon mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ananya.menon",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0031",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-05T13:54:00",
+        "day": 5,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00402",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0051",
+        "user": "ananya.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ananya.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0051",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-17T08:26:00",
+        "day": 17,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00078",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0047",
+        "user": "lakshmi.iyer",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "lakshmi.iyer mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "lakshmi.iyer",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0047",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-04T09:33:00",
+        "day": 4,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00405",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0012",
+        "user": "ashwin.menon",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "ashwin.menon mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ashwin.menon",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0012",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-17T10:14:00",
+        "day": 17,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00310",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0004",
+        "user": "farhan.singh",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "farhan.singh mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "farhan.singh",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0004",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-13T15:14:00",
+        "day": 13,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00052",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0051",
+        "user": "ananya.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "9 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ananya.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0051",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T09:49:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00158",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0023",
+        "user": "varun.verma",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "varun.verma",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0023",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-07T08:54:00",
+        "day": 7,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00076",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0008",
+        "user": "ashwin.pillai",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "ashwin.pillai mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ashwin.pillai",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0008",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-04T08:22:00",
+        "day": 4,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00184",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0046",
+        "user": "sanjay.nair",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "sanjay.nair",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0046",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-08T12:54:00",
+        "day": 8,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00056",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0055",
+        "user": "kiran.bose",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.bose",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0055",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:12:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00491",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0055",
+        "user": "kiran.bose",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kiran.bose mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.bose",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0055",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-20T09:57:00",
+        "day": 20,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00406",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0051",
+        "user": "ananya.shetty",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "ananya.shetty mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ananya.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0051",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-17T10:35:00",
+        "day": 17,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00358",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0002",
+        "user": "suresh.kumar",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "8 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A06 Imran Khan",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.kumar",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0002",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-15T16:12:00",
+        "day": 15,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00062",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0002",
+        "user": "suresh.kumar",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.kumar",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0002",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T10:59:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00260",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0018",
+        "user": "suresh.shetty",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "suresh.shetty mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0018",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-11T12:39:00",
+        "day": 11,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00471",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0004",
+        "user": "farhan.singh",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "farhan.singh mistyped the password 9 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "farhan.singh",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0004",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-19T14:03:00",
+        "day": 19,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00048",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0018",
+        "user": "suresh.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A02 Rahul Menon",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "suresh.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0018",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-03T08:51:00",
+        "day": 3,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00353",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0022",
+        "user": "karthik.das",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign after human confirmation",
+        "investigation_note": "Failures came from the user's home broadband (new IP); user confirmed; MFA passed. Benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "karthik.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0022",
+            "current": "LT-0056",
+            "is_key_signal": false
+          },
+          {
+            "signal": "source_known_ip",
+            "past": false,
+            "current": true,
+            "is_key_signal": true
+          }
+        ],
+        "key_difference_count": 1,
+        "total_difference_count": 3,
+        "timestamp": "2026-08-15T11:42:00",
+        "day": 15,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00116",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0036",
+        "user": "varun.khan",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "varun.khan mistyped the password 6 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "varun.khan",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0036",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-05T14:46:00",
+        "day": 5,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00331",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0007",
+        "user": "pooja.shetty",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "6 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "pooja.shetty",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0007",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-14T11:58:00",
+        "day": 14,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00264",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0003",
+        "user": "harsha.gupta",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "harsha.gupta",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0003",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-11T15:52:00",
+        "day": 11,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00250",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0032",
+        "user": "kiran.kumar",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kiran.kumar mistyped the password 8 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kiran.kumar",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0032",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-11T08:13:00",
+        "day": 11,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00317",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0016",
+        "user": "nandini.joshi",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "nandini.joshi mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.joshi",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0016",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-13T16:22:00",
+        "day": 13,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00218",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0052",
+        "user": "rohan.khan",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "rohan.khan",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0052",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T08:14:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00438",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0022",
+        "user": "karthik.das",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "8 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "karthik.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0022",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-18T10:57:00",
+        "day": 18,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00219",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0052",
+        "user": "rohan.khan",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "rohan.khan mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "rohan.khan",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0052",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-10T08:21:00",
+        "day": 10,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00490",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0013",
+        "user": "nandini.das",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "5 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "nandini.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0013",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-20T09:05:00",
+        "day": 20,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00431",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0005",
+        "user": "ashwin.kapoor",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "ashwin.kapoor",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0005",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-18T08:06:00",
+        "day": 18,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00489",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0029",
+        "user": "kavya.mehta",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "kavya.mehta mistyped the password 7 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A03 Ananya Iyer",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "kavya.mehta",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0029",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-20T08:53:00",
+        "day": 20,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00386",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Low",
+        "host": "LT-0022",
+        "user": "karthik.das",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "7 failed attempts is within this user's normal behavior; detector threshold too sensitive. False positive.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "karthik.das",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0022",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-16T10:45:00",
+        "day": 16,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00267",
+        "title": "Impossible travel activity",
+        "category": "InitialAccess",
+        "severity": "Medium",
+        "host": "LT-0056",
+        "user": "deepa.joshi",
+        "verdict": "FalsePositive",
+        "outcome": "Closed - false positive (detector misfire)",
+        "investigation_note": "VPN exit-node geolocation false positive: both sign-ins were the same laptop via the company VPN.",
+        "analyst": "A05 Divya Shetty",
+        "matches": [
+          "user",
+          "host",
+          "destination",
+          "attempts"
+        ],
+        "differences": [
+          {
+            "signal": "known_device",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "mfa_passed",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "same_device_both",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "single_account",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "source_country_normal",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "source_known_ip",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "success_from_same_device",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "vpn_exit_node",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "accounts_targeted",
+            "past": "<missing>",
+            "current": 1,
+            "is_key_signal": false
+          },
+          {
+            "signal": "country_a",
+            "past": "IN",
+            "current": "<missing>",
+            "is_key_signal": false
+          },
+          {
+            "signal": "country_b",
+            "past": "US",
+            "current": "<missing>",
+            "is_key_signal": false
+          },
+          {
+            "signal": "source_country",
+            "past": "<missing>",
+            "current": "IN",
+            "is_key_signal": false
+          },
+          {
+            "signal": "then_success",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": false
+          },
+          {
+            "signal": "via_vpn",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          }
+        ],
+        "key_difference_count": 9,
+        "total_difference_count": 14,
+        "timestamp": "2026-08-11T20:59:00",
+        "day": 11,
+        "mitre_technique": "T1078"
+      },
+      {
+        "alert_id": "ALRT-00408",
+        "title": "Multiple failed sign-in attempts",
+        "category": "CredentialAccess",
+        "severity": "Medium",
+        "host": "LT-0011",
+        "user": "farhan.verma",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "farhan.verma mistyped the password 5 times, then signed in from the usual device and IP (typical after a weekend). Closed benign.",
+        "analyst": "A04 Karthik Rao",
+        "matches": [
+          "destination",
+          "single_account",
+          "source_country_normal",
+          "source_known_ip",
+          "success_from_same_device",
+          "attempts",
+          "source_country",
+          "then_success"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "farhan.verma",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0011",
+            "current": "LT-0056",
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 0,
+        "total_difference_count": 2,
+        "timestamp": "2026-08-17T10:46:00",
+        "day": 17,
+        "mitre_technique": "T1110"
+      },
+      {
+        "alert_id": "ALRT-00004",
+        "title": "Suspicious inbox forwarding rule",
+        "category": "Collection",
+        "severity": "Low",
+        "host": "LT-0052",
+        "user": "rohan.khan",
+        "verdict": "BenignPositive",
+        "outcome": "Closed - benign (recurring pattern)",
+        "investigation_note": "Out-of-office forwarding to an internal colleague while rohan.khan is on leave, created from a known laptop. Closed benign.",
+        "analyst": "A01 Priya Nair",
+        "matches": [
+          "destination",
+          "attempts"
+        ],
+        "differences": [
+          {
+            "signal": "user",
+            "past": "rohan.khan",
+            "current": "deepa.joshi",
+            "is_key_signal": false
+          },
+          {
+            "signal": "host",
+            "past": "LT-0052",
+            "current": "LT-0056",
+            "is_key_signal": false
+          },
+          {
+            "signal": "created_from_known_device",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "forward_target_internal",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "keyword_filter",
+            "past": false,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "single_account",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "source_country_normal",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "source_known_ip",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "success_from_same_device",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": true
+          },
+          {
+            "signal": "user_on_leave",
+            "past": true,
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "accounts_targeted",
+            "past": "<missing>",
+            "current": 1,
+            "is_key_signal": false
+          },
+          {
+            "signal": "duration",
+            "past": "until return",
+            "current": "<missing>",
+            "is_key_signal": false
+          },
+          {
+            "signal": "forward_to",
+            "past": "sneha.joshi@kestrel.example",
+            "current": "<missing>",
+            "is_key_signal": true
+          },
+          {
+            "signal": "rule_scope",
+            "past": "all mail",
+            "current": "<missing>",
+            "is_key_signal": false
+          },
+          {
+            "signal": "source_country",
+            "past": "<missing>",
+            "current": "IN",
+            "is_key_signal": false
+          },
+          {
+            "signal": "then_success",
+            "past": "<missing>",
+            "current": true,
+            "is_key_signal": false
+          }
+        ],
+        "key_difference_count": 9,
+        "total_difference_count": 16,
+        "timestamp": "2026-08-01T09:32:00",
+        "day": 1,
+        "mitre_technique": "T1114.003"
+      }
+    ],
+    "best_match_id": "ALRT-00602-live",
+    "best_match": {
+      "alert_id": "ALRT-00602-live",
+      "title": "Multiple failed sign-in attempts",
+      "category": "CredentialAccess",
+      "severity": "Medium",
+      "host": "LT-0056",
+      "user": "deepa.joshi",
+      "verdict": "BenignPositive",
+      "outcome": "Closed - analyst-confirmed benign (live)",
+      "investigation_note": "Verified user deepa.joshi had a temporary password typo; subsequent sign-in succeeded from the same recognized internal device.",
+      "analyst": "Priya Nair (demo)",
+      "matches": [
+        "user",
+        "host",
+        "destination",
+        "single_account",
+        "source_country_normal",
+        "source_known_ip",
+        "success_from_same_device",
+        "attempts",
+        "source_country",
+        "then_success"
+      ],
+      "differences": [],
+      "key_difference_count": 0,
+      "total_difference_count": 0,
+      "timestamp": "2026-09-28T08:42:02.314210+00:00",
+      "day": null,
+      "mitre_technique": null
+    },
+    "llm_result": {
+      "state": "green",
+      "reasons": [
+        "All key signals (user, host, destination, single_account, source_country_normal, source_known_ip, success_from_same_device, attempts, then_success) match the documented benign baseline ALRT-00602-live.",
+        "The source IP is known and the successful login is from the same device, indicating a legitimate temporary password error rather than an intrusion.",
+        "No new or anomalous attributes (e.g., foreign IP, MFA bypass, unusual timing) are present to raise suspicion."
+      ],
+      "recalled_case_ids": [
+        "ALRT-00602-live"
+      ],
+      "recommended_action": "Close alert as benign. Document the resolution and update any relevant knowledge base entries if necessary.",
+      "explanation": "The alert replicates a previously confirmed benign scenario where the user mistyped a temporary password. All contextual signals align with that historical case, so it is a routine, low\u2011risk event.",
+      "model_used": "openai/gpt-oss-safeguard-20b",
+      "models_tried": [
+        "openai/gpt-oss-safeguard-20b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-safeguard-20b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Analyst review recommended.",
+    "reasons": [
+      "All key signals (user, host, destination, single_account, source_country_normal, source_known_ip, success_from_same_device, attempts, then_success) match the documented benign baseline ALRT-00602-live.",
+      "The source IP is known and the successful login is from the same device, indicating a legitimate temporary password error rather than an intrusion.",
+      "No new or anomalous attributes (e.g., foreign IP, MFA bypass, unusual timing) are present to raise suspicion."
+    ],
+    "explanation": "The alert replicates a previously confirmed benign scenario where the user mistyped a temporary password. All contextual signals align with that historical case, so it is a routine, low\u2011risk event.",
+    "safety_overrides": [
+      "Rule E: Recalled close matches were previously escalated (['ALRT-00229']) -> Downgraded GREEN to YELLOW."
+    ],
+    "cached": false
   }
 }
