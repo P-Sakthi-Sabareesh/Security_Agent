@@ -642,7 +642,7 @@ def pick_best_match(
 def _clean_json_response(raw_text: str) -> str:
     """
     Strips reasoning blocks, markdown code blocks, backticks, and extraneous preamble
-    to extract the JSON object.
+    to extract and normalize the JSON object.
     """
     text = raw_text.strip()
     text = re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE).strip()
@@ -654,6 +654,17 @@ def _clean_json_response(raw_text: str) -> str:
     json_match = re.search(r"(\{[\s\S]*\})", text)
     if json_match:
         return json_match.group(1).strip()
+
+    # Fallback: if JSON started with { but wasn't closed
+    if "{" in text and not text.endswith("}"):
+        start_idx = text.find("{")
+        sub = text[start_idx:]
+        # Attempt to auto-close unclosed string/object
+        if sub.count('"') % 2 != 0:
+            sub += '"'
+        if not sub.endswith("}"):
+            sub += "\n}"
+        return sub
 
     return text
 
@@ -803,7 +814,7 @@ def reason_with_llm(
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt},
                     ],
-                    max_tokens=600,
+                    max_tokens=1500,
                     temperature=0.0,
                 )
                 raw_content = response.choices[0].message.content or ""
