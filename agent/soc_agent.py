@@ -827,12 +827,19 @@ def reason_with_llm(
                 last_exception = e
                 err_str = str(e)
                 
-                # Check for rate limit Retry-After
+                # If daily token limit (TPD) is reached for this model, immediately try the next model
+                if "tpd" in err_str.lower() or "tokens per day" in err_str.lower() or "limit 200000" in err_str:
+                    logger.warning(
+                        f"Model {model} daily token limit (TPD) reached. Immediately switching to fallback model."
+                    )
+                    break
+
+                # For standard RPM/TPM rate limits, use exponential backoff with jitter
                 sleep_seconds = 2.0
                 if "rate_limit" in err_str.lower() or "429" in err_str:
-                    sleep_seconds = min(3.0 * (1.8 ** (attempt - 1)) + random.uniform(0.5, 1.5), 60.0)
+                    sleep_seconds = min(2.5 * (1.6 ** (attempt - 1)) + random.uniform(0.5, 1.2), 60.0)
                 else:
-                    sleep_seconds = min(2.0 * (1.5 ** (attempt - 1)) + random.uniform(0.2, 0.8), 30.0)
+                    sleep_seconds = min(2.0 * (1.4 ** (attempt - 1)) + random.uniform(0.2, 0.6), 30.0)
 
                 logger.warning(
                     f"Model {model} attempt {attempt}/{max_retries} failed ({err_str}). Retrying in {sleep_seconds:.1f}s..."
