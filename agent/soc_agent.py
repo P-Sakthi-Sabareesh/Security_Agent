@@ -46,6 +46,7 @@ FALLBACK_MODEL = "openai/gpt-oss-20b"
 
 # Flag to ensure we only print the raw Hindsight response once for inspection
 _FIRST_RECALL_PRINTED = False
+_DAILY_LIMIT_REACHED_MODELS: Set[str] = set()
 
 # Fields representing tickets, jobs, approvals where presence vs absence is critical
 TICKET_APPROVAL_FIELDS = {
@@ -784,7 +785,10 @@ def reason_with_llm(
             "Provide your assessment in the required JSON format."
         )
 
-    models_to_try = [PRIMARY_MODEL, FALLBACK_MODEL]
+    models_to_try = [m for m in [PRIMARY_MODEL, FALLBACK_MODEL] if m not in _DAILY_LIMIT_REACHED_MODELS]
+    if not models_to_try:
+        models_to_try = [FALLBACK_MODEL]
+
     models_tried: List[str] = []
     last_exception: Optional[Exception] = None
 
@@ -832,6 +836,7 @@ def reason_with_llm(
                     logger.warning(
                         f"Model {model} daily token limit (TPD) reached. Immediately switching to fallback model."
                     )
+                    _DAILY_LIMIT_REACHED_MODELS.add(model)
                     break
 
                 # For standard RPM/TPM rate limits, use exponential backoff with jitter
