@@ -1,0 +1,46 @@
+{
+  "usr-001": {
+    "id": "usr-001",
+    "username": "analyst.priya",
+    "email": "priya.nair@example.com",
+    "name": "Priya Nair",
+    "role": "SOC Lead Tier-3",
+    "level": "Tier-3 Analyst",
+    "password_hash": "bd43cad4342b91c037f75cf1aee1f3a96210f4b4c335e80287a2ec1950626794",
+    "salt": "3295a12346e74fc09bd0ea5988137cda",
+    "created_at": "2026-08-01T08:00:00Z"
+  },
+  "usr-002": {
+    "id": "usr-002",
+    "username": "analyst.arjun",
+    "email": "arjun.rao@example.com",
+    "name": "Arjun Rao",
+    "role": "SOC Analyst",
+    "level": "Tier-2 Analyst",
+    "password_hash": "e838a6e2096dfa395ffaa1034c9333efee0e10858682ba433615376f15b29c6d",
+    "salt": "011a5132325c0c9ec2ade5d6830c0f59",
+    "created_at": "2026-08-15T09:30:00Z"
+  },
+  "usr-f1fbd0e1": {
+    "id": "usr-f1fbd0e1",
+    "name": "Vikram R. Patel",
+    "email": "vikram.patel@example.com",
+    "username": "analyst.vikram",
+    "role": "Lead Incident Handler",
+    "level": "Tier-3 Analyst",
+    "password_hash": "b1caa65629d0413b06d1497ecd154b068a9b0c603b6c57170ea2d1170df97d67",
+    "salt": "f13ad22f1994e812d578ba6eba53bf9e",
+    "created_at": "2026-09-28T14:50:29.006276"
+  },
+  "usr-2e837d1b": {
+    "id": "usr-2e837d1b",
+    "name": "Shiva",
+    "email": "hindy@gmail.com",
+    "username": "hindy",
+    "role": "SOC Analyst",
+    "level": "Tier-1 Analyst",
+    "password_hash": "bd6418cc84f420eae78a28e83510482fdf3b5ea0655db9a559f9db681e0436b0",
+    "salt": "f2b6a953bc095cd5e596edd03593c6c0",
+    "created_at": "2026-09-28T14:55:49.790193"
+  }
+}

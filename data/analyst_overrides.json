@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "alert_id": "ALRT-00638-live",
+    "timestamp": "2026-09-28T13:28:21.501477+00:00",
+    "title": "Suspicious inbox forwarding rule",
+    "category": "Collection",
+    "severity": "Critical",
+    "user": "ashwin.bose",
+    "host": "LT-0057",
+    "src_ip": "103.148.249.142",
+    "dst": "Exchange Online",
+    "details": {
+      "forward_to": "j.smith.backup@freemail-mail.example",
+      "rule_scope": "keywords: invoice, payment, wire",
+      "duration": "permanent"
+    },
+    "context": {
+      "forward_target_internal": false,
+      "user_on_leave": false,
+      "created_from_known_device": false,
+      "keyword_filter": true
+    },
+    "analyst": "Priya Nair (demo)",
+    "investigation_note": "unauthorized action proven",
+    "verdict": "TruePositive",
+    "outcome": "Confirmed malicious - escalated (live)",
+    "phase": "history"
+  }
+]

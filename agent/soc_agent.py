@@ -38,8 +38,9 @@ if not logger.handlers:
     logger.setLevel(logging.INFO)
 
 # File Paths & Defaults
-DEFAULT_ALERTS_PATH = Path("data") / "alerts.json"
-DEFAULT_OVERRIDES_PATH = Path("data") / "analyst_overrides.json"
+WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_ALERTS_PATH = WORKSPACE_ROOT / "data" / "alerts.json"
+DEFAULT_OVERRIDES_PATH = WORKSPACE_ROOT / "data" / "analyst_overrides.json"
 DEFAULT_HINDSIGHT_URL = "https://api.hindsight.vectorize.io"
 
 PRIMARY_MODEL = "openai/gpt-oss-120b"

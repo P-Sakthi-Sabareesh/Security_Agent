@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import hindyRobotBase from '../assets/hindy_robot_base.png';
 
 interface HindyAvatarProps {
   size?: number;
@@ -6,92 +7,249 @@ interface HindyAvatarProps {
   glow?: boolean;
 }
 
+/**
+ * Compact Top-Left 3D Hindy Avatar
+ * Reuses the authentic 3D robot asset from Login with live eye tracking & blinking.
+ */
 export const HindyAvatar: React.FC<HindyAvatarProps> = ({
-  size = 40,
+  size = 36,
   className = '',
   glow = true,
 }) => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isBlinking, setIsBlinking] = useState(false);
+  const avatarRef = useRef<HTMLDivElement>(null);
+
+  // Natural Blinking Cycle
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const triggerBlink = () => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+        const nextBlink = Math.random() * 3500 + 2500;
+        timeoutId = setTimeout(triggerBlink, nextBlink);
+      }, 130);
+    };
+
+    timeoutId = setTimeout(triggerBlink, 2400);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  // Global window cursor tracking with distance normalization
+  useEffect(() => {
+    const handleWindowMouseMove = (e: MouseEvent) => {
+      if (!avatarRef.current) return;
+      const rect = avatarRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+      const maxDist = 500;
+
+      const nx = Math.max(-1, Math.min(1, deltaX / maxDist));
+      const ny = Math.max(-1, Math.min(1, deltaY / maxDist));
+
+      setMousePos({ x: nx, y: ny });
+    };
+
+    window.addEventListener('mousemove', handleWindowMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleWindowMouseMove);
+  }, []);
+
+  const eyeOffsetX = mousePos.x * 2.2;
+  const eyeOffsetY = mousePos.y * 1.6;
+
   return (
     <div
-      className={`relative inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-[#0F172A] to-[#1E293B] border border-cyan-500/20 shadow-lg ${
-        glow ? 'shadow-cyan-500/20' : ''
+      ref={avatarRef}
+      className={`relative inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-[#090B16] to-[#121424] border border-[#C8FF35]/30 overflow-hidden shrink-0 ${
+        glow ? 'shadow-[0_0_12px_rgba(200,255,53,0.2)]' : ''
       } ${className}`}
       style={{ width: size, height: size }}
     >
-      <svg
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-[78%] h-[78%]"
+      <div className="relative w-full h-full flex items-center justify-center p-0.5">
+        <img
+          src={hindyRobotBase}
+          alt="Hindy 3D Avatar"
+          className="w-[115%] h-auto object-contain max-w-none -translate-x-[2%] translate-y-[2%]"
+        />
+
+        {/* Left Eye */}
+        <div
+          className="absolute z-20 pointer-events-none"
+          style={{
+            left: '50.5%',
+            top: '32%',
+            transform: `translate(calc(-50% + ${eyeOffsetX}px), calc(-50% + ${eyeOffsetY}px)) scale(1, ${
+              isBlinking ? 0.08 : 1
+            })`,
+            transformOrigin: 'center center',
+            transition: 'transform 0.08s ease-out',
+            width: '8.8%',
+            height: '12%',
+          }}
+        >
+          <div className="w-full h-full rounded-[3px] bg-[#C8FF35] relative shadow-[0_0_6px_#C8FF35]">
+            <span className="absolute top-[1px] left-[1px] w-[2px] h-[2px] bg-white rounded-full opacity-90" />
+          </div>
+        </div>
+
+        {/* Right Eye */}
+        <div
+          className="absolute z-20 pointer-events-none"
+          style={{
+            left: '74.5%',
+            top: '32.2%',
+            transform: `translate(calc(-50% + ${eyeOffsetX}px), calc(-50% + ${eyeOffsetY}px)) scale(1, ${
+              isBlinking ? 0.08 : 1
+            })`,
+            transformOrigin: 'center center',
+            transition: 'transform 0.08s ease-out',
+            width: '8.4%',
+            height: '11.8%',
+          }}
+        >
+          <div className="w-full h-full rounded-[3px] bg-[#C8FF35] relative shadow-[0_0_6px_#C8FF35]">
+            <span className="absolute top-[1px] left-[1px] w-[2px] h-[2px] bg-white rounded-full opacity-90" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/**
+ * 3D Interactive Hindy Character for Sidebar Bottom
+ * Exactly matches the Login page character with interactive gaze tracking, blinking & float.
+ */
+export const HindySidebarBot: React.FC = () => {
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isBlinking, setIsBlinking] = useState(false);
+  const [isNearby, setIsNearby] = useState(false);
+  const botRef = useRef<HTMLDivElement>(null);
+
+  // Natural Blinking Cycle
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const triggerBlink = () => {
+      setIsBlinking(true);
+      setTimeout(() => {
+        setIsBlinking(false);
+        const nextBlink = Math.random() * 3500 + 2500;
+        timeoutId = setTimeout(triggerBlink, nextBlink);
+      }, 140);
+    };
+
+    timeoutId = setTimeout(triggerBlink, 2600);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  // Smooth Window-Wide Cursor Tracking
+  useEffect(() => {
+    const handleWindowMouseMove = (e: MouseEvent) => {
+      if (!botRef.current) return;
+      const rect = botRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      const maxTrackDistance = 500;
+      const nx = Math.max(-1, Math.min(1, deltaX / maxTrackDistance));
+      const ny = Math.max(-1, Math.min(1, deltaY / maxTrackDistance));
+
+      setMousePos({ x: nx, y: ny });
+      setIsNearby(distance < 300);
+    };
+
+    window.addEventListener('mousemove', handleWindowMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleWindowMouseMove);
+  }, []);
+
+  const eyeOffsetX = mousePos.x * 5.5;
+  const eyeOffsetY = mousePos.y * 4.2;
+  const headRotateY = mousePos.x * 5;
+  const headRotateX = -mousePos.y * 4;
+
+  return (
+    <div ref={botRef} className="relative flex flex-col items-center justify-center pt-2 pb-1">
+      {/* Floor Glow Reflection */}
+      <div
+        className={`absolute bottom-3 w-28 h-6 rounded-full blur-xl pointer-events-none transition-all duration-500 ${
+          isNearby ? 'bg-[#C8FF35]/25 w-32' : 'bg-[#C8FF35]/15'
+        }`}
+      />
+
+      {/* 3D Perspective Container with Tilt */}
+      <div
+        className="relative z-10 w-28 transition-transform duration-300 ease-out"
+        style={{
+          transform: `perspective(600px) rotateY(${headRotateY}deg) rotateX(${headRotateX}deg)`,
+        }}
       >
-        <defs>
-          <linearGradient id="hindyGradient" x1="10" y1="10" x2="90" y2="90" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#38BDF8" />
-            <stop offset="0.5" stopColor="#0EA5E9" />
-            <stop offset="1" stopColor="#0284C7" />
-          </linearGradient>
-          <linearGradient id="earGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#1E293B" />
-            <stop offset="1" stopColor="#0F172A" />
-          </linearGradient>
-          <filter id="coreGlow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-          </filter>
-        </defs>
+        {/* Floating Idle Animation */}
+        <div className="relative animate-[float_5s_ease-in-out_infinite]">
+          {/* Authentic 3D Robot Image */}
+          <img
+            src={hindyRobotBase}
+            alt="Hindy 3D Character"
+            className="w-full h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.85)] filter brightness-105"
+          />
 
-        {/* Left Ear - Sleek Geometric Silhouette */}
-        <path
-          d="M 28 35 C 15 30, 8 45, 12 60 C 16 72, 26 74, 34 68 Z"
-          fill="url(#earGradient)"
-          stroke="#0284C7"
-          strokeWidth="2"
-          strokeOpacity="0.4"
-        />
+          {/* Interactive Dynamic Eyes Layer */}
+          {/* Left Eye */}
+          <div
+            className="absolute z-20 pointer-events-none"
+            style={{
+              left: '52.27%',
+              top: '29.16%',
+              transform: `translate(calc(-50% + ${eyeOffsetX}px), calc(-50% + ${eyeOffsetY}px)) scale(1, ${
+                isBlinking ? 0.08 : isNearby ? 1.06 : 1
+              })`,
+              transformOrigin: 'center center',
+              transition: 'transform 0.09s ease-out',
+              width: '8.8%',
+              height: '12.4%',
+            }}
+          >
+            <div
+              className={`w-full h-full rounded-[6px] bg-[#C8FF35] relative shadow-[0_0_10px_#C8FF35,0_0_18px_rgba(200,255,53,0.5)] ${
+                isNearby ? 'shadow-[0_0_14px_#C8FF35,0_0_24px_rgba(200,255,53,0.7)]' : ''
+              }`}
+            >
+              <span className="absolute top-[2px] left-[2px] w-1 h-1.5 bg-white rounded-full opacity-90 blur-[0.2px]" />
+            </div>
+          </div>
 
-        {/* Right Ear - Sleek Geometric Silhouette */}
-        <path
-          d="M 72 35 C 85 30, 92 45, 88 60 C 84 72, 74 74, 66 68 Z"
-          fill="url(#earGradient)"
-          stroke="#0284C7"
-          strokeWidth="2"
-          strokeOpacity="0.4"
-        />
-
-        {/* Main Head Contour - Stylized Elephant Glyph */}
-        <path
-          d="M 30 32 C 30 20, 70 20, 70 32 C 73 44, 70 58, 62 66 C 58 70, 56 74, 54 86 C 53 90, 47 90, 46 86 C 44 74, 42 70, 38 66 C 30 58, 27 44, 30 32 Z"
-          fill="#0B132B"
-          stroke="url(#hindyGradient)"
-          strokeWidth="2.5"
-          strokeLinejoin="round"
-        />
-
-        {/* Tusks - Minimalist Angular Defense Shields */}
-        <path
-          d="M 36 68 C 30 74, 28 78, 30 82 C 32 82, 36 78, 40 72 Z"
-          fill="#38BDF8"
-          fillOpacity="0.8"
-        />
-        <path
-          d="M 64 68 C 70 74, 72 78, 70 82 C 68 82, 64 78, 60 72 Z"
-          fill="#38BDF8"
-          fillOpacity="0.8"
-        />
-
-        {/* Trunk Segment Lines */}
-        <line x1="46" y1="72" x2="54" y2="72" stroke="#38BDF8" strokeWidth="1.5" strokeOpacity="0.4" strokeLinecap="round" />
-        <line x1="47" y1="78" x2="53" y2="78" stroke="#38BDF8" strokeWidth="1.5" strokeOpacity="0.4" strokeLinecap="round" />
-
-        {/* Alert Observation Eyes */}
-        <circle cx="39" cy="48" r="2.5" fill="#38BDF8" />
-        <circle cx="61" cy="48" r="2.5" fill="#38BDF8" />
-
-        {/* Neural Memory Core Node (Glowing in Forehead) */}
-        <circle cx="50" cy="35" r="5.5" fill="#06B6D4" filter="url(#coreGlow)" />
-        <circle cx="50" cy="35" r="3" fill="#E0F2FE" />
-        <circle cx="50" cy="35" r="7" stroke="#38BDF8" strokeWidth="1" strokeOpacity="0.6" strokeDasharray="2 2" />
-      </svg>
+          {/* Right Eye */}
+          <div
+            className="absolute z-20 pointer-events-none"
+            style={{
+              left: '78.30%',
+              top: '29.35%',
+              transform: `translate(calc(-50% + ${eyeOffsetX}px), calc(-50% + ${eyeOffsetY}px)) scale(1, ${
+                isBlinking ? 0.08 : isNearby ? 1.06 : 1
+              })`,
+              transformOrigin: 'center center',
+              transition: 'transform 0.09s ease-out',
+              width: '8.4%',
+              height: '12.2%',
+            }}
+          >
+            <div
+              className={`w-full h-full rounded-[6px] bg-[#C8FF35] relative shadow-[0_0_10px_#C8FF35,0_0_18px_rgba(200,255,53,0.5)] ${
+                isNearby ? 'shadow-[0_0_14px_#C8FF35,0_0_24px_rgba(200,255,53,0.7)]' : ''
+              }`}
+            >
+              <span className="absolute top-[2px] left-[2px] w-1 h-1.5 bg-white rounded-full opacity-90 blur-[0.2px]" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,31 +1,47 @@
 import { useState, useEffect } from 'react';
-import type { AlertSummary, AlertDetail, AnalysisResult, HealthStatus, DecisionResponse, DemoPair } from './types';
+import type { AlertSummary, AlertDetail, AnalysisResult, HealthStatus, DecisionResponse, ReplayEntry, UserProfile } from './types';
 import { LoginModal } from './components/LoginModal';
+import { DashboardView } from './components/DashboardView';
+import { InvestigationPage } from './components/InvestigationPage';
+import { MemoryView } from './components/MemoryView';
 import { Sidebar, type NavTab } from './components/Sidebar';
 import { TopBar } from './components/TopBar';
-import { AlertQueue } from './components/AlertQueue';
-import { InvestigationView } from './components/InvestigationView';
-import { HindyPanel } from './components/HindyPanel';
 import { PlaceholderView } from './components/PlaceholderView';
+import { ReplayView } from './components/ReplayView';
+import { EvaluationView } from './components/EvaluationView';
+import { SettingsView } from './components/SettingsView';
 
 const API_BASE = 'http://127.0.0.1:8000';
 
 export function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [analystName, setAnalystName] = useState('Priya Nair, SOC Analyst');
-  const [activeNav, setActiveNav] = useState<NavTab>('alerts');
+  // Session State
+  const [token, setToken] = useState<string | null>(() => {
+    return window.sessionStorage.getItem('hindy_auth_token') || null;
+  });
+  const [user, setUser] = useState<UserProfile | null>(() => {
+    const raw = window.sessionStorage.getItem('hindy_user');
+    if (raw) {
+      try {
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+    return null;
+  });
+
+  const isLoggedIn = Boolean(token && user);
+  const analystName = user?.name || 'Priya Nair, SOC Analyst';
+  const [activeNav, setActiveNav] = useState<NavTab>('dashboard');
 
   // Health & Reset
   const [health, setHealth] = useState<HealthStatus | null>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [resetNotification, setResetNotification] = useState<string | null>(null);
-
-  // Demo Pair
-  const [demoPair, setDemoPair] = useState<DemoPair | null>(null);
+  const [demoMode, setDemoMode] = useState(() => window.localStorage.getItem('hindy-demo-mode') === 'true');
 
   // Alerts & Queue
   const [alerts, setAlerts] = useState<AlertSummary[]>([]);
-  const [loadingAlerts, setLoadingAlerts] = useState(false);
   const [selectedAlertId, setSelectedAlertId] = useState<string | null>('ALRT-00663');
 
   // Selected Alert Detail
@@ -34,16 +50,30 @@ export function App() {
 
   // Analysis State
   const [memoryAnalysis, setMemoryAnalysis] = useState<AnalysisResult | null>(null);
-  const [noMemoryAnalysis, setNoMemoryAnalysis] = useState<AnalysisResult | null>(null);
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
-  const [loadingNoMemory, setLoadingNoMemory] = useState(false);
-  const [showNoMemory, setShowNoMemory] = useState(false);
+  const [pendingReplayAnalysis, setPendingReplayAnalysis] = useState<AnalysisResult | null>(null);
 
-  // Learning Pair Specific Baseline Analysis for ALRT-00687
-  const [beforeLearningAnalysis, setBeforeLearningAnalysis] = useState<AnalysisResult | null>(null);
-
-  // Highlighted section in InvestigationView
-  const [highlightedSection, setHighlightedSection] = useState<string | null>(null);
+  // Validate session token on mount
+  useEffect(() => {
+    if (token) {
+      fetch(`${API_BASE}/api/auth/me?token=${encodeURIComponent(token)}`)
+        .then((res) => {
+          if (!res.ok) throw new Error('Session invalid');
+          return res.json();
+        })
+        .then((userData: UserProfile) => {
+          setUser(userData);
+          window.sessionStorage.setItem('hindy_user', JSON.stringify(userData));
+        })
+        .catch(() => {
+          // Invalidate expired session
+          setToken(null);
+          setUser(null);
+          window.sessionStorage.removeItem('hindy_auth_token');
+          window.sessionStorage.removeItem('hindy_user');
+        });
+    }
+  }, [token]);
 
   // Fetch Health on mount and periodically
   const fetchHealth = async () => {
@@ -66,17 +96,10 @@ export function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // Fetch Demo Pair metadata
-  useEffect(() => {
-    fetch(`${API_BASE}/api/demo-pair`)
-      .then((res) => res.json())
-      .then((data: DemoPair) => setDemoPair(data))
-      .catch(() => setDemoPair(null));
-  }, []);
+  useEffect(() => { window.localStorage.setItem('hindy-demo-mode', String(demoMode)); }, [demoMode]);
 
   // Fetch alerts when logged in
   const fetchAlerts = async () => {
-    setLoadingAlerts(true);
     try {
       const res = await fetch(`${API_BASE}/api/alerts`);
       if (res.ok) {
@@ -85,8 +108,6 @@ export function App() {
       }
     } catch (err) {
       console.error('Failed to fetch alerts:', err);
-    } finally {
-      setLoadingAlerts(false);
     }
   };
 
@@ -96,21 +117,40 @@ export function App() {
     }
   }, [isLoggedIn]);
 
-  // Fetch Alert Detail when selectedAlertId changes
+  // Fetch Alert Detail and load cached analysis if available
   useEffect(() => {
     if (!selectedAlertId) return;
 
     const fetchDetail = async () => {
       setLoadingAlertDetail(true);
-      setMemoryAnalysis(null);
-      setNoMemoryAnalysis(null);
-      setShowNoMemory(false);
+
+      if (pendingReplayAnalysis?.alert_id === selectedAlertId) {
+        setMemoryAnalysis(pendingReplayAnalysis);
+      } else {
+        setMemoryAnalysis(null);
+      }
 
       try {
         const res = await fetch(`${API_BASE}/api/alerts/${selectedAlertId}`);
         if (res.ok) {
           const data = await res.json();
           setAlertDetail(data);
+        }
+
+        // Check if there is an existing recorded analysis for this alert in cache
+        if (!pendingReplayAnalysis || pendingReplayAnalysis.alert_id !== selectedAlertId) {
+          try {
+            const cacheRes = await fetch(
+              `${API_BASE}/api/analyze/${selectedAlertId}?mode=memory&cached_only=true`,
+              { method: 'POST' }
+            );
+            if (cacheRes.ok) {
+              const cacheData: AnalysisResult = await cacheRes.json();
+              setMemoryAnalysis(cacheData);
+            }
+          } catch {
+            // Not in cache, analyst can run analysis manually
+          }
         }
       } catch (err) {
         console.error('Failed to fetch alert detail:', err);
@@ -120,7 +160,38 @@ export function App() {
     };
 
     fetchDetail();
-  }, [selectedAlertId]);
+  }, [pendingReplayAnalysis, selectedAlertId]);
+
+  // Handler: Login
+  const handleLogin = (newUser: UserProfile, newToken: string) => {
+    setUser(newUser);
+    setToken(newToken);
+    window.sessionStorage.setItem('hindy_auth_token', newToken);
+    window.sessionStorage.setItem('hindy_user', JSON.stringify(newUser));
+    setActiveNav('dashboard');
+  };
+
+  // Handler: Logout
+  const handleLogout = async () => {
+    if (token) {
+      try {
+        await fetch(`${API_BASE}/api/auth/logout?token=${encodeURIComponent(token)}`, { method: 'POST' });
+      } catch {
+        // Ignored
+      }
+    }
+    setToken(null);
+    setUser(null);
+    window.sessionStorage.removeItem('hindy_auth_token');
+    window.sessionStorage.removeItem('hindy_user');
+    setActiveNav('dashboard');
+  };
+
+  // Handler: Update User Profile
+  const handleUpdateUser = (updatedUser: UserProfile) => {
+    setUser(updatedUser);
+    window.sessionStorage.setItem('hindy_user', JSON.stringify(updatedUser));
+  };
 
   // Handler: Analyze with Hindy
   const handleAnalyze = async (bypassCache: boolean = false) => {
@@ -128,7 +199,7 @@ export function App() {
     setLoadingAnalysis(true);
 
     try {
-      const url = `${API_BASE}/api/analyze/${selectedAlertId}?mode=memory${bypassCache ? '&bypass_cache=true' : ''}`;
+      const url = `${API_BASE}/api/analyze/${selectedAlertId}?mode=memory${bypassCache ? '&bypass_cache=true' : ''}${demoMode ? '&cached_only=true' : ''}`;
       const res = await fetch(url, { method: 'POST' });
 
       if (!res.ok) {
@@ -152,41 +223,10 @@ export function App() {
     }
   };
 
-  // Handler: Toggle No-Memory Comparison
-  const handleToggleNoMemory = async (enabled: boolean) => {
-    setShowNoMemory(enabled);
-    if (enabled && !noMemoryAnalysis && selectedAlertId) {
-      setLoadingNoMemory(true);
-      try {
-        const res = await fetch(`${API_BASE}/api/analyze/${selectedAlertId}?mode=nomemory`, {
-          method: 'POST',
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setNoMemoryAnalysis(data);
-        } else {
-          setNoMemoryAnalysis(null);
-        }
-      } catch (err) {
-        console.error('Failed to run no-memory analysis:', err);
-        setNoMemoryAnalysis(null);
-      } finally {
-        setLoadingNoMemory(false);
-      }
-    }
-  };
-
   // Handler: Decision confirmed
   const handleDecisionSuccess = (_resp: DecisionResponse) => {
     setAlerts((prev) =>
       prev.map((a) => (a.id === selectedAlertId ? { ...a, is_decided: true } : a))
-    );
-  };
-
-  // Handler: Escalate to Tier 2 (Demo UI status only)
-  const handleEscalate = (alertId: string) => {
-    setAlerts((prev) =>
-      prev.map((a) => (a.id === alertId ? { ...a, is_escalated: true } : a))
     );
   };
 
@@ -195,9 +235,12 @@ export function App() {
     setIsResetting(true);
     setResetNotification(null);
     try {
-      await fetch(`${API_BASE}/api/reset-demo`, { method: 'POST' });
-      setResetNotification('Local demo memory reset.');
-      setBeforeLearningAnalysis(null);
+      const res = await fetch(`${API_BASE}/api/reset-demo${demoMode ? '?cached_only=true' : ''}`, { method: 'POST' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        throw new Error(data.detail || data.message || 'Reset failed.');
+      }
+      setResetNotification(data.message || 'Local demo memory reset.');
       fetchAlerts();
 
       setTimeout(() => {
@@ -205,132 +248,21 @@ export function App() {
       }, 4000);
     } catch (err) {
       console.error('Reset demo error:', err);
-      setResetNotification('Reset failed.');
+      setResetNotification(err instanceof Error ? err.message : 'Reset failed.');
     } finally {
       setIsResetting(false);
     }
   };
 
-  // Handler: Navigate to next similar alert in learning pair (ALRT-00687)
-  const handleNavigateNextSimilar = async () => {
-    const secondId = demoPair?.second_alert_id || 'ALRT-00687';
-
-    // 1. Capture baseline for before panel if not already captured
-    if (!beforeLearningAnalysis) {
-      // Pre-learning baseline was state: yellow, best_match ALRT-00137
-      setBeforeLearningAnalysis({
-        alert_id: secondId,
-        memory_used: true,
-        state: 'yellow',
-        recommended_action: 'Perform manual verification',
-        reasons: ['Context differences detected with historical baseline ALRT-00137'],
-        explanation: 'Baseline investigation without live human override memory.',
-        safety_overrides: [],
-        recalled_cases: [],
-        best_match_id: 'ALRT-00137',
-        best_match: {
-          alert_id: 'ALRT-00137',
-          title: 'Multiple failed sign-in attempts',
-          category: 'CredentialAccess',
-          severity: 'Low',
-          host: 'LT-0037',
-          user: 'anjali.singh',
-          verdict: 'FalsePositive',
-          outcome: 'Closed - benign user behavior',
-          investigation_note: 'User typo in password.',
-          analyst: 'A03 Manoj Singh',
-          matches: ['single_account', 'source_country_normal', 'then_success'],
-          differences: [
-            { signal: 'user', past: 'anjali.singh', current: 'deepa.joshi', is_key_signal: false },
-            { signal: 'host', past: 'LT-0037', current: 'LT-0056', is_key_signal: false },
-          ],
-          key_difference_count: 0,
-          total_difference_count: 2,
-        },
-        llm_result: {
-          state: 'yellow',
-          reasons: ['Context differences detected with baseline'],
-          recalled_case_ids: ['ALRT-00137'],
-          recommended_action: 'Manual review',
-          explanation: 'Baseline investigation without live human override memory.',
-        },
-        models_tried: ['openai/gpt-oss-120b'],
-      });
-    }
-
-    // 2. Select ALRT-00687
-    setSelectedAlertId(secondId);
-
-    // 3. Poll recall for live memory ALRT-00602-live (timeout 30s)
-    setLoadingAnalysis(true);
-    const startTime = Date.now();
-    let pollCount = 0;
-
-    const pollRecall = async () => {
-      pollCount++;
-      try {
-        const res = await fetch(`${API_BASE}/api/analyze/${secondId}?mode=memory&bypass_cache=true`, {
-          method: 'POST',
-        });
-        if (res.ok) {
-          const result: AnalysisResult = await res.json();
-          const hasLiveRecall = result.recalled_cases?.some((c) => c.alert_id === 'ALRT-00602-live') ||
-                                result.best_match_id === 'ALRT-00602-live';
-
-          if (hasLiveRecall || (Date.now() - startTime > 30000)) {
-            setMemoryAnalysis(result);
-            setLoadingAnalysis(false);
-            return;
-          }
-        }
-      } catch (err) {
-        console.warn('Polling recall error:', err);
-      }
-
-      if (Date.now() - startTime < 30000) {
-        setTimeout(pollRecall, 3000);
-      } else {
-        setLoadingAnalysis(false);
-      }
-    };
-
-    setTimeout(pollRecall, 1000);
+  const handleOpenReplayAlert = (entry: ReplayEntry) => {
+    setPendingReplayAnalysis(entry.analysis);
+    setSelectedAlertId(entry.alert_id);
+    setActiveNav('investigation');
   };
 
-  // Handler: Hindy Panel quick buttons
-  const handleHindyPanelAction = (action: 'reasoning' | 'differences' | 'previous') => {
-    let targetId = '';
-    if (action === 'reasoning') targetId = 'hindy-reasoning';
-    if (action === 'differences') targetId = 'context-diff';
-    if (action === 'previous') targetId = 'memory-trail';
-
-    setHighlightedSection(targetId);
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    setTimeout(() => {
-      setHighlightedSection(null);
-    }, 2500);
-  };
-
-  const currentAlertInQueue = alerts.find((a) => a.id === selectedAlertId);
-  const isCurrentDecided = currentAlertInQueue?.is_decided ?? false;
-  const isCurrentEscalated = currentAlertInQueue?.is_escalated ?? false;
-
-  const isFirstLearningPair = selectedAlertId === (demoPair?.first_alert_id || 'ALRT-00602');
-  const isSecondLearningPair = selectedAlertId === (demoPair?.second_alert_id || 'ALRT-00687');
-
+  // Protected route guard: if not authenticated, render Login/Sign-Up portal
   if (!isLoggedIn) {
-    return (
-      <LoginModal
-        onLogin={(analyst) => {
-          setIsLoggedIn(true);
-          setAnalystName(analyst);
-        }}
-      />
-    );
+    return <LoginModal onLogin={handleLogin} />;
   }
 
   return (
@@ -340,65 +272,84 @@ export function App() {
 
       {/* 2. Main Workspace Layout */}
       <div className="flex-1 flex flex-col min-w-0 h-full">
-        {/* Top Header Bar */}
-        <TopBar
-          analystName={analystName}
-          health={health}
-          onResetDemo={handleResetDemo}
-          isResetting={isResetting}
-          resetNotification={resetNotification}
-        />
+        {/* Top Header Bar (Rendered on non-Dashboard workspace tabs) */}
+        {activeNav !== 'dashboard' && (
+          <TopBar
+            user={user}
+            analystName={analystName}
+            health={health}
+            onResetDemo={handleResetDemo}
+            isResetting={isResetting}
+            resetNotification={resetNotification}
+            demoMode={demoMode}
+            onDemoModeChange={setDemoMode}
+            onNavigateSettings={() => setActiveNav('settings')}
+            onLogout={handleLogout}
+          />
+        )}
 
         {/* Workspace Body */}
         <div className="flex-1 min-h-0">
-          {activeNav === 'alerts' ? (
-            <div className="grid grid-cols-12 h-full">
-              {/* Left Column: Alert Queue */}
-              <div className="col-span-12 md:col-span-3 lg:col-span-3 h-full overflow-hidden">
-                <AlertQueue
-                  alerts={alerts}
-                  selectedAlertId={selectedAlertId}
-                  onSelectAlert={setSelectedAlertId}
-                  loading={loadingAlerts}
-                />
-              </div>
-
-              {/* Center Column: Investigation View */}
-              <div className="col-span-12 md:col-span-6 lg:col-span-6 h-full overflow-hidden border-r border-slate-800/80">
-                <InvestigationView
-                  alert={alertDetail}
-                  loadingAlert={loadingAlertDetail}
-                  memoryAnalysis={memoryAnalysis}
-                  noMemoryAnalysis={noMemoryAnalysis}
-                  loadingAnalysis={loadingAnalysis}
-                  loadingNoMemory={loadingNoMemory}
-                  onAnalyze={() => handleAnalyze(false)}
-                  onToggleNoMemory={handleToggleNoMemory}
-                  showNoMemory={showNoMemory}
-                  highlightedSection={highlightedSection}
-                  isDecided={isCurrentDecided}
-                  isEscalated={isCurrentEscalated}
-                  isFirstLearningPair={isFirstLearningPair}
-                  isSecondLearningPair={isSecondLearningPair}
-                  beforeLearningAnalysis={beforeLearningAnalysis}
-                  onDecisionSuccess={handleDecisionSuccess}
-                  onEscalate={handleEscalate}
-                  onNavigateNextSimilar={isFirstLearningPair ? handleNavigateNextSimilar : undefined}
-                />
-              </div>
-
-              {/* Right Column: Hindy Agent Panel */}
-              <div className="col-span-12 md:col-span-3 lg:col-span-3 h-full overflow-hidden">
-                <HindyPanel
-                  alertId={selectedAlertId}
-                  hasAnalysis={memoryAnalysis !== null}
-                  analysis={memoryAnalysis}
-                  onAction={handleHindyPanelAction}
-                />
-              </div>
-            </div>
+          {activeNav === 'dashboard' ? (
+            <DashboardView
+              alerts={alerts}
+              health={health}
+              user={user}
+              analystName={analystName}
+              demoMode={demoMode}
+              onDemoModeChange={setDemoMode}
+              onResetDemo={handleResetDemo}
+              isResetting={isResetting}
+              resetNotification={resetNotification}
+              onNavigateToAlerts={(alertId) => {
+                if (alertId) {
+                  setSelectedAlertId(alertId);
+                }
+                setActiveNav('investigation');
+              }}
+              onNavigateSettings={() => setActiveNav('settings')}
+              onLogout={handleLogout}
+            />
+          ) : activeNav === 'investigation' ? (
+            <InvestigationPage
+              alert={alertDetail}
+              summary={alerts.find(a => a.id === selectedAlertId)}
+              loadingAlert={loadingAlertDetail}
+              loadingAnalysis={loadingAnalysis}
+              analysis={memoryAnalysis}
+              onAnalyze={() => handleAnalyze(false)}
+              onBackToDashboard={() => setActiveNav('dashboard')}
+              onNavigateToMemory={() => setActiveNav('memory')}
+              cachedOnly={demoMode}
+              onDecisionSuccess={handleDecisionSuccess}
+            />
+          ) : activeNav === 'memory' ? (
+            <MemoryView
+              onNavigateToInvestigation={(alertId) => {
+                setSelectedAlertId(alertId);
+                setActiveNav('investigation');
+              }}
+              onNavigateToActiveInvestigation={() => {
+                setActiveNav('investigation');
+              }}
+            />
+          ) : activeNav === 'replay' ? (
+            <ReplayView
+              onOpenAlert={handleOpenReplayAlert}
+              onNavigateToMemory={(_memoryId) => {
+                setActiveNav('memory');
+              }}
+            />
+          ) : activeNav === 'evaluation' ? (
+            <EvaluationView />
+          ) : activeNav === 'settings' ? (
+            <SettingsView
+              user={user}
+              token={token}
+              onUpdateUser={handleUpdateUser}
+            />
           ) : (
-            <PlaceholderView tab={activeNav} onBackToAlerts={() => setActiveNav('alerts')} />
+            <PlaceholderView tab={activeNav} onBackToAlerts={() => setActiveNav('dashboard')} />
           )}
         </div>
       </div>
