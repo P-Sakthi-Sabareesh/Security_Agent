@@ -785,7 +785,8 @@ def reason_with_llm(
             "Provide your assessment in the required JSON format."
         )
 
-    models_to_try = [m for m in [PRIMARY_MODEL, FALLBACK_MODEL] if m not in _DAILY_LIMIT_REACHED_MODELS]
+    fallback_chain = [PRIMARY_MODEL, FALLBACK_MODEL, "openai/gpt-oss-safeguard-20b"]
+    models_to_try = [m for m in fallback_chain if m not in _DAILY_LIMIT_REACHED_MODELS]
     if not models_to_try:
         models_to_try = [FALLBACK_MODEL]
 
