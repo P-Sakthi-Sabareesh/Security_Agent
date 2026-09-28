@@ -39,6 +39,7 @@ if not logger.handlers:
 
 # File Paths & Defaults
 DEFAULT_ALERTS_PATH = Path("data") / "alerts.json"
+DEFAULT_OVERRIDES_PATH = Path("data") / "analyst_overrides.json"
 DEFAULT_HINDSIGHT_URL = "https://api.hindsight.vectorize.io"
 
 PRIMARY_MODEL = "openai/gpt-oss-120b"
@@ -278,9 +279,9 @@ def extract_alert_ids(recall_results: List[Any]) -> List[str]:
                     seen.add(t_id)
                     alert_ids.append(t_id)
 
-        # Check text via regex ALRT-\d{5}
+        # Check text via regex ALRT-\d{5}(?:-live)?
         text = getattr(item, "text", "") or ""
-        matches = re.findall(r"ALRT-\d{5}", text)
+        matches = re.findall(r"ALRT-\d{5}(?:-live)?", text)
         for m in matches:
             if m not in seen:
                 seen.add(m)
@@ -290,23 +291,36 @@ def extract_alert_ids(recall_results: List[Any]) -> List[str]:
 
 
 def lookup_history(
-    alert_ids: List[str], data_path: Path = DEFAULT_ALERTS_PATH
+    alert_ids: List[str],
+    data_path: Path = DEFAULT_ALERTS_PATH,
+    overrides_path: Path = DEFAULT_OVERRIDES_PATH,
 ) -> List[Dict[str, Any]]:
     """
-    Loads the original full records from alerts.json for recalled alert_ids.
+    Loads the original full records from alerts.json and analyst_overrides.json for recalled alert_ids.
     Requires phase == 'history'.
     """
-    if not alert_ids or not data_path.exists():
+    if not alert_ids:
         return []
 
-    with open(data_path, "r", encoding="utf-8") as f:
-        all_alerts = json.load(f)
+    history_by_id = {}
 
-    history_by_id = {
-        a["alert_id"]: a
-        for a in all_alerts
-        if a.get("phase") == "history" and "alert_id" in a
-    }
+    if data_path.exists():
+        with open(data_path, "r", encoding="utf-8") as f:
+            all_alerts = json.load(f)
+        for a in all_alerts:
+            if a.get("phase") == "history" and "alert_id" in a:
+                history_by_id[a["alert_id"]] = a
+
+    if overrides_path.exists():
+        try:
+            with open(overrides_path, "r", encoding="utf-8") as f:
+                override_alerts = json.load(f)
+            if isinstance(override_alerts, list):
+                for a in override_alerts:
+                    if a.get("phase") == "history" and "alert_id" in a:
+                        history_by_id[a["alert_id"]] = a
+        except Exception as e:
+            logger.warning(f"Could not load analyst overrides from {overrides_path}: {e}")
 
     results = []
     for aid in alert_ids:
