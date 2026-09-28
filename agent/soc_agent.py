@@ -1,13 +1,15 @@
 """
-SOC Memory Agent
+SOC Memory Agent (V2)
 Analyzes replay alerts by recalling historical security investigation experiences
 from Hindsight Cloud, deterministically comparing contextual signals, reasoning with Groq LLM,
 and enforcing strict SOC safety override rules.
 """
 
+import ipaddress
 import json
 import logging
 import os
+import random
 import re
 import sys
 import time
@@ -40,18 +42,44 @@ DEFAULT_ALERTS_PATH = Path("data") / "alerts.json"
 DEFAULT_HINDSIGHT_URL = "https://api.hindsight.vectorize.io"
 
 PRIMARY_MODEL = "openai/gpt-oss-120b"
-FALLBACK_MODEL = "qwen/qwen3-32b"
+FALLBACK_MODEL = "openai/gpt-oss-20b"
 
 # Flag to ensure we only print the raw Hindsight response once for inspection
 _FIRST_RECALL_PRINTED = False
 
-# Fields to ignore during context/details comparison (per-alert unique IDs, tickets, or volatile continuous numbers)
-IGNORED_IDENTIFIERS = {
+# Fields representing tickets, jobs, approvals where presence vs absence is critical
+TICKET_APPROVAL_FIELDS = {
     "change_ticket",
     "onboarding_ticket",
     "ticket_id",
     "ticket",
+    "approval_id",
+    "approved_by",
+    "job_name",
+    "scheduled_job",
+    "change_id",
+}
+
+# Fields with continuous numeric values
+NUMERIC_FIELDS = {
+    "bytes_gb",
+    "gb",
+    "bytes",
+    "bytes_transferred",
+    "attempts",
+    "failed_attempts",
+    "hosts_probed",
+    "ports_scanned",
+    "files",
+    "file_count",
+    "duration",
+    "duration_seconds",
+    "count",
     "n",
+}
+
+# Volatile ID fields to ignore during direct value match
+VOLATILE_ID_FIELDS = {
     "request_id",
     "sequence_id",
     "incident_id",
@@ -60,18 +88,9 @@ IGNORED_IDENTIFIERS = {
     "process_id",
     "pid",
     "thread_id",
-    "bytes_gb",
-    "gb",
-    "bytes",
-    "duration",
-    "duration_seconds",
     "gap_minutes",
-    "attempts",
-    "hosts_probed",
-    "ports_scanned",
-    "files",
-    "contents",
     "command",
+    "contents",
 }
 
 # Categorical details keys that provide strong behavioral signals
@@ -99,12 +118,15 @@ CATEGORICAL_DETAILS_KEYS = {
     "rule_scope",
     "new_account",
     "purpose",
+    "target_subnet",
+    "subnet",
 }
 
-# High-risk signal keys for safety override Rule 2
+# High-risk signal keys for safety overrides
 HIGH_RISK_SIGNALS = {
     "destination",
     "dst",
+    "forward_to",
     "scheduled_job",
     "sensitive_data_involved",
     "sensitive_data_accessed",
@@ -115,6 +137,9 @@ HIGH_RISK_SIGNALS = {
     "mfa_passed",
     "initiated_from",
     "source_host",
+    "employment_status",
+    "user_on_leave",
+    "destination_in_inventory",
 }
 
 
@@ -166,11 +191,11 @@ def build_recall_query(alert: Dict[str, Any]) -> str:
     detail_parts = []
     if isinstance(details, dict):
         for k, v in details.items():
-            if k not in IGNORED_IDENTIFIERS:
+            if k not in VOLATILE_ID_FIELDS:
                 detail_parts.append(f"{k} {v}")
     if isinstance(context, dict):
         for k, v in context.items():
-            if k not in IGNORED_IDENTIFIERS:
+            if k not in VOLATILE_ID_FIELDS:
                 detail_parts.append(f"{k} {v}")
 
     extra_str = " ".join(detail_parts)
@@ -304,33 +329,69 @@ def _are_values_equal(v1: Any, v2: Any) -> bool:
     return v1 == v2
 
 
-def compare_context(current_alert: Dict[str, Any], past_alert: Dict[str, Any]) -> Dict[str, Any]:
+def classify_destination(val: Any) -> str:
     """
-    Dynamically compares all relevant contextual and details signals between current replay alert
-    and a past historical alert.
+    Rule D helper: Classifies destination/forwarding targets into architectural classes:
+    - 'internal_ip' (RFC 1918 / loopback / local subnet)
+    - 'external_ip' (Public internet routable IP)
+    - 'internal_email_or_domain' (corp domain e.g. @kestrel.example, .internal, .local, internal hostname)
+    - 'external_email_or_domain' (public web/email service)
+    - 'missing'
+    """
+    if val is None or val == "<missing>" or str(val).strip() == "":
+        return "missing"
 
-    Requirements:
-    - Compares all categorical/boolean context signals that exist in either historical or current alert.
-    - Compares explicit destination, user, and host.
-    - Correctly distinguishes missing key ('<missing>'), null/None, False, and True.
-    - Treats any difference in a boolean/categorical context signal as a key difference.
-    - Includes actual 'past' and 'current' values in every reported difference.
-    - Inspects 'details' for categorical/boolean values and ignores unique identifiers/tickets.
+    val_str = str(val).strip().lower()
+
+    # Check for email
+    if "@" in val_str:
+        domain = val_str.split("@", 1)[1]
+        if any(d in domain for d in ["kestrel.example", "corp", "internal", "local", "company"]):
+            return "internal_email"
+        return "external_email"
+
+    # Check for IP address or CIDR
+    clean_ip = val_str.split("/")[0].split(":")[0]
+    try:
+        ip_obj = ipaddress.ip_address(clean_ip)
+        if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_link_local:
+            return "internal_ip"
+        return "external_ip"
+    except ValueError:
+        pass
+
+    # Check subnet strings like 10.0.x.x
+    if val_str.startswith("10.") or val_str.startswith("192.168.") or val_str.startswith("172.16."):
+        return "internal_ip"
+
+    # Hostname / domain
+    if any(val_str.endswith(ext) for ext in [".internal", ".corp", ".local", ".lan", "-srv-", "-prod-", "-dev-", "-ws-"]):
+        return "internal_domain"
+
+    return "external_domain"
+
+
+def compare_context(
+    current_alert: Dict[str, Any],
+    past_alert: Dict[str, Any],
+    all_recalled_history: Optional[List[Dict[str, Any]]] = None,
+) -> Dict[str, Any]:
+    """
+    Dynamically compares all relevant contextual, numeric, and details signals between
+    current replay alert and a past historical alert according to V2 rules:
+    
+    Rule b: Numeric fields compared against historical min-max range.
+    Rule c: Presence vs absence of ticket/job/approval is a key difference (differing ticket strings ignored).
+    Rule d: Destination-like fields compare structural class (internal vs external); change of class = key difference.
     """
     matches: List[str] = []
     differences: List[Dict[str, Any]] = []
 
     # 1. Compare Core Top-level Signals: destination, user, host
-    core_signals = [
-        ("user", past_alert.get("user"), current_alert.get("user"), False),
-        ("host", past_alert.get("host"), current_alert.get("host"), False),
-    ]
-
-    past_dst = past_alert.get("dst") or (past_alert.get("details", {}) or {}).get("destination")
-    curr_dst = current_alert.get("dst") or (current_alert.get("details", {}) or {}).get("destination")
-    core_signals.append(("destination", past_dst, curr_dst, True))
-
-    for sig_name, p_val, c_val, is_key in core_signals:
+    # Host & User
+    for sig_name in ["user", "host"]:
+        p_val = past_alert.get(sig_name)
+        c_val = current_alert.get(sig_name)
         p_val_norm = "<missing>" if p_val is None and sig_name not in past_alert else p_val
         c_val_norm = "<missing>" if c_val is None and sig_name not in current_alert else c_val
 
@@ -341,26 +402,78 @@ def compare_context(current_alert: Dict[str, Any], past_alert: Dict[str, Any]) -
                 "signal": sig_name,
                 "past": p_val_norm,
                 "current": c_val_norm,
-                "is_key_signal": is_key or (sig_name in HIGH_RISK_SIGNALS),
+                "is_key_signal": False,
+            })
+
+    # Destination (Rule D class comparison)
+    past_dst = past_alert.get("dst") or (past_alert.get("details", {}) or {}).get("destination")
+    curr_dst = current_alert.get("dst") or (current_alert.get("details", {}) or {}).get("destination")
+    
+    if past_dst is not None or curr_dst is not None:
+        p_class = classify_destination(past_dst)
+        c_class = classify_destination(curr_dst)
+        if p_class == c_class and p_class != "missing":
+            matches.append("destination")
+        else:
+            differences.append({
+                "signal": "destination",
+                "past": f"{past_dst} ({p_class})",
+                "current": f"{curr_dst} ({c_class})",
+                "is_key_signal": True,
             })
 
     # 2. Dynamically Compare All Context Signals
     past_ctx = past_alert.get("context", {}) or {}
     curr_ctx = current_alert.get("context", {}) or {}
-
     all_ctx_keys = sorted(list(set(past_ctx.keys()) | set(curr_ctx.keys())))
 
     for k in all_ctx_keys:
-        if k in IGNORED_IDENTIFIERS:
+        if k in VOLATILE_ID_FIELDS:
             continue
 
         p_present = k in past_ctx
         c_present = k in curr_ctx
-
         p_val = past_ctx[k] if p_present else "<missing>"
         c_val = curr_ctx[k] if c_present else "<missing>"
 
-        # Check equality with distinct missing / None / False / True
+        # Rule C: Ticket/Approval Presence vs Absence
+        if k in TICKET_APPROVAL_FIELDS:
+            p_has = p_present and p_val not in [None, "<missing>", ""]
+            c_has = c_present and c_val not in [None, "<missing>", ""]
+            if p_has and not c_has:
+                differences.append({
+                    "signal": k,
+                    "past": f"present ({p_val})",
+                    "current": "missing/null",
+                    "is_key_signal": True,
+                })
+            elif not p_has and c_has:
+                differences.append({
+                    "signal": k,
+                    "past": "missing/null",
+                    "current": f"present ({c_val})",
+                    "is_key_signal": False,
+                })
+            else:
+                matches.append(k)
+            continue
+
+        # Rule D: Destination-like Context Keys (e.g. forward_to, target_subnet)
+        if k in ["forward_to", "target_subnet", "subnet", "destination", "target"]:
+            p_class = classify_destination(p_val)
+            c_class = classify_destination(c_val)
+            if p_class == c_class and p_class != "missing":
+                matches.append(k)
+            else:
+                differences.append({
+                    "signal": k,
+                    "past": f"{p_val} ({p_class})",
+                    "current": f"{c_val} ({c_class})",
+                    "is_key_signal": True,
+                })
+            continue
+
+        # Regular Boolean & Categorical Context Comparison
         if p_present and c_present and _are_values_equal(p_val, c_val):
             matches.append(k)
         else:
@@ -368,27 +481,85 @@ def compare_context(current_alert: Dict[str, Any], past_alert: Dict[str, Any]) -
                 "signal": k,
                 "past": p_val,
                 "current": c_val,
-                # Any difference in a boolean/categorical context signal is a key difference
                 "is_key_signal": True,
             })
 
-    # 3. Compare Categorical and Boolean Details Signals
+    # 3. Compare Details Signals (Categorical, Numeric, and Approvals)
     past_det = past_alert.get("details", {}) or {}
     curr_det = current_alert.get("details", {}) or {}
-
     all_det_keys = sorted(list(set(past_det.keys()) | set(curr_det.keys())))
 
     for k in all_det_keys:
-        if k in IGNORED_IDENTIFIERS or k in ["destination", "dst"]:
+        if k in VOLATILE_ID_FIELDS or k in ["destination", "dst"]:
             continue
 
         p_present = k in past_det
         c_present = k in curr_det
-
         p_val = past_det[k] if p_present else "<missing>"
         c_val = curr_det[k] if c_present else "<missing>"
 
-        # Only evaluate if the key is a known categorical field or holds boolean/categorical data
+        # Rule C: Ticket/Approval fields in details
+        if k in TICKET_APPROVAL_FIELDS:
+            p_has = p_present and p_val not in [None, "<missing>", ""]
+            c_has = c_present and c_val not in [None, "<missing>", ""]
+            if p_has and not c_has:
+                differences.append({
+                    "signal": k,
+                    "past": f"present ({p_val})",
+                    "current": "missing/null",
+                    "is_key_signal": True,
+                })
+            elif not p_has and c_has:
+                differences.append({
+                    "signal": k,
+                    "past": "missing/null",
+                    "current": f"present ({c_val})",
+                    "is_key_signal": False,
+                })
+            else:
+                matches.append(k)
+            continue
+
+        # Rule B: Numeric Range Comparison
+        if k in NUMERIC_FIELDS and (isinstance(p_val, (int, float)) or isinstance(c_val, (int, float))):
+            curr_num = float(c_val) if isinstance(c_val, (int, float)) else None
+            
+            # Find min/max range across all recalled recurring benign cases for the same scenario/title
+            range_vals = []
+            if all_recalled_history:
+                for h in all_recalled_history:
+                    if h.get("title") == current_alert.get("title") and "recurring" in str(h.get("outcome", "")).lower():
+                        h_det = h.get("details", {}) or {}
+                        if k in h_det and isinstance(h_det[k], (int, float)):
+                            range_vals.append(float(h_det[k]))
+
+            if range_vals and curr_num is not None:
+                min_v, max_v = min(range_vals), max(range_vals)
+                # Allow a small 10% buffer
+                if curr_num < min_v * 0.9 or curr_num > max_v * 1.1:
+                    differences.append({
+                        "signal": k,
+                        "past": f"recurring range [{min_v}..{max_v}]",
+                        "current": curr_num,
+                        "is_key_signal": True,
+                    })
+                else:
+                    matches.append(k)
+            else:
+                # Single past comparison
+                if isinstance(p_val, (int, float)) and curr_num is not None:
+                    if abs(curr_num - float(p_val)) / max(abs(float(p_val)), 1.0) > 0.5:
+                        differences.append({
+                            "signal": k,
+                            "past": p_val,
+                            "current": c_val,
+                            "is_key_signal": True,
+                        })
+                    else:
+                        matches.append(k)
+            continue
+
+        # Categorical Details
         is_categorical = (
             k in CATEGORICAL_DETAILS_KEYS
             or isinstance(p_val, bool)
@@ -473,16 +644,12 @@ def _clean_json_response(raw_text: str) -> str:
     to extract the JSON object.
     """
     text = raw_text.strip()
-
-    # Strip reasoning tags like <think>...</think> if present
     text = re.sub(r"<think>[\s\S]*?</think>", "", text, flags=re.IGNORECASE).strip()
 
-    # Match markdown code fences ```json ... ``` or ``` ... ```
     match = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", text, re.IGNORECASE)
     if match:
         text = match.group(1).strip()
 
-    # Extract outermost { ... }
     json_match = re.search(r"(\{[\s\S]*\})", text)
     if json_match:
         return json_match.group(1).strip()
@@ -515,10 +682,13 @@ def reason_with_llm(
     best_match: Optional[Dict[str, Any]],
     groq_api_key: str,
     is_no_memory: bool = False,
+    max_retries: int = 8,
 ) -> Dict[str, Any]:
     """
-    Invokes Groq LLM (Primary: openai/gpt-oss-120b, Fallback: qwen/qwen3-32b)
-    Verifies model availability on Groq before attempting fallbacks and records models_tried.
+    Invokes Groq LLM with robust retry logic, Retry-After compliance, exponential backoff with jitter
+    up to 60s max, and fallback to openai/gpt-oss-20b.
+    
+    IMPORTANT: If all retries fail, raises RuntimeError so evaluate.py treats it as FAILED (never classification).
     """
     if not groq_api_key:
         raise ValueError("GROQ_API_KEY is not set.")
@@ -614,105 +784,63 @@ def reason_with_llm(
             "Provide your assessment in the required JSON format."
         )
 
+    models_to_try = [PRIMARY_MODEL, FALLBACK_MODEL]
     models_tried: List[str] = []
-    available_models = get_available_groq_models(client)
+    last_exception: Optional[Exception] = None
 
-    # 1. Attempt Primary Model
-    models_tried.append(PRIMARY_MODEL)
-    for attempt in range(2):
-        try:
-            response = client.chat.completions.create(
-                model=PRIMARY_MODEL,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-                temperature=0.0,
-            )
-            raw_content = response.choices[0].message.content or ""
-            cleaned = _clean_json_response(raw_content)
-            parsed = json.loads(cleaned)
+    for model in models_to_try:
+        models_tried.append(model)
+        for attempt in range(1, max_retries + 1):
+            try:
+                response = client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                    temperature=0.0,
+                )
+                raw_content = response.choices[0].message.content or ""
+                cleaned = _clean_json_response(raw_content)
+                parsed = json.loads(cleaned)
 
-            # Validate and normalize
-            state = str(parsed.get("state", "yellow")).lower()
-            if state not in ["green", "yellow", "red"]:
-                state = "yellow"
-            parsed["state"] = state
+                # Validate state
+                state = str(parsed.get("state", "yellow")).lower()
+                if state not in ["green", "yellow", "red"]:
+                    state = "yellow"
+                parsed["state"] = state
 
-            if "reasons" not in parsed or not isinstance(parsed["reasons"], list):
-                parsed["reasons"] = [parsed.get("explanation", "Evaluated by LLM")]
-            if "recalled_case_ids" not in parsed or not isinstance(parsed["recalled_case_ids"], list):
-                parsed["recalled_case_ids"] = [best_match["alert_id"]] if best_match else []
-            if "recommended_action" not in parsed:
-                parsed["recommended_action"] = "Analyst review recommended."
-            if "explanation" not in parsed:
-                parsed["explanation"] = "; ".join(parsed["reasons"])
+                if "reasons" not in parsed or not isinstance(parsed["reasons"], list):
+                    parsed["reasons"] = [parsed.get("explanation", "Evaluated by LLM")]
+                if "recalled_case_ids" not in parsed or not isinstance(parsed["recalled_case_ids"], list):
+                    parsed["recalled_case_ids"] = [best_match["alert_id"]] if best_match else []
+                if "recommended_action" not in parsed:
+                    parsed["recommended_action"] = "Analyst review recommended."
+                if "explanation" not in parsed:
+                    parsed["explanation"] = "; ".join(parsed["reasons"])
 
-            parsed["model_used"] = PRIMARY_MODEL
-            parsed["models_tried"] = models_tried
-            return parsed
+                parsed["model_used"] = model
+                parsed["models_tried"] = models_tried
+                return parsed
 
-        except Exception as primary_err:
-            if attempt == 1:
-                logger.warning(f"Primary model {PRIMARY_MODEL} failed: {primary_err}. Attempting fallback verification.")
-            time.sleep(1.0)
+            except Exception as e:
+                last_exception = e
+                err_str = str(e)
+                
+                # Check for rate limit Retry-After
+                sleep_seconds = 2.0
+                if "rate_limit" in err_str.lower() or "429" in err_str:
+                    sleep_seconds = min(3.0 * (1.8 ** (attempt - 1)) + random.uniform(0.5, 1.5), 60.0)
+                else:
+                    sleep_seconds = min(2.0 * (1.5 ** (attempt - 1)) + random.uniform(0.2, 0.8), 30.0)
 
-    # 2. Attempt Fallback Model (qwen/qwen3-32b) with API verification
-    models_tried.append(FALLBACK_MODEL)
-    if FALLBACK_MODEL not in available_models:
-        err_msg = (
-            f"Fallback model '{FALLBACK_MODEL}' is unavailable on Groq API. "
-            f"Available models: {sorted(list(available_models))}"
-        )
-        logger.error(err_msg)
-        return {
-            "state": "yellow",
-            "reasons": [
-                f"Primary model {PRIMARY_MODEL} failed.",
-                f"Requested fallback '{FALLBACK_MODEL}' verified as unavailable on Groq API.",
-            ],
-            "recalled_case_ids": [best_match["alert_id"]] if best_match else [],
-            "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
-            "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
-            "model_used": "fallback_rule",
-            "models_tried": models_tried,
-        }
+                logger.warning(
+                    f"Model {model} attempt {attempt}/{max_retries} failed ({err_str}). Retrying in {sleep_seconds:.1f}s..."
+                )
+                time.sleep(sleep_seconds)
 
-    for attempt in range(2):
-        try:
-            response = client.chat.completions.create(
-                model=FALLBACK_MODEL,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-                temperature=0.0,
-            )
-            raw_content = response.choices[0].message.content or ""
-            cleaned = _clean_json_response(raw_content)
-            parsed = json.loads(cleaned)
-
-            state = str(parsed.get("state", "yellow")).lower()
-            if state not in ["green", "yellow", "red"]:
-                state = "yellow"
-            parsed["state"] = state
-            parsed["model_used"] = FALLBACK_MODEL
-            parsed["models_tried"] = models_tried
-            return parsed
-
-        except Exception as fallback_err:
-            logger.error(f"Fallback model {FALLBACK_MODEL} failed: {fallback_err}")
-            time.sleep(1.0)
-
-    return {
-        "state": "yellow",
-        "reasons": [f"All attempted LLM models failed ({models_tried})."],
-        "recalled_case_ids": [best_match["alert_id"]] if best_match else [],
-        "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
-        "explanation": "Automated LLM reasoning failed across all models.",
-        "model_used": "fallback_rule",
-        "models_tried": models_tried,
-    }
+    # If all models and retries failed, raise error so evaluate.py records FAILURE and retries
+    raise RuntimeError(f"All LLM attempts failed across models {models_tried}: {last_exception}")
 
 
 def apply_safety_rules(
@@ -723,18 +851,14 @@ def apply_safety_rules(
     is_no_memory: bool = False,
 ) -> Dict[str, Any]:
     """
-    Enforces deterministic SOC Safety Overrides AFTER the LLM reasoning step.
-    The LLM cannot bypass these safety rules.
-
-    Rule 1: severity == Critical -> state = red, recommended_action = human review.
-    Rule 2: If ANY key signal differs in best-matching case (destination, scheduled job, sensitive data,
-            device, MFA, account) -> state can NEVER be green.
-    Rule 3: No similar historical case found -> state = red, mark as novel.
-    Rule 4: Never auto-close anything. GREEN alerts must require analyst quick-confirm.
-    Rule 5: State semantics:
-      - GREEN only if best-matching past case had benign/closed outcome AND all key signals match it.
-      - YELLOW if similar case exists but there are contextual differences (analyst review needed).
-      - RED if novel, Critical, high-risk differences, closest cases were escalated/true positives, or a safety override triggered.
+    Enforces deterministic SOC Safety Overrides AFTER the LLM reasoning step according to V2 specifications:
+    
+    Rule 1: severity == Critical -> state = red.
+    Rule 2 / Rule B/C/D: Key signal differences detected -> state cannot be green.
+    Rule 3: No similar historical case found in memory -> state = red, novel.
+    Rule 4: Never auto-close. GREEN requires analyst quick-confirm.
+    Rule A: If best-match outcome contains 'after human confirmation' -> state capped at YELLOW, never GREEN.
+    Rule E: GREEN requires at least 2 recalled recurring-benign cases with 0 key differences and no close matches escalated.
     """
     final_state = llm_result.get("state", "yellow")
     reasons = list(llm_result.get("reasons", []))
@@ -761,7 +885,16 @@ def apply_safety_rules(
             recommended_action = "Escalate for full investigation as an unclassified/novel alert pattern."
 
         else:
-            # Rule 2: Key signal differences in best-matching case prevent GREEN
+            # Rule A: If best-match outcome contains 'after human confirmation' -> max YELLOW, never GREEN
+            bm_outcome = str(best_match_case.get("outcome") or "").lower()
+            if "human confirmation" in bm_outcome or "analyst override" in bm_outcome:
+                if final_state == "green":
+                    final_state = "yellow"
+                    overrides_triggered.append(
+                        f"Rule A: Precedent {best_match_case['alert_id']} was closed after human confirmation -> State capped at YELLOW."
+                    )
+
+            # Rule 2 / B / C / D: Key signal differences in best-matching case prevent GREEN
             key_differences = [
                 d for d in best_match_case.get("differences", [])
                 if d.get("is_key_signal") or d.get("signal") in HIGH_RISK_SIGNALS
@@ -770,11 +903,10 @@ def apply_safety_rules(
             if key_differences:
                 diff_summary = ", ".join(f"{d['signal']} (past={d['past']}, current={d['current']})" for d in key_differences)
 
-                # High risk differences include sensitive data involved, unknown external IP, abnormal account action, unapproved source host
                 has_high_risk = any(
                     (d["signal"] in ["sensitive_data_involved", "sensitive_data_accessed"] and d["current"] is True)
                     or (d["signal"] == "account_normal_for_action" and d["current"] is False)
-                    or (d["signal"] in ["destination", "dst"] and str(d["current"]).replace(".", "").isdigit())
+                    or (d["signal"] in ["destination", "dst"] and "external" in str(d["current"]))
                     or (d["signal"] == "destination_in_inventory" and d["current"] is False)
                     for d in best_match_case.get("differences", [])
                 )
@@ -782,7 +914,7 @@ def apply_safety_rules(
                 if has_high_risk and final_state != "red":
                     final_state = "red"
                     overrides_triggered.append(
-                        f"Rule 2 & 5: High-risk contextual discrepancies detected against baseline {best_match_case['alert_id']} ({diff_summary}) -> Forced state to RED."
+                        f"Rule 2: High-risk contextual discrepancies detected against baseline {best_match_case['alert_id']} ({diff_summary}) -> Forced state to RED."
                     )
                 elif final_state == "green":
                     overrides_triggered.append(
@@ -792,27 +924,47 @@ def apply_safety_rules(
 
                 reasons.append(f"Contextual discrepancies with baseline {best_match_case['alert_id']}: {diff_summary}")
 
-            # Rule 5 check: Prior case verdict
+            # Prior case verdict check
             past_verdict = str(best_match_case.get("verdict", ""))
-            past_outcome = str(best_match_case.get("outcome", ""))
-            if past_verdict in ["TruePositive", "Malicious", "Escalated"] or "incident" in past_outcome.lower():
+            if past_verdict in ["TruePositive", "Malicious", "Escalated"] or "incident" in bm_outcome:
                 if final_state != "red":
                     overrides_triggered.append(
                         f"Rule 5: Historical precedent {best_match_case['alert_id']} was a confirmed TruePositive/Escalated incident -> Forced state to RED."
                     )
                     final_state = "red"
 
-            # Check if GREEN is actually justified
+            # Rule E: GREEN requires at least 2 recalled recurring-benign cases with zero key differences,
+            # and none of the recalled close matches escalated.
             if final_state == "green":
-                if key_differences or past_verdict not in ["BenignPositive", "FalsePositive", "Closed"]:
+                # Check for any escalated close matches
+                escalated_matches = [
+                    c["alert_id"] for c in recalled_cases[:5]
+                    if str(c.get("verdict")) in ["TruePositive", "Malicious", "Escalated"] or "incident" in str(c.get("outcome", "")).lower()
+                ]
+                
+                # Count zero-difference recurring benign cases
+                zero_diff_recurring_cases = [
+                    c["alert_id"] for c in recalled_cases
+                    if c.get("key_difference_count", 0) == 0
+                    and "recurring" in str(c.get("outcome", "")).lower()
+                    and str(c.get("verdict")) in ["BenignPositive", "FalsePositive", "Closed"]
+                ]
+
+                if escalated_matches:
                     final_state = "yellow"
-                    overrides_triggered.append("Rule 5: GREEN requirement not met -> Set to YELLOW.")
+                    overrides_triggered.append(
+                        f"Rule E: Recalled close matches were previously escalated ({escalated_matches}) -> Downgraded GREEN to YELLOW."
+                    )
+                elif len(zero_diff_recurring_cases) < 2:
+                    final_state = "yellow"
+                    overrides_triggered.append(
+                        f"Rule E: GREEN requires >= 2 matching recurring-benign precedents with 0 key differences (found {len(zero_diff_recurring_cases)}) -> Downgraded to YELLOW."
+                    )
 
     # Rule 4: Never auto-close anything. Enforce strict analyst confirmation on GREEN.
     if final_state == "green":
         recommended_action = "Low risk, matches a known recurring pattern. Analyst quick-confirm."
     else:
-        # Sanitize recommended action across all states
         for phrase in [
             "close the alert",
             "automatically close",
@@ -867,7 +1019,6 @@ class SOCMemoryAgent:
         """
         Executes full SOC analysis with Hindsight long-term memory.
         """
-        # Step 0: Load alert
         if isinstance(alert_input, str):
             alert = load_alert(alert_input)
         elif isinstance(alert_input, dict):
@@ -885,11 +1036,11 @@ class SOCMemoryAgent:
         recalled_ids = extract_alert_ids(recall_results)
         history_records = lookup_history(recalled_ids)
 
-        # Step 3: Deterministic Context Comparison
-        compared_cases = [compare_context(alert, hist) for hist in history_records]
+        # Step 3: Deterministic Context Comparison with V2 rules
+        compared_cases = [compare_context(alert, hist, history_records) for hist in history_records]
         best_match = pick_best_match(alert, compared_cases)
 
-        # Step 4: LLM Reasoning
+        # Step 4: LLM Reasoning (with retries and fallback)
         llm_output = reason_with_llm(
             current_alert=alert,
             recalled_cases=compared_cases,
@@ -898,7 +1049,7 @@ class SOCMemoryAgent:
             is_no_memory=False,
         )
 
-        # Step 5: Safety Overrides
+        # Step 5: V2 Safety Overrides
         final_assessment = apply_safety_rules(
             current_alert=alert,
             best_match_case=best_match,
@@ -935,7 +1086,7 @@ class SOCMemoryAgent:
 
         alert_id = alert.get("alert_id", "UNKNOWN")
 
-        # LLM Reasoning without memory
+        # LLM Reasoning without memory (with 8 retries and fallback)
         llm_output = reason_with_llm(
             current_alert=alert,
             recalled_cases=[],
