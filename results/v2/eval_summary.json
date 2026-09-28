@@ -1,0 +1,880 @@
+{
+  "evaluation_timestamp": "2026-09-28T08:03:45Z",
+  "note": "v2 rules were designed after analysing v1 failures on the same sample.",
+  "sample_definition": {
+    "random_seed": 42,
+    "benign_sample_size": 40,
+    "variant_counts": {
+      "attack": 10,
+      "lookalike": 44,
+      "recurring_benign": 40,
+      "total": 94
+    },
+    "selected_alert_ids": [
+      "ALRT-00548",
+      "ALRT-00550",
+      "ALRT-00638",
+      "ALRT-00663",
+      "ALRT-00664",
+      "ALRT-00690",
+      "ALRT-00724",
+      "ALRT-00752",
+      "ALRT-00793",
+      "ALRT-00800",
+      "ALRT-00516",
+      "ALRT-00523",
+      "ALRT-00525",
+      "ALRT-00532",
+      "ALRT-00534",
+      "ALRT-00547",
+      "ALRT-00556",
+      "ALRT-00559",
+      "ALRT-00561",
+      "ALRT-00562",
+      "ALRT-00585",
+      "ALRT-00588",
+      "ALRT-00593",
+      "ALRT-00599",
+      "ALRT-00611",
+      "ALRT-00621",
+      "ALRT-00628",
+      "ALRT-00632",
+      "ALRT-00645",
+      "ALRT-00647",
+      "ALRT-00652",
+      "ALRT-00660",
+      "ALRT-00672",
+      "ALRT-00676",
+      "ALRT-00678",
+      "ALRT-00686",
+      "ALRT-00692",
+      "ALRT-00705",
+      "ALRT-00710",
+      "ALRT-00715",
+      "ALRT-00733",
+      "ALRT-00735",
+      "ALRT-00743",
+      "ALRT-00744",
+      "ALRT-00747",
+      "ALRT-00756",
+      "ALRT-00758",
+      "ALRT-00760",
+      "ALRT-00766",
+      "ALRT-00770",
+      "ALRT-00773",
+      "ALRT-00787",
+      "ALRT-00797",
+      "ALRT-00798",
+      "ALRT-00713",
+      "ALRT-00551",
+      "ALRT-00522",
+      "ALRT-00745",
+      "ALRT-00601",
+      "ALRT-00591",
+      "ALRT-00584",
+      "ALRT-00560",
+      "ALRT-00742",
+      "ALRT-00546",
+      "ALRT-00725",
+      "ALRT-00794",
+      "ALRT-00684",
+      "ALRT-00542",
+      "ALRT-00699",
+      "ALRT-00644",
+      "ALRT-00526",
+      "ALRT-00524",
+      "ALRT-00543",
+      "ALRT-00582",
+      "ALRT-00587",
+      "ALRT-00671",
+      "ALRT-00702",
+      "ALRT-00795",
+      "ALRT-00689",
+      "ALRT-00577",
+      "ALRT-00737",
+      "ALRT-00717",
+      "ALRT-00731",
+      "ALRT-00783",
+      "ALRT-00643",
+      "ALRT-00583",
+      "ALRT-00653",
+      "ALRT-00698",
+      "ALRT-00602",
+      "ALRT-00517",
+      "ALRT-00751",
+      "ALRT-00567",
+      "ALRT-00730",
+      "ALRT-00780"
+    ]
+  },
+  "metrics": {
+    "v2_memory_mode": {
+      "sample_size": 94,
+      "total_evaluated": 94,
+      "failures_count": 0,
+      "fallback_rule_count": 0,
+      "failed_or_fallback_count": 0,
+      "failures": [],
+      "false_greens_count": 0,
+      "false_greens": [],
+      "attacks_total": 10,
+      "attacks_caught": 10,
+      "attacks_caught_pct": 100.0,
+      "recurring_benign_total": 40,
+      "unnecessary_escalations": 17,
+      "unnecessary_escalations_pct": 42.5,
+      "human_review_count": 71,
+      "human_review_load_pct": 75.5,
+      "average_time_seconds": 10.109,
+      "scenario_breakdown": {
+        "new_admin_account": {
+          "total": 7,
+          "green": 1,
+          "yellow": 3,
+          "red": 3,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 2
+        },
+        "failed_logins": {
+          "total": 12,
+          "green": 0,
+          "yellow": 11,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 6,
+          "recurring_benign_total": 6
+        },
+        "email_forwarding": {
+          "total": 14,
+          "green": 0,
+          "yellow": 12,
+          "red": 2,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 9,
+          "recurring_benign_total": 9
+        },
+        "big_transfer": {
+          "total": 8,
+          "green": 2,
+          "yellow": 3,
+          "red": 3,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 2
+        },
+        "foreign_login": {
+          "total": 7,
+          "green": 0,
+          "yellow": 5,
+          "red": 2,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 1
+        },
+        "mass_download": {
+          "total": 6,
+          "green": 1,
+          "yellow": 4,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 1
+        },
+        "admin_powershell": {
+          "total": 12,
+          "green": 6,
+          "yellow": 5,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 6
+        },
+        "two_country_login": {
+          "total": 13,
+          "green": 8,
+          "yellow": 4,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 8
+        },
+        "public_storage": {
+          "total": 6,
+          "green": 1,
+          "yellow": 2,
+          "red": 3,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 1
+        },
+        "port_scan": {
+          "total": 9,
+          "green": 4,
+          "yellow": 4,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 4
+        }
+      }
+    },
+    "v2_no_memory_mode": {
+      "sample_size": 94,
+      "total_evaluated": 94,
+      "failures_count": 0,
+      "fallback_rule_count": 0,
+      "failed_or_fallback_count": 0,
+      "failures": [],
+      "false_greens_count": 23,
+      "false_greens": [
+        {
+          "alert_id": "ALRT-00516",
+          "scenario": "port_scan",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert reflects a routine, scheduled internal network scan performed by an authorized IT service within its designated window, matching historical benign patterns."
+        },
+        {
+          "alert_id": "ALRT-00523",
+          "scenario": "admin_powershell",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This alert represents a standard, authorized PowerShell execution for system updates, executed by a trusted automation process within an approved change window, and poses no security risk."
+        },
+        {
+          "alert_id": "ALRT-00534",
+          "scenario": "public_storage",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert reflects an authorized public exposure of marketing assets, matching established benign patterns."
+        },
+        {
+          "alert_id": "ALRT-00547",
+          "scenario": "port_scan",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This alert represents a routine internal network scan performed by an authorized IT service during its scheduled window, and is considered benign."
+        },
+        {
+          "alert_id": "ALRT-00562",
+          "scenario": "admin_powershell",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This alert reflects a routine, authorized PowerShell script execution as part of a scheduled change, matching known benign patterns."
+        },
+        {
+          "alert_id": "ALRT-00588",
+          "scenario": "public_storage",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert corresponds to a legitimate public marketing asset container with an intentional expiry, matching established benign patterns."
+        },
+        {
+          "alert_id": "ALRT-00593",
+          "scenario": "port_scan",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This alert represents a normal, scheduled internal network scan performed by an authorized service. All contextual indicators confirm it is benign."
+        },
+        {
+          "alert_id": "ALRT-00611",
+          "scenario": "admin_powershell",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This is a routine, legitimate execution of an encoded PowerShell script by an authorized IT administrator as part of an approved change process."
+        },
+        {
+          "alert_id": "ALRT-00628",
+          "scenario": "big_transfer",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This alert represents a routine, authorized backup operation and is consistent with established benign patterns."
+        },
+        {
+          "alert_id": "ALRT-00632",
+          "scenario": "foreign_login",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The sign\u2011in aligns with the user\u2019s travel schedule, MFA was successful, and no sensitive data was accessed, indicating a benign event."
+        },
+        {
+          "alert_id": "ALRT-00645",
+          "scenario": "public_storage",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert reflects a public marketing asset container that is intentionally exposed, matching established benign patterns. No anomalous or sensitive data is involved."
+        },
+        {
+          "alert_id": "ALRT-00660",
+          "scenario": "new_admin_account",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert reflects a routine, legitimate privileged account creation as part of an HR onboarding process, with no signs of malicious activity."
+        },
+        {
+          "alert_id": "ALRT-00672",
+          "scenario": "new_admin_account",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "A new Domain Admin account was created as part of a legitimate onboarding process, with all typical controls in place. The alert is considered benign."
+        },
+        {
+          "alert_id": "ALRT-00676",
+          "scenario": "failed_logins",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The pattern matches a typical user credential retry scenario from a known IP and device, with successful sign\u2011in thereafter. No signs of malicious intent or persistence."
+        },
+        {
+          "alert_id": "ALRT-00678",
+          "scenario": "mass_download",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This alert represents a routine, manager\u2011approved bulk download of confidential project files to a company\u2011managed laptop, matching established benign patterns."
+        },
+        {
+          "alert_id": "ALRT-00686",
+          "scenario": "admin_powershell",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "All contextual signals indicate a legitimate, low\u2011risk update operation; no anomalous behavior is observed."
+        },
+        {
+          "alert_id": "ALRT-00710",
+          "scenario": "public_storage",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert is a false positive; the public container is an authorized marketing asset with proper change management and expiry controls."
+        },
+        {
+          "alert_id": "ALRT-00743",
+          "scenario": "mass_download",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert reflects a manager-approved, internal data transfer to a company-managed device during an employee\u2019s notice period, matching known benign patterns."
+        },
+        {
+          "alert_id": "ALRT-00747",
+          "scenario": "big_transfer",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert represents a routine, expected backup operation between inventory servers, matching known benign patterns."
+        },
+        {
+          "alert_id": "ALRT-00756",
+          "scenario": "foreign_login",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This sign\u2011in aligns with a scheduled travel event using a known device and MFA, with no sensitive data accessed, indicating a benign, expected activity."
+        },
+        {
+          "alert_id": "ALRT-00758",
+          "scenario": "big_transfer",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert describes a typical, scheduled SMB backup transfer between internal servers using an authorized service account, with no signs of exfiltration or data leakage."
+        },
+        {
+          "alert_id": "ALRT-00773",
+          "scenario": "foreign_login",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The sign\u2011in from London is expected due to the employee\u2019s scheduled travel. All contextual signals (known device, MFA, calendar entry, lack of sensitive data access) indicate a benign event."
+        },
+        {
+          "alert_id": "ALRT-00797",
+          "scenario": "admin_powershell",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "This alert reflects a legitimate PowerShell update script executed by an IT admin under a scheduled change. All context checks align with benign operational patterns, so it is classified as a routine execution."
+        }
+      ],
+      "attacks_total": 10,
+      "attacks_caught": 10,
+      "attacks_caught_pct": 100.0,
+      "recurring_benign_total": 40,
+      "unnecessary_escalations": 1,
+      "unnecessary_escalations_pct": 2.5,
+      "human_review_count": 32,
+      "human_review_load_pct": 34.0,
+      "average_time_seconds": 3.608,
+      "scenario_breakdown": {
+        "new_admin_account": {
+          "total": 7,
+          "green": 4,
+          "yellow": 2,
+          "red": 1,
+          "false_greens": 2,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 2
+        },
+        "failed_logins": {
+          "total": 12,
+          "green": 7,
+          "yellow": 4,
+          "red": 1,
+          "false_greens": 1,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 6
+        },
+        "email_forwarding": {
+          "total": 14,
+          "green": 9,
+          "yellow": 3,
+          "red": 2,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 9
+        },
+        "big_transfer": {
+          "total": 8,
+          "green": 5,
+          "yellow": 2,
+          "red": 1,
+          "false_greens": 3,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 2
+        },
+        "foreign_login": {
+          "total": 7,
+          "green": 4,
+          "yellow": 2,
+          "red": 1,
+          "false_greens": 3,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 1
+        },
+        "mass_download": {
+          "total": 6,
+          "green": 3,
+          "yellow": 2,
+          "red": 1,
+          "false_greens": 2,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 1
+        },
+        "admin_powershell": {
+          "total": 12,
+          "green": 11,
+          "yellow": 0,
+          "red": 1,
+          "false_greens": 5,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 6
+        },
+        "two_country_login": {
+          "total": 13,
+          "green": 7,
+          "yellow": 6,
+          "red": 0,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 8
+        },
+        "public_storage": {
+          "total": 6,
+          "green": 5,
+          "yellow": 0,
+          "red": 1,
+          "false_greens": 4,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 1
+        },
+        "port_scan": {
+          "total": 9,
+          "green": 7,
+          "yellow": 1,
+          "red": 1,
+          "false_greens": 3,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 4
+        }
+      }
+    },
+    "v1_memory_mode": {
+      "sample_size": 94,
+      "total_evaluated": 94,
+      "failures_count": 0,
+      "failures": [],
+      "false_greens_count": 11,
+      "false_greens": [
+        {
+          "alert_id": "ALRT-00516",
+          "scenario": "port_scan",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The scan aligns with an authorized weekly vulnerability scan from a registered service account within the defined scan window, matching prior benign patterns despite a new target subnet."
+        },
+        {
+          "alert_id": "ALRT-00523",
+          "scenario": "admin_powershell",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The PowerShell execution mirrors a known, approved maintenance activity performed by the same admin on the same host within a change window, indicating no threat."
+        },
+        {
+          "alert_id": "ALRT-00593",
+          "scenario": "port_scan",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The scan originates from an authorized scanning service during its scheduled window, matching historical benign patterns despite a different target subnet."
+        },
+        {
+          "alert_id": "ALRT-00628",
+          "scenario": "big_transfer",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert aligns with a well\u2011established, benign backup job; despite a larger data volume, no anomalous behavior or sensitive data exposure is observed."
+        },
+        {
+          "alert_id": "ALRT-00632",
+          "scenario": "foreign_login",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert aligns with a known benign travel\u2011related sign\u2011in pattern; no anomalous behavior warrants further investigation."
+        },
+        {
+          "alert_id": "ALRT-00676",
+          "scenario": "failed_logins",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert mirrors a previously seen benign pattern of password mistypes for the same user and host, with no suspicious changes, thus it can be safely marked as routine."
+        },
+        {
+          "alert_id": "ALRT-00733",
+          "scenario": "new_admin_account",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert aligns with a previously classified benign pattern, indicating a routine privileged account creation by an authorized IT admin during business hours."
+        },
+        {
+          "alert_id": "ALRT-00743",
+          "scenario": "mass_download",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert mirrors a known benign pattern of an employee in notice period performing an approved data handover, so no further investigation is required."
+        },
+        {
+          "alert_id": "ALRT-00747",
+          "scenario": "big_transfer",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert aligns with an established benign pattern of manual backup/restore activity; no sensitive data or anomalous behavior is present."
+        },
+        {
+          "alert_id": "ALRT-00766",
+          "scenario": "email_forwarding",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert aligns with a known benign pattern of internal mailbox forwarding created from a trusted device, with no suspicious attributes, so it can be safely marked routine."
+        },
+        {
+          "alert_id": "ALRT-00787",
+          "scenario": "big_transfer",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert aligns with an established benign backup data transfer pattern; no anomalous behavior or sensitive data exfiltration is observed."
+        }
+      ],
+      "attacks_total": 10,
+      "attacks_caught": 10,
+      "attacks_caught_pct": 100.0,
+      "recurring_benign_total": 40,
+      "unnecessary_escalations": 9,
+      "unnecessary_escalations_pct": 22.5,
+      "human_review_count": 52,
+      "human_review_load_pct": 55.3,
+      "average_time_seconds": 6.419,
+      "scenario_breakdown": {
+        "new_admin_account": {
+          "total": 7,
+          "green": 3,
+          "yellow": 2,
+          "red": 2,
+          "false_greens": 1,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 2
+        },
+        "failed_logins": {
+          "total": 12,
+          "green": 6,
+          "yellow": 5,
+          "red": 1,
+          "false_greens": 1,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 6
+        },
+        "email_forwarding": {
+          "total": 14,
+          "green": 7,
+          "yellow": 5,
+          "red": 2,
+          "false_greens": 1,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 3,
+          "recurring_benign_total": 9
+        },
+        "big_transfer": {
+          "total": 8,
+          "green": 4,
+          "yellow": 2,
+          "red": 2,
+          "false_greens": 3,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 2
+        },
+        "foreign_login": {
+          "total": 7,
+          "green": 2,
+          "yellow": 3,
+          "red": 2,
+          "false_greens": 1,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 1
+        },
+        "mass_download": {
+          "total": 6,
+          "green": 2,
+          "yellow": 3,
+          "red": 1,
+          "false_greens": 1,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 1
+        },
+        "admin_powershell": {
+          "total": 12,
+          "green": 6,
+          "yellow": 5,
+          "red": 1,
+          "false_greens": 1,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 6
+        },
+        "two_country_login": {
+          "total": 13,
+          "green": 8,
+          "yellow": 4,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 0,
+          "recurring_benign_total": 8
+        },
+        "public_storage": {
+          "total": 6,
+          "green": 0,
+          "yellow": 4,
+          "red": 2,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 1
+        },
+        "port_scan": {
+          "total": 9,
+          "green": 4,
+          "yellow": 4,
+          "red": 1,
+          "false_greens": 2,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 2,
+          "recurring_benign_total": 4
+        }
+      }
+    },
+    "v1_no_memory_mode": {
+      "sample_size": 94,
+      "total_evaluated": 94,
+      "failures_count": 0,
+      "failures": [],
+      "false_greens_count": 1,
+      "false_greens": [
+        {
+          "alert_id": "ALRT-00676",
+          "scenario": "failed_logins",
+          "variant": "lookalike",
+          "title": "",
+          "explanation": "The alert matches normal user behavior with no anomalous indicators; it can be treated as routine and does not require further investigation."
+        }
+      ],
+      "attacks_total": 10,
+      "attacks_caught": 10,
+      "attacks_caught_pct": 100.0,
+      "recurring_benign_total": 40,
+      "unnecessary_escalations": 38,
+      "unnecessary_escalations_pct": 95.0,
+      "human_review_count": 91,
+      "human_review_load_pct": 96.8,
+      "average_time_seconds": 3.952,
+      "scenario_breakdown": {
+        "new_admin_account": {
+          "total": 7,
+          "green": 0,
+          "yellow": 6,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 2,
+          "recurring_benign_total": 2
+        },
+        "failed_logins": {
+          "total": 12,
+          "green": 1,
+          "yellow": 11,
+          "red": 0,
+          "false_greens": 1,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 6,
+          "recurring_benign_total": 6
+        },
+        "email_forwarding": {
+          "total": 14,
+          "green": 0,
+          "yellow": 13,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 9,
+          "recurring_benign_total": 9
+        },
+        "big_transfer": {
+          "total": 8,
+          "green": 0,
+          "yellow": 8,
+          "red": 0,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 2,
+          "recurring_benign_total": 2
+        },
+        "foreign_login": {
+          "total": 7,
+          "green": 0,
+          "yellow": 7,
+          "red": 0,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 1
+        },
+        "mass_download": {
+          "total": 6,
+          "green": 0,
+          "yellow": 5,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 1
+        },
+        "admin_powershell": {
+          "total": 12,
+          "green": 1,
+          "yellow": 11,
+          "red": 0,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 5,
+          "recurring_benign_total": 6
+        },
+        "two_country_login": {
+          "total": 13,
+          "green": 0,
+          "yellow": 12,
+          "red": 1,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 8,
+          "recurring_benign_total": 8
+        },
+        "public_storage": {
+          "total": 6,
+          "green": 0,
+          "yellow": 6,
+          "red": 0,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 1,
+          "recurring_benign_total": 1
+        },
+        "port_scan": {
+          "total": 9,
+          "green": 1,
+          "yellow": 8,
+          "red": 0,
+          "false_greens": 0,
+          "attacks_total": 1,
+          "attacks_caught": 1,
+          "unnecessary_escalations": 3,
+          "recurring_benign_total": 4
+        }
+      }
+    }
+  }
+}
