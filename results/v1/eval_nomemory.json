@@ -1,0 +1,3290 @@
+{
+  "ALRT-00548": {
+    "alert_id": "ALRT-00548",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "red",
+    "recommended_action": "Immediate Priority 1 human analyst review and threat containment.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [
+      "Rule 1: Alert severity is Critical -> Forced state to RED."
+    ],
+    "elapsed_seconds": 2.205
+  },
+  "ALRT-00550": {
+    "alert_id": "ALRT-00550",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.238
+  },
+  "ALRT-00638": {
+    "alert_id": "ALRT-00638",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "red",
+    "recommended_action": "Immediate Priority 1 human analyst review and threat containment.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [
+      "Rule 1: Alert severity is Critical -> Forced state to RED."
+    ],
+    "elapsed_seconds": 2.28
+  },
+  "ALRT-00663": {
+    "alert_id": "ALRT-00663",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.236
+  },
+  "ALRT-00664": {
+    "alert_id": "ALRT-00664",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.236
+  },
+  "ALRT-00690": {
+    "alert_id": "ALRT-00690",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "red",
+    "recommended_action": "Immediate Priority 1 human analyst review and threat containment.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [
+      "Rule 1: Alert severity is Critical -> Forced state to RED."
+    ],
+    "elapsed_seconds": 2.256
+  },
+  "ALRT-00724": {
+    "alert_id": "ALRT-00724",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.176
+  },
+  "ALRT-00752": {
+    "alert_id": "ALRT-00752",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "red",
+      "reasons": [
+        "Login events from two geographically distant countries (India and Vietnam) occurred within a 4\u2011minute window, which is physically impossible without a VPN or proxy.",
+        "Both logins were from unknown devices, MFA was not completed, and no VPN exit node was detected, indicating likely credential compromise."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Immediately flag the user account, enforce a forced password reset, enable MFA enforcement, and isolate the host LT-0046. Conduct a detailed log review for lateral movement and possible data exfiltration, and consider blocking the account until verification.",
+      "explanation": "The impossible travel pattern combined with lack of MFA and unknown devices strongly suggests a compromised credential, warranting urgent investigation and containment.",
+      "model_used": "openai/gpt-oss-120b",
+      "models_tried": [
+        "openai/gpt-oss-120b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b"
+    ],
+    "state": "red",
+    "recommended_action": "Immediately flag the user account, enforce a forced password reset, enable MFA enforcement, and isolate the host LT-0046. Conduct a detailed log review for lateral movement and possible data exfiltration, and consider blocking the account until verification.",
+    "reasons": [
+      "Login events from two geographically distant countries (India and Vietnam) occurred within a 4\u2011minute window, which is physically impossible without a VPN or proxy.",
+      "Both logins were from unknown devices, MFA was not completed, and no VPN exit node was detected, indicating likely credential compromise."
+    ],
+    "explanation": "The impossible travel pattern combined with lack of MFA and unknown devices strongly suggests a compromised credential, warranting urgent investigation and containment.",
+    "safety_overrides": [],
+    "elapsed_seconds": 51.392
+  },
+  "ALRT-00793": {
+    "alert_id": "ALRT-00793",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.203
+  },
+  "ALRT-00800": {
+    "alert_id": "ALRT-00800",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.229
+  },
+  "ALRT-00516": {
+    "alert_id": "ALRT-00516",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.234
+  },
+  "ALRT-00523": {
+    "alert_id": "ALRT-00523",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.235
+  },
+  "ALRT-00525": {
+    "alert_id": "ALRT-00525",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.223
+  },
+  "ALRT-00532": {
+    "alert_id": "ALRT-00532",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.247
+  },
+  "ALRT-00534": {
+    "alert_id": "ALRT-00534",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.269
+  },
+  "ALRT-00547": {
+    "alert_id": "ALRT-00547",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.219
+  },
+  "ALRT-00556": {
+    "alert_id": "ALRT-00556",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.249
+  },
+  "ALRT-00559": {
+    "alert_id": "ALRT-00559",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.206
+  },
+  "ALRT-00561": {
+    "alert_id": "ALRT-00561",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.218
+  },
+  "ALRT-00562": {
+    "alert_id": "ALRT-00562",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.186
+  },
+  "ALRT-00585": {
+    "alert_id": "ALRT-00585",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.161
+  },
+  "ALRT-00588": {
+    "alert_id": "ALRT-00588",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.167
+  },
+  "ALRT-00593": {
+    "alert_id": "ALRT-00593",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.196
+  },
+  "ALRT-00599": {
+    "alert_id": "ALRT-00599",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.174
+  },
+  "ALRT-00611": {
+    "alert_id": "ALRT-00611",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.2
+  },
+  "ALRT-00621": {
+    "alert_id": "ALRT-00621",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.448
+  },
+  "ALRT-00628": {
+    "alert_id": "ALRT-00628",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 6.729
+  },
+  "ALRT-00632": {
+    "alert_id": "ALRT-00632",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.158
+  },
+  "ALRT-00645": {
+    "alert_id": "ALRT-00645",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.2
+  },
+  "ALRT-00647": {
+    "alert_id": "ALRT-00647",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.174
+  },
+  "ALRT-00652": {
+    "alert_id": "ALRT-00652",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.187
+  },
+  "ALRT-00660": {
+    "alert_id": "ALRT-00660",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.173
+  },
+  "ALRT-00672": {
+    "alert_id": "ALRT-00672",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.153
+  },
+  "ALRT-00676": {
+    "alert_id": "ALRT-00676",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "green",
+      "reasons": [
+        "34 failed attempts followed by a successful login originated from a known internal IP address and the same device, indicating a likely user password entry error rather than an external attack.",
+        "All contextual flags (single account, source country normal, source known IP) align with established benign patterns, and the alert severity is low."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Document the event as a benign user error, ensure account lockout thresholds are appropriate, and consider prompting the user to reset their password as a precaution.",
+      "explanation": "The alert matches normal user behavior with no anomalous indicators; it can be treated as routine and does not require further investigation.",
+      "model_used": "openai/gpt-oss-120b",
+      "models_tried": [
+        "openai/gpt-oss-120b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b"
+    ],
+    "state": "green",
+    "recommended_action": "Low risk, matches a known recurring pattern. Analyst quick-confirm.",
+    "reasons": [
+      "34 failed attempts followed by a successful login originated from a known internal IP address and the same device, indicating a likely user password entry error rather than an external attack.",
+      "All contextual flags (single account, source country normal, source known IP) align with established benign patterns, and the alert severity is low."
+    ],
+    "explanation": "The alert matches normal user behavior with no anomalous indicators; it can be treated as routine and does not require further investigation.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.531
+  },
+  "ALRT-00678": {
+    "alert_id": "ALRT-00678",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.18
+  },
+  "ALRT-00686": {
+    "alert_id": "ALRT-00686",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.166
+  },
+  "ALRT-00692": {
+    "alert_id": "ALRT-00692",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.146
+  },
+  "ALRT-00705": {
+    "alert_id": "ALRT-00705",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.286
+  },
+  "ALRT-00710": {
+    "alert_id": "ALRT-00710",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.189
+  },
+  "ALRT-00715": {
+    "alert_id": "ALRT-00715",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.24
+  },
+  "ALRT-00733": {
+    "alert_id": "ALRT-00733",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.216
+  },
+  "ALRT-00735": {
+    "alert_id": "ALRT-00735",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.199
+  },
+  "ALRT-00743": {
+    "alert_id": "ALRT-00743",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.164
+  },
+  "ALRT-00744": {
+    "alert_id": "ALRT-00744",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.186
+  },
+  "ALRT-00747": {
+    "alert_id": "ALRT-00747",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.171
+  },
+  "ALRT-00756": {
+    "alert_id": "ALRT-00756",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.186
+  },
+  "ALRT-00758": {
+    "alert_id": "ALRT-00758",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.155
+  },
+  "ALRT-00760": {
+    "alert_id": "ALRT-00760",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.202
+  },
+  "ALRT-00766": {
+    "alert_id": "ALRT-00766",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.169
+  },
+  "ALRT-00770": {
+    "alert_id": "ALRT-00770",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.185
+  },
+  "ALRT-00773": {
+    "alert_id": "ALRT-00773",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.139
+  },
+  "ALRT-00787": {
+    "alert_id": "ALRT-00787",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.186
+  },
+  "ALRT-00797": {
+    "alert_id": "ALRT-00797",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.16
+  },
+  "ALRT-00798": {
+    "alert_id": "ALRT-00798",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.181
+  },
+  "ALRT-00713": {
+    "alert_id": "ALRT-00713",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.199
+  },
+  "ALRT-00551": {
+    "alert_id": "ALRT-00551",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.183
+  },
+  "ALRT-00522": {
+    "alert_id": "ALRT-00522",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "green",
+      "reasons": [
+        "The PowerShell command aligns with an approved change ticket (CHG-8909) and is executed by an IT admin account.",
+        "Execution originates from a known host, within the scheduled change window, and is launched by the authorized automation tool (ansible-runner) without encoding."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Mark the alert as benign and document it in the change audit; no further investigation required.",
+      "explanation": "The activity matches an authorized update deployment process and shows no indicators of compromise.",
+      "model_used": "openai/gpt-oss-120b",
+      "models_tried": [
+        "openai/gpt-oss-120b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b"
+    ],
+    "state": "green",
+    "recommended_action": "Low risk, matches a known recurring pattern. Analyst quick-confirm.",
+    "reasons": [
+      "The PowerShell command aligns with an approved change ticket (CHG-8909) and is executed by an IT admin account.",
+      "Execution originates from a known host, within the scheduled change window, and is launched by the authorized automation tool (ansible-runner) without encoding."
+    ],
+    "explanation": "The activity matches an authorized update deployment process and shows no indicators of compromise.",
+    "safety_overrides": [],
+    "elapsed_seconds": 56.45
+  },
+  "ALRT-00745": {
+    "alert_id": "ALRT-00745",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.235
+  },
+  "ALRT-00601": {
+    "alert_id": "ALRT-00601",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.178
+  },
+  "ALRT-00591": {
+    "alert_id": "ALRT-00591",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.224
+  },
+  "ALRT-00584": {
+    "alert_id": "ALRT-00584",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.205
+  },
+  "ALRT-00560": {
+    "alert_id": "ALRT-00560",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.152
+  },
+  "ALRT-00742": {
+    "alert_id": "ALRT-00742",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.153
+  },
+  "ALRT-00546": {
+    "alert_id": "ALRT-00546",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.166
+  },
+  "ALRT-00725": {
+    "alert_id": "ALRT-00725",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.177
+  },
+  "ALRT-00794": {
+    "alert_id": "ALRT-00794",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.145
+  },
+  "ALRT-00684": {
+    "alert_id": "ALRT-00684",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.173
+  },
+  "ALRT-00542": {
+    "alert_id": "ALRT-00542",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.184
+  },
+  "ALRT-00699": {
+    "alert_id": "ALRT-00699",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.166
+  },
+  "ALRT-00644": {
+    "alert_id": "ALRT-00644",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.156
+  },
+  "ALRT-00526": {
+    "alert_id": "ALRT-00526",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.205
+  },
+  "ALRT-00524": {
+    "alert_id": "ALRT-00524",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.157
+  },
+  "ALRT-00543": {
+    "alert_id": "ALRT-00543",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.157
+  },
+  "ALRT-00582": {
+    "alert_id": "ALRT-00582",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.18
+  },
+  "ALRT-00587": {
+    "alert_id": "ALRT-00587",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.26
+  },
+  "ALRT-00671": {
+    "alert_id": "ALRT-00671",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.165
+  },
+  "ALRT-00702": {
+    "alert_id": "ALRT-00702",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.165
+  },
+  "ALRT-00795": {
+    "alert_id": "ALRT-00795",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.173
+  },
+  "ALRT-00689": {
+    "alert_id": "ALRT-00689",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.175
+  },
+  "ALRT-00577": {
+    "alert_id": "ALRT-00577",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.171
+  },
+  "ALRT-00737": {
+    "alert_id": "ALRT-00737",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.211
+  },
+  "ALRT-00717": {
+    "alert_id": "ALRT-00717",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.213
+  },
+  "ALRT-00731": {
+    "alert_id": "ALRT-00731",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.183
+  },
+  "ALRT-00783": {
+    "alert_id": "ALRT-00783",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.187
+  },
+  "ALRT-00643": {
+    "alert_id": "ALRT-00643",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.184
+  },
+  "ALRT-00583": {
+    "alert_id": "ALRT-00583",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.138
+  },
+  "ALRT-00653": {
+    "alert_id": "ALRT-00653",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.187
+  },
+  "ALRT-00698": {
+    "alert_id": "ALRT-00698",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.178
+  },
+  "ALRT-00602": {
+    "alert_id": "ALRT-00602",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.18
+  },
+  "ALRT-00517": {
+    "alert_id": "ALRT-00517",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.261
+  },
+  "ALRT-00751": {
+    "alert_id": "ALRT-00751",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.219
+  },
+  "ALRT-00567": {
+    "alert_id": "ALRT-00567",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.17
+  },
+  "ALRT-00730": {
+    "alert_id": "ALRT-00730",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "yellow",
+      "reasons": [
+        "Primary model openai/gpt-oss-120b failed.",
+        "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+      "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+      "model_used": "fallback_rule",
+      "models_tried": [
+        "openai/gpt-oss-120b",
+        "qwen/qwen3-32b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b",
+      "qwen/qwen3-32b"
+    ],
+    "state": "yellow",
+    "recommended_action": "Perform manual human review due to reasoning engine unavailability.",
+    "reasons": [
+      "Primary model openai/gpt-oss-120b failed.",
+      "Requested fallback 'qwen/qwen3-32b' verified as unavailable on Groq API."
+    ],
+    "explanation": "Primary LLM failed and fallback model is unavailable on Groq API.",
+    "safety_overrides": [],
+    "elapsed_seconds": 2.203
+  },
+  "ALRT-00780": {
+    "alert_id": "ALRT-00780",
+    "memory_used": false,
+    "recalled_cases": [],
+    "best_match_id": null,
+    "best_match": null,
+    "llm_result": {
+      "state": "green",
+      "reasons": [
+        "The scanning activity originates from a registered scanner (scan-svc) on an authorized host (scan-srv-01).",
+        "It occurs within the defined scan window and matches the scheduled weekly vulnerability scan (VS-WEEKLY-01), indicating expected behavior."
+      ],
+      "recalled_case_ids": [],
+      "recommended_action": "Document the event as a routine scan, no further investigation required. Ensure the scan schedule remains unchanged and continue monitoring for any future deviations.",
+      "explanation": "The alert aligns with a known, authorized internal vulnerability scanning process, making it a benign routine activity.",
+      "model_used": "openai/gpt-oss-120b",
+      "models_tried": [
+        "openai/gpt-oss-120b"
+      ]
+    },
+    "models_tried": [
+      "openai/gpt-oss-120b"
+    ],
+    "state": "green",
+    "recommended_action": "Low risk, matches a known recurring pattern. Analyst quick-confirm.",
+    "reasons": [
+      "The scanning activity originates from a registered scanner (scan-svc) on an authorized host (scan-srv-01).",
+      "It occurs within the defined scan window and matches the scheduled weekly vulnerability scan (VS-WEEKLY-01), indicating expected behavior."
+    ],
+    "explanation": "The alert aligns with a known, authorized internal vulnerability scanning process, making it a benign routine activity.",
+    "safety_overrides": [],
+    "elapsed_seconds": 58.879
+  }
+}
