@@ -1,0 +1,734 @@
+{
+ "company": "Kestrel Logistics (fictional)",
+ "period": "2026-08-01 to 2026-08-30",
+ "history_days": "1-20",
+ "replay_days": "21-30",
+ "employees": [
+  {
+   "user": "kiran.khan",
+   "name": "Kiran Khan",
+   "role": "IT Admin",
+   "dept": "IT",
+   "city": "Mumbai",
+   "laptop": "LT-0001",
+   "ip": "10.20.0.10"
+  },
+  {
+   "user": "suresh.kumar",
+   "name": "Suresh Kumar",
+   "role": "IT Admin",
+   "dept": "IT",
+   "city": "Pune",
+   "laptop": "LT-0002",
+   "ip": "10.20.0.11"
+  },
+  {
+   "user": "harsha.gupta",
+   "name": "Harsha Gupta",
+   "role": "IT Admin",
+   "dept": "IT",
+   "city": "Hyderabad",
+   "laptop": "LT-0003",
+   "ip": "10.20.0.12"
+  },
+  {
+   "user": "farhan.singh",
+   "name": "Farhan Singh",
+   "role": "IT Admin",
+   "dept": "IT",
+   "city": "Delhi",
+   "laptop": "LT-0004",
+   "ip": "10.20.0.13"
+  },
+  {
+   "user": "ashwin.kapoor",
+   "name": "Ashwin Kapoor",
+   "role": "IT Admin",
+   "dept": "IT",
+   "city": "Mumbai",
+   "laptop": "LT-0005",
+   "ip": "10.20.0.14"
+  },
+  {
+   "user": "gautam.joshi",
+   "name": "Gautam Joshi",
+   "role": "IT Admin",
+   "dept": "IT",
+   "city": "Delhi",
+   "laptop": "LT-0006",
+   "ip": "10.20.0.15"
+  },
+  {
+   "user": "pooja.shetty",
+   "name": "Pooja Shetty",
+   "role": "DBA",
+   "dept": "IT",
+   "city": "Delhi",
+   "laptop": "LT-0007",
+   "ip": "10.20.0.16"
+  },
+  {
+   "user": "ashwin.pillai",
+   "name": "Ashwin Pillai",
+   "role": "DBA",
+   "dept": "IT",
+   "city": "Mumbai",
+   "laptop": "LT-0008",
+   "ip": "10.20.0.17"
+  },
+  {
+   "user": "manoj.singh",
+   "name": "Manoj Singh",
+   "role": "DBA",
+   "dept": "IT",
+   "city": "Mumbai",
+   "laptop": "LT-0009",
+   "ip": "10.20.0.18"
+  },
+  {
+   "user": "mohan.gupta",
+   "name": "Mohan Gupta",
+   "role": "Marketing Lead",
+   "dept": "Marketing",
+   "city": "Chennai",
+   "laptop": "LT-0010",
+   "ip": "10.20.0.19"
+  },
+  {
+   "user": "farhan.verma",
+   "name": "Farhan Verma",
+   "role": "Marketing Lead",
+   "dept": "Marketing",
+   "city": "Chennai",
+   "laptop": "LT-0011",
+   "ip": "10.20.0.20"
+  },
+  {
+   "user": "ashwin.menon",
+   "name": "Ashwin Menon",
+   "role": "Marketing Lead",
+   "dept": "Marketing",
+   "city": "Bengaluru",
+   "laptop": "LT-0012",
+   "ip": "10.20.0.21"
+  },
+  {
+   "user": "nandini.das",
+   "name": "Nandini Das",
+   "role": "Finance Analyst",
+   "dept": "Finance",
+   "city": "Mumbai",
+   "laptop": "LT-0013",
+   "ip": "10.20.0.22"
+  },
+  {
+   "user": "amit.naidu",
+   "name": "Amit Naidu",
+   "role": "Operations Manager",
+   "dept": "Operations",
+   "city": "Hyderabad",
+   "laptop": "LT-0014",
+   "ip": "10.20.0.23"
+  },
+  {
+   "user": "priya.menon",
+   "name": "Priya Menon",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Delhi",
+   "laptop": "LT-0015",
+   "ip": "10.20.0.24"
+  },
+  {
+   "user": "nandini.joshi",
+   "name": "Nandini Joshi",
+   "role": "Legal Counsel",
+   "dept": "Legal",
+   "city": "Bengaluru",
+   "laptop": "LT-0016",
+   "ip": "10.20.0.25"
+  },
+  {
+   "user": "arjun.naidu",
+   "name": "Arjun Naidu",
+   "role": "Sales Executive",
+   "dept": "Sales",
+   "city": "Pune",
+   "laptop": "LT-0017",
+   "ip": "10.20.0.26"
+  },
+  {
+   "user": "suresh.shetty",
+   "name": "Suresh Shetty",
+   "role": "Legal Counsel",
+   "dept": "Legal",
+   "city": "Bengaluru",
+   "laptop": "LT-0018",
+   "ip": "10.20.0.27"
+  },
+  {
+   "user": "pooja.nair",
+   "name": "Pooja Nair",
+   "role": "Sales Executive",
+   "dept": "Sales",
+   "city": "Delhi",
+   "laptop": "LT-0019",
+   "ip": "10.20.0.28"
+  },
+  {
+   "user": "divya.patel",
+   "name": "Divya Patel",
+   "role": "Legal Counsel",
+   "dept": "Legal",
+   "city": "Bengaluru",
+   "laptop": "LT-0020",
+   "ip": "10.20.0.29"
+  },
+  {
+   "user": "deepa.shetty",
+   "name": "Deepa Shetty",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Delhi",
+   "laptop": "LT-0021",
+   "ip": "10.20.0.30"
+  },
+  {
+   "user": "karthik.das",
+   "name": "Karthik Das",
+   "role": "Sales Executive",
+   "dept": "Sales",
+   "city": "Bengaluru",
+   "laptop": "LT-0022",
+   "ip": "10.20.0.31"
+  },
+  {
+   "user": "varun.verma",
+   "name": "Varun Verma",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Bengaluru",
+   "laptop": "LT-0023",
+   "ip": "10.20.0.32"
+  },
+  {
+   "user": "ritu.reddy",
+   "name": "Ritu Reddy",
+   "role": "Finance Analyst",
+   "dept": "Finance",
+   "city": "Chennai",
+   "laptop": "LT-0024",
+   "ip": "10.20.0.33"
+  },
+  {
+   "user": "rohan.nair",
+   "name": "Rohan Nair",
+   "role": "Operations Manager",
+   "dept": "Operations",
+   "city": "Hyderabad",
+   "laptop": "LT-0025",
+   "ip": "10.20.0.34"
+  },
+  {
+   "user": "rohan.reddy",
+   "name": "Rohan Reddy",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Chennai",
+   "laptop": "LT-0026",
+   "ip": "10.20.0.35"
+  },
+  {
+   "user": "farhan.pillai",
+   "name": "Farhan Pillai",
+   "role": "Operations Manager",
+   "dept": "Operations",
+   "city": "Pune",
+   "laptop": "LT-0027",
+   "ip": "10.20.0.36"
+  },
+  {
+   "user": "kavya.joshi",
+   "name": "Kavya Joshi",
+   "role": "Customer Support",
+   "dept": "Support",
+   "city": "Delhi",
+   "laptop": "LT-0028",
+   "ip": "10.20.0.37"
+  },
+  {
+   "user": "kavya.mehta",
+   "name": "Kavya Mehta",
+   "role": "Finance Analyst",
+   "dept": "Finance",
+   "city": "Hyderabad",
+   "laptop": "LT-0029",
+   "ip": "10.20.0.38"
+  },
+  {
+   "user": "suresh.bose",
+   "name": "Suresh Bose",
+   "role": "Finance Analyst",
+   "dept": "Finance",
+   "city": "Delhi",
+   "laptop": "LT-0030",
+   "ip": "10.20.0.39"
+  },
+  {
+   "user": "ananya.menon",
+   "name": "Ananya Menon",
+   "role": "Sales Executive",
+   "dept": "Sales",
+   "city": "Bengaluru",
+   "laptop": "LT-0031",
+   "ip": "10.20.0.40"
+  },
+  {
+   "user": "kiran.kumar",
+   "name": "Kiran Kumar",
+   "role": "Operations Manager",
+   "dept": "Operations",
+   "city": "Pune",
+   "laptop": "LT-0032",
+   "ip": "10.20.0.41"
+  },
+  {
+   "user": "kiran.singh",
+   "name": "Kiran Singh",
+   "role": "Customer Support",
+   "dept": "Support",
+   "city": "Pune",
+   "laptop": "LT-0033",
+   "ip": "10.20.0.42"
+  },
+  {
+   "user": "kavya.pillai",
+   "name": "Kavya Pillai",
+   "role": "Legal Counsel",
+   "dept": "Legal",
+   "city": "Bengaluru",
+   "laptop": "LT-0034",
+   "ip": "10.20.0.43"
+  },
+  {
+   "user": "isha.menon",
+   "name": "Isha Menon",
+   "role": "Software Engineer",
+   "dept": "Engineering",
+   "city": "Hyderabad",
+   "laptop": "LT-0035",
+   "ip": "10.20.0.44"
+  },
+  {
+   "user": "varun.khan",
+   "name": "Varun Khan",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Hyderabad",
+   "laptop": "LT-0036",
+   "ip": "10.20.0.45"
+  },
+  {
+   "user": "anjali.singh",
+   "name": "Anjali Singh",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Hyderabad",
+   "laptop": "LT-0037",
+   "ip": "10.20.0.46"
+  },
+  {
+   "user": "kavya.bose",
+   "name": "Kavya Bose",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Chennai",
+   "laptop": "LT-0038",
+   "ip": "10.20.0.47"
+  },
+  {
+   "user": "shreya.joshi",
+   "name": "Shreya Joshi",
+   "role": "Operations Manager",
+   "dept": "Operations",
+   "city": "Pune",
+   "laptop": "LT-0039",
+   "ip": "10.20.0.48"
+  },
+  {
+   "user": "bhavna.mehta",
+   "name": "Bhavna Mehta",
+   "role": "Finance Analyst",
+   "dept": "Finance",
+   "city": "Bengaluru",
+   "laptop": "LT-0040",
+   "ip": "10.20.0.49"
+  },
+  {
+   "user": "kavya.reddy",
+   "name": "Kavya Reddy",
+   "role": "Software Engineer",
+   "dept": "Engineering",
+   "city": "Chennai",
+   "laptop": "LT-0041",
+   "ip": "10.20.0.50"
+  },
+  {
+   "user": "manoj.menon",
+   "name": "Manoj Menon",
+   "role": "Legal Counsel",
+   "dept": "Legal",
+   "city": "Bengaluru",
+   "laptop": "LT-0042",
+   "ip": "10.20.0.51"
+  },
+  {
+   "user": "farhan.mehta",
+   "name": "Farhan Mehta",
+   "role": "Operations Manager",
+   "dept": "Operations",
+   "city": "Hyderabad",
+   "laptop": "LT-0043",
+   "ip": "10.20.0.52"
+  },
+  {
+   "user": "kiran.joshi",
+   "name": "Kiran Joshi",
+   "role": "Operations Manager",
+   "dept": "Operations",
+   "city": "Mumbai",
+   "laptop": "LT-0044",
+   "ip": "10.20.0.53"
+  },
+  {
+   "user": "amit.pillai",
+   "name": "Amit Pillai",
+   "role": "Software Engineer",
+   "dept": "Engineering",
+   "city": "Chennai",
+   "laptop": "LT-0045",
+   "ip": "10.20.0.54"
+  },
+  {
+   "user": "sanjay.nair",
+   "name": "Sanjay Nair",
+   "role": "Legal Counsel",
+   "dept": "Legal",
+   "city": "Bengaluru",
+   "laptop": "LT-0046",
+   "ip": "10.20.0.55"
+  },
+  {
+   "user": "lakshmi.iyer",
+   "name": "Lakshmi Iyer",
+   "role": "Sales Executive",
+   "dept": "Sales",
+   "city": "Mumbai",
+   "laptop": "LT-0047",
+   "ip": "10.20.0.56"
+  },
+  {
+   "user": "sneha.joshi",
+   "name": "Sneha Joshi",
+   "role": "Sales Executive",
+   "dept": "Sales",
+   "city": "Bengaluru",
+   "laptop": "LT-0048",
+   "ip": "10.20.0.57"
+  },
+  {
+   "user": "naveen.reddy",
+   "name": "Naveen Reddy",
+   "role": "Finance Analyst",
+   "dept": "Finance",
+   "city": "Chennai",
+   "laptop": "LT-0049",
+   "ip": "10.20.0.58"
+  },
+  {
+   "user": "lakshmi.bose",
+   "name": "Lakshmi Bose",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Mumbai",
+   "laptop": "LT-0050",
+   "ip": "10.20.0.59"
+  },
+  {
+   "user": "ananya.shetty",
+   "name": "Ananya Shetty",
+   "role": "Software Engineer",
+   "dept": "Engineering",
+   "city": "Chennai",
+   "laptop": "LT-0051",
+   "ip": "10.20.0.60"
+  },
+  {
+   "user": "rohan.khan",
+   "name": "Rohan Khan",
+   "role": "Sales Executive",
+   "dept": "Sales",
+   "city": "Mumbai",
+   "laptop": "LT-0052",
+   "ip": "10.20.0.61"
+  },
+  {
+   "user": "bhavna.kumar",
+   "name": "Bhavna Kumar",
+   "role": "Software Engineer",
+   "dept": "Engineering",
+   "city": "Pune",
+   "laptop": "LT-0053",
+   "ip": "10.20.0.62"
+  },
+  {
+   "user": "deepa.sharma",
+   "name": "Deepa Sharma",
+   "role": "Operations Manager",
+   "dept": "Operations",
+   "city": "Delhi",
+   "laptop": "LT-0054",
+   "ip": "10.20.0.63"
+  },
+  {
+   "user": "kiran.bose",
+   "name": "Kiran Bose",
+   "role": "Software Engineer",
+   "dept": "Engineering",
+   "city": "Hyderabad",
+   "laptop": "LT-0055",
+   "ip": "10.20.0.64"
+  },
+  {
+   "user": "deepa.joshi",
+   "name": "Deepa Joshi",
+   "role": "Finance Analyst",
+   "dept": "Finance",
+   "city": "Pune",
+   "laptop": "LT-0056",
+   "ip": "10.20.0.65"
+  },
+  {
+   "user": "ashwin.bose",
+   "name": "Ashwin Bose",
+   "role": "HR Manager",
+   "dept": "HR",
+   "city": "Chennai",
+   "laptop": "LT-0057",
+   "ip": "10.20.0.66"
+  },
+  {
+   "user": "leena.singh",
+   "name": "Leena Singh",
+   "role": "Finance Analyst",
+   "dept": "Finance",
+   "city": "Chennai",
+   "laptop": "LT-0058",
+   "ip": "10.20.0.67"
+  },
+  {
+   "user": "lakshmi.reddy",
+   "name": "Lakshmi Reddy",
+   "role": "Legal Counsel",
+   "dept": "Legal",
+   "city": "Mumbai",
+   "laptop": "LT-0059",
+   "ip": "10.20.0.68"
+  },
+  {
+   "user": "meera.singh",
+   "name": "Meera Singh",
+   "role": "Legal Counsel",
+   "dept": "Legal",
+   "city": "Pune",
+   "laptop": "LT-0060",
+   "ip": "10.20.0.69"
+  }
+ ],
+ "servers": {
+  "backup-srv-01": "10.0.5.10",
+  "backup-srv-02": "10.0.5.11",
+  "vpn-gw-01": "10.0.2.12",
+  "db-prod-01": "10.0.3.13",
+  "db-prod-02": "10.0.3.14",
+  "file-srv-01": "10.0.4.15",
+  "file-srv-02": "10.0.4.16",
+  "web-prod-01": "10.0.6.17",
+  "web-prod-02": "10.0.6.18",
+  "ad-dc-01": "10.0.1.19",
+  "ad-dc-02": "10.0.1.20",
+  "mail-gw-01": "10.0.2.21",
+  "scan-srv-01": "10.0.7.22",
+  "hr-app-01": "10.0.8.23",
+  "build-srv-01": "10.0.9.24"
+ },
+ "analysts": [
+  {
+   "id": "A01",
+   "name": "Priya Nair",
+   "favored": [
+    "foreign_login",
+    "two_country_login"
+   ]
+  },
+  {
+   "id": "A02",
+   "name": "Rahul Menon",
+   "favored": [
+    "big_transfer",
+    "public_storage",
+    "mass_download"
+   ]
+  },
+  {
+   "id": "A03",
+   "name": "Ananya Iyer",
+   "favored": [
+    "failed_logins",
+    "new_admin_account"
+   ]
+  },
+  {
+   "id": "A04",
+   "name": "Karthik Rao",
+   "favored": [
+    "admin_powershell",
+    "port_scan"
+   ]
+  },
+  {
+   "id": "A05",
+   "name": "Divya Shetty",
+   "favored": [
+    "email_forwarding",
+    "foreign_login"
+   ]
+  },
+  {
+   "id": "A06",
+   "name": "Imran Khan",
+   "favored": [
+    "two_country_login",
+    "mass_download",
+    "port_scan"
+   ]
+  }
+ ],
+ "shifts": "Weekly rota: day 06-14, evening 14-22, night 22-06, 2 analysts each",
+ "scheduled_jobs": [
+  {
+   "id": "BK-NIGHTLY-01",
+   "desc": "db-prod-01 -> backup-srv-02 nightly 02:00, ~420-530 GB"
+  },
+  {
+   "id": "BK-NIGHTLY-02",
+   "desc": "file-srv-01 -> backup-srv-01 nightly 03:00, ~180-260 GB"
+  },
+  {
+   "id": "VS-WEEKLY-01",
+   "desc": "scan-srv-01 weekly vulnerability scan, Sunday 01:00-03:00"
+  },
+  {
+   "id": "PATCH-TUE",
+   "desc": "IT patch window, Tuesday night"
+  }
+ ],
+ "travel_calendar": [
+  {
+   "user": "meera.singh",
+   "city": "Dubai",
+   "country": "AE",
+   "start": 10,
+   "end": 13,
+   "purpose": "customer onboarding"
+  },
+  {
+   "user": "naveen.reddy",
+   "city": "Singapore",
+   "country": "SG",
+   "start": 1,
+   "end": 4,
+   "purpose": "client visit"
+  },
+  {
+   "user": "ritu.reddy",
+   "city": "Frankfurt",
+   "country": "DE",
+   "start": 10,
+   "end": 15,
+   "purpose": "customer onboarding"
+  },
+  {
+   "user": "farhan.mehta",
+   "city": "Frankfurt",
+   "country": "DE",
+   "start": 12,
+   "end": 16,
+   "purpose": "client visit"
+  },
+  {
+   "user": "kavya.pillai",
+   "city": "Dubai",
+   "country": "AE",
+   "start": 2,
+   "end": 6,
+   "purpose": "vendor audit"
+  },
+  {
+   "user": "kavya.bose",
+   "city": "Frankfurt",
+   "country": "DE",
+   "start": 4,
+   "end": 6,
+   "purpose": "conference"
+  },
+  {
+   "user": "kiran.bose",
+   "city": "London",
+   "country": "GB",
+   "start": 24,
+   "end": 30,
+   "purpose": "conference"
+  },
+  {
+   "user": "kavya.mehta",
+   "city": "Frankfurt",
+   "country": "DE",
+   "start": 17,
+   "end": 19,
+   "purpose": "customer onboarding"
+  },
+  {
+   "user": "lakshmi.iyer",
+   "city": "Dubai",
+   "country": "AE",
+   "start": 18,
+   "end": 21,
+   "purpose": "vendor audit"
+  },
+  {
+   "user": "anjali.singh",
+   "city": "Dubai",
+   "country": "AE",
+   "start": 24,
+   "end": 26,
+   "purpose": "client visit"
+  },
+  {
+   "user": "bhavna.kumar",
+   "city": "Dubai",
+   "country": "AE",
+   "start": 15,
+   "end": 19,
+   "purpose": "customer onboarding"
+  },
+  {
+   "user": "sanjay.nair",
+   "city": "New York",
+   "country": "US",
+   "start": 16,
+   "end": 20,
+   "purpose": "team offsite"
+  }
+ ]
+}
