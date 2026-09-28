@@ -802,6 +802,7 @@ def reason_with_llm(
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt},
                     ],
+                    max_tokens=600,
                     temperature=0.0,
                 )
                 raw_content = response.choices[0].message.content or ""
