@@ -18,6 +18,8 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 import groq
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from hindsight_client import Hindsight
 from pydantic import BaseModel, Field
 
@@ -986,7 +988,7 @@ def get_incident_summary(alert_id: str) -> Dict[str, Any]:
 @app.post("/api/analyze/{alert_id}")
 def analyze_alert_endpoint(
     alert_id: str,
-    mode: str = Query("memory", regex="^(memory|nomemory)$"),
+    mode: str = Query("memory", pattern="^(memory|nomemory)$"),
     bypass_cache: bool = Query(False),
     allow_cached_fallback: bool = Query(True),
     cached_only: bool = Query(False),
@@ -1446,7 +1448,7 @@ def chat_investigation(alert_id: str, req: InvestigationChatRequest) -> Dict[str
     Alert-specific Hindy investigation chat endpoint.
     Grounded exclusively on:
     1. Current alert telemetry and environment context.
-    2. Hindy memory analysis, reasoning pathway, and retrieved historical precedents.
+    2. Hindy memory analysis, reasoning pathway, and retrieved historical precedents from Hindsight.
     3. Rejects off-topic inquiries with a polite refocus notice.
     4. Explicitly avoids hallucination when data is absent.
     """
@@ -1474,15 +1476,15 @@ def chat_investigation(alert_id: str, req: InvestigationChatRequest) -> Dict[str
     if not groq_key:
         raise HTTPException(status_code=503, detail="Groq API key not configured in .env.")
 
-    # Auto-generate analysis if not present in cache
+    # Auto-generate analysis if not present in cache using Hindsight memory bank
     if not memory_analysis:
         try:
             h_key, bank_id, h_url, _ = load_env_config()
             if h_key and bank_id:
                 agent = SOCMemoryAgent(
                     hindsight_api_key=h_key,
-                    hindsight_bank_id=bank_id,
-                    hindsight_base_url=h_url,
+                    bank_id=bank_id,
+                    hindsight_url=h_url,
                     groq_api_key=groq_key,
                 )
                 memory_analysis = agent.analyze_alert(alert_id)
@@ -1598,6 +1600,50 @@ def chat_investigation(alert_id: str, req: InvestigationChatRequest) -> Dict[str
         )
     finally:
         client.close()
+
+
+
+
+# ---------------------------------------------------------------------------
+# Production Frontend Serving
+# ---------------------------------------------------------------------------
+# Serves the built React frontend from frontend/dist/.
+# - /assets/* → hashed JS/CSS bundles (immutable, cache-friendly)
+# - Any non-API path → index.html (SPA client-side routing)
+# This block MUST remain after all /api/* route definitions.
+# ---------------------------------------------------------------------------
+
+FRONTEND_DIST = WORKSPACE_ROOT / "frontend" / "dist"
+
+if FRONTEND_DIST.is_dir():
+    # Mount hashed static assets (JS, CSS, images) with caching
+    app.mount(
+        "/assets",
+        StaticFiles(directory=str(FRONTEND_DIST / "assets")),
+        name="frontend-assets",
+    )
+
+    @app.get("/favicon.svg")
+    def serve_favicon() -> FileResponse:
+        favicon = FRONTEND_DIST / "favicon.svg"
+        if favicon.exists():
+            return FileResponse(str(favicon), media_type="image/svg+xml")
+        raise HTTPException(status_code=404)
+
+    @app.get("/{full_path:path}")
+    def serve_spa(full_path: str) -> FileResponse:
+        """Catch-all: serve index.html for SPA client-side routing."""
+        # Try to serve a static file first (e.g. public assets in dist root)
+        candidate = FRONTEND_DIST / full_path
+        if full_path and candidate.is_file():
+            return FileResponse(str(candidate))
+        # Fall back to index.html for client-side routing
+        return FileResponse(str(FRONTEND_DIST / "index.html"))
+else:
+    logger.warning(
+        f"Frontend build not found at {FRONTEND_DIST}. "
+        "Run 'npm run build' in frontend/ to enable production serving."
+    )
 
 
 if __name__ == "__main__":

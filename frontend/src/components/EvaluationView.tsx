@@ -21,7 +21,7 @@ import {
   Cpu
 } from 'lucide-react';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = '';
 
 export const EvaluationView: React.FC = () => {
   const [selectedVersion, setSelectedVersion] = useState<'v2' | 'v1'>('v2');

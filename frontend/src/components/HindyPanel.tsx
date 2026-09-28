@@ -31,7 +31,7 @@ export const HindyPanel: React.FC<HindyPanelProps> = ({
     setChecksError(null);
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/checks/${alertId}${cachedOnly ? '?cached_only=true' : ''}`, {
+      const res = await fetch(`/api/checks/${alertId}${cachedOnly ? '?cached_only=true' : ''}`, {
         method: 'POST',
       });
       if (!res.ok) {

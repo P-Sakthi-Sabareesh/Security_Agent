@@ -86,7 +86,7 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
     // If analysis is RED and belongs to the currently selected alert, fetch suggested checks
     if (alertId && memoryAnalysis && memoryAnalysis.alert_id === alertId && memoryAnalysis.state === 'red') {
       setLoadingRedChecks(true);
-      fetch(`http://127.0.0.1:8000/api/checks/${alertId}${cachedOnly ? '?cached_only=true' : ''}`, { method: 'POST' })
+      fetch(`/api/checks/${alertId}${cachedOnly ? '?cached_only=true' : ''}`, { method: 'POST' })
         .then(async (res) => {
           if (!res.ok) {
             // Handle 409 (not yet analyzed in cache) or error gracefully

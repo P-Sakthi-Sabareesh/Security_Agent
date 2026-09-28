@@ -49,6 +49,13 @@ export const FloatingHindyChat: React.FC<FloatingHindyChatProps> = ({
     setInputMessage('');
   }, [alertId]);
 
+  const quickQuestions = [
+    'Why did you reach this assessment?',
+    'What makes this different from past cases?',
+    'What should I check next?',
+    'Could this activity be legitimate?',
+  ];
+
   // Auto-scroll chat to bottom
   useEffect(() => {
     if (isOpen) {
@@ -82,7 +89,7 @@ export const FloatingHindyChat: React.FC<FloatingHindyChatProps> = ({
     setChatError(null);
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/chat/${alertId}`, {
+      const response = await fetch(`/api/chat/${alertId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -118,13 +125,6 @@ export const FloatingHindyChat: React.FC<FloatingHindyChatProps> = ({
       setIsSending(false);
     }
   };
-
-  const quickQuestions = [
-    'Why did you reach this assessment?',
-    'What makes this different from past cases?',
-    'What should I check next?',
-    'Could this activity be legitimate?',
-  ];
 
   return (
     <>

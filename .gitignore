@@ -1,8 +1,9 @@
 # Dependencies
 node_modules/
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
+*.so
 *.pyd
 
 # Environment variables & secrets
@@ -14,6 +15,7 @@ __pycache__/
 dist/
 build/
 .vite/
+*.egg-info/
 
 # Python virtual environment
 .venv/
@@ -21,7 +23,29 @@ env/
 venv/
 ENV/
 
+# Temporary and cache files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & Editor configurations
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
 # Logs and runtime data
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS artifacts
 .DS_Store
 Thumbs.db
+desktop.ini

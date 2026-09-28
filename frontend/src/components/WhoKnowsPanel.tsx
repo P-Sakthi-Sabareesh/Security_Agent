@@ -3,7 +3,7 @@ import { Users } from 'lucide-react';
 import type { AlertDetail, WhoKnowsResponse } from '../types';
 
 interface WhoKnowsPanelProps { alert: AlertDetail; }
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = '';
 
 export const WhoKnowsPanel: React.FC<WhoKnowsPanelProps> = ({ alert }) => {
   const [data, setData] = useState<WhoKnowsResponse | null>(null);

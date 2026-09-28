@@ -3,7 +3,7 @@ import { Clipboard, FileText } from 'lucide-react';
 import type { AnalysisResult, AlertDetail, IncidentSummaryResponse } from '../types';
 
 interface IncidentSummaryPanelProps { alert: AlertDetail; analysis: AnalysisResult; cachedOnly: boolean; }
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = '';
 
 export const IncidentSummaryPanel: React.FC<IncidentSummaryPanelProps> = ({ alert, analysis, cachedOnly }) => {
   const [summary, setSummary] = useState<string | null>(null);

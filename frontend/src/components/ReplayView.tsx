@@ -27,7 +27,7 @@ interface ReplayViewProps {
   onNavigateToMemory?: (memoryId?: string) => void;
 }
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = '';
 
 const REPLAY_STEPS = [
   { id: 1, title: 'Alert Observed', icon: ShieldAlert, short: 'Alert' },

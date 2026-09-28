@@ -11,7 +11,7 @@ import { ReplayView } from './components/ReplayView';
 import { EvaluationView } from './components/EvaluationView';
 import { SettingsView } from './components/SettingsView';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = '';
 
 export function App() {
   // Session State

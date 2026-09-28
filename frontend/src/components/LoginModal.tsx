@@ -17,7 +17,7 @@ import {
 import type { HealthStatus, UserProfile } from '../types';
 import hindyRobotBase from '../assets/hindy_robot_base.png';
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = '';
 
 interface LoginModalProps {
   onLogin: (user: UserProfile, token: string) => void;
