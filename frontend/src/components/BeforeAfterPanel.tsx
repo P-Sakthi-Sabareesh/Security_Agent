@@ -3,11 +3,13 @@ import type { AnalysisResult } from '../types';
 import { GitCompare, Sparkles, Info } from 'lucide-react';
 
 interface BeforeAfterPanelProps {
+  secondAlertId: string;
   beforeAnalysis: AnalysisResult | null;
   afterAnalysis: AnalysisResult | null;
 }
 
 export const BeforeAfterPanel: React.FC<BeforeAfterPanelProps> = ({
+  secondAlertId,
   beforeAnalysis,
   afterAnalysis,
 }) => {
@@ -81,7 +83,7 @@ export const BeforeAfterPanel: React.FC<BeforeAfterPanelProps> = ({
           </div>
         </div>
         <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800/60">
-          ALRT-00687 Evaluation
+          {secondAlertId} Evaluation
         </span>
       </div>
 

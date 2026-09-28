@@ -8,6 +8,7 @@ interface HindyPanelProps {
   hasAnalysis: boolean;
   analysis: AnalysisResult | null;
   onAction: (action: 'reasoning' | 'differences' | 'previous') => void;
+  cachedOnly: boolean;
 }
 
 export const HindyPanel: React.FC<HindyPanelProps> = ({
@@ -15,6 +16,7 @@ export const HindyPanel: React.FC<HindyPanelProps> = ({
   hasAnalysis,
   analysis,
   onAction,
+  cachedOnly,
 }) => {
   const [checksData, setChecksData] = useState<SuggestedChecksResponse | null>(null);
   const [loadingChecks, setLoadingChecks] = useState(false);
@@ -29,7 +31,7 @@ export const HindyPanel: React.FC<HindyPanelProps> = ({
     setChecksError(null);
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/checks/${alertId}`, {
+      const res = await fetch(`http://127.0.0.1:8000/api/checks/${alertId}${cachedOnly ? '?cached_only=true' : ''}`, {
         method: 'POST',
       });
       if (!res.ok) {
@@ -95,7 +97,7 @@ export const HindyPanel: React.FC<HindyPanelProps> = ({
         {loadingChecks && (
           <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-[11px] text-slate-400 flex items-center space-x-2">
             <div className="w-3.5 h-3.5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin flex-shrink-0" />
-            <span>Analyzing alert signals for suggested checks...</span>
+              <span>{cachedOnly ? 'Loading recorded suggested checks...' : 'Analyzing alert signals for suggested checks...'}</span>
           </div>
         )}
 

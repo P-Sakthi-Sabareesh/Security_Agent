@@ -9,6 +9,7 @@ interface AnalystDecisionFormProps {
   isFirstLearningPair: boolean;
   onDecisionSuccess: (resp: DecisionResponse) => void;
   onNavigateNextSimilar?: () => void;
+  cachedOnly: boolean;
 }
 
 export const AnalystDecisionForm: React.FC<AnalystDecisionFormProps> = ({
@@ -18,6 +19,7 @@ export const AnalystDecisionForm: React.FC<AnalystDecisionFormProps> = ({
   isFirstLearningPair,
   onDecisionSuccess,
   onNavigateNextSimilar,
+  cachedOnly,
 }) => {
   const [decision, setDecision] = useState<'Confirmed malicious' | 'Confirmed benign'>('Confirmed benign');
   const [reason, setReason] = useState('');
@@ -27,14 +29,11 @@ export const AnalystDecisionForm: React.FC<AnalystDecisionFormProps> = ({
 
   const isGreen = analysis?.state === 'green';
 
-  // Pre-fill reason with editable demo-appropriate text if Green or if first learning pair
+  // GREEN alerts receive an editable quick-confirm rationale; all other decisions start blank.
   useEffect(() => {
     if (isGreen) {
       setDecision('Confirmed benign');
       setReason('Confirmed routine benign activity matching established baseline; verified with standard operational patterns.');
-    } else if (alert.alert_id === 'ALRT-00602') {
-      setDecision('Confirmed benign');
-      setReason('Verified user deepa.joshi had a temporary password typo; subsequent sign-in succeeded from the same recognized internal device.');
     } else {
       setReason('');
     }
@@ -104,6 +103,12 @@ export const AnalystDecisionForm: React.FC<AnalystDecisionFormProps> = ({
           </span>
         )}
       </div>
+
+      {cachedOnly && (
+        <div className="p-2.5 rounded border border-cyan-800 bg-cyan-950/40 text-cyan-200 text-xs">
+          Cached-only demo mode cannot retain analyst decisions.
+        </div>
+      )}
 
       {/* Success Banner / Memory Evolved State */}
       {successData ? (
@@ -226,7 +231,7 @@ export const AnalystDecisionForm: React.FC<AnalystDecisionFormProps> = ({
 
           <button
             type="submit"
-            disabled={loading || reason.trim().length < 10}
+            disabled={cachedOnly || loading || reason.trim().length < 10}
             className="w-full py-2.5 px-4 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-cyan-950/50 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center space-x-2"
           >
             {loading ? (

@@ -8,6 +8,8 @@ interface TopBarProps {
   onResetDemo: () => Promise<void>;
   isResetting: boolean;
   resetNotification: string | null;
+  demoMode: boolean;
+  onDemoModeChange: (enabled: boolean) => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -16,11 +18,13 @@ export const TopBar: React.FC<TopBarProps> = ({
   onResetDemo,
   isResetting,
   resetNotification,
+  demoMode,
+  onDemoModeChange,
 }) => {
   const isOnline = health?.memory_core_online === true;
 
   return (
-    <header className="h-16 bg-[#0B0F17]/90 border-b border-slate-800/80 px-6 flex items-center justify-between backdrop-blur-md flex-shrink-0 z-10 select-none">
+    <header className="min-h-16 bg-[#0B0F17]/90 border-b border-slate-800/80 px-4 md:px-6 py-2 flex flex-wrap items-center justify-between gap-3 backdrop-blur-md flex-shrink-0 z-10 select-none">
       {/* Title / Context */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2 text-sm font-semibold text-slate-200">
@@ -33,6 +37,11 @@ export const TopBar: React.FC<TopBarProps> = ({
 
       {/* Right Side: Status & Analyst profile & Reset Action */}
       <div className="flex items-center gap-4">
+        <label className="flex items-center gap-2 text-xs text-slate-300 whitespace-nowrap">
+          <input type="checkbox" checked={demoMode} onChange={(event) => onDemoModeChange(event.target.checked)} className="accent-cyan-500" />
+          <span>Demo mode: cached only</span>
+        </label>
+        {demoMode && <span className="px-2 py-1 rounded border border-cyan-700/60 bg-cyan-950/50 text-[10px] font-mono text-cyan-300">CACHED</span>}
         {/* Reset Notification Toast */}
         {resetNotification && (
           <div className="flex items-center space-x-1.5 px-3 py-1 rounded-md bg-emerald-950/80 border border-emerald-500/60 text-emerald-300 text-xs animate-in fade-in duration-150">

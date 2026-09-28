@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { AlertSummary, AlertDetail, AnalysisResult, HealthStatus, DecisionResponse, DemoPair } from './types';
+import type { AlertSummary, AlertDetail, AnalysisResult, HealthStatus, DecisionResponse, DemoPair, ReplayEntry } from './types';
 import { LoginModal } from './components/LoginModal';
 import { Sidebar, type NavTab } from './components/Sidebar';
 import { TopBar } from './components/TopBar';
@@ -7,6 +7,8 @@ import { AlertQueue } from './components/AlertQueue';
 import { InvestigationView } from './components/InvestigationView';
 import { HindyPanel } from './components/HindyPanel';
 import { PlaceholderView } from './components/PlaceholderView';
+import { ReplayView } from './components/ReplayView';
+import { EvaluationView } from './components/EvaluationView';
 
 const API_BASE = 'http://127.0.0.1:8000';
 
@@ -19,6 +21,7 @@ export function App() {
   const [health, setHealth] = useState<HealthStatus | null>(null);
   const [isResetting, setIsResetting] = useState(false);
   const [resetNotification, setResetNotification] = useState<string | null>(null);
+  const [demoMode, setDemoMode] = useState(() => window.localStorage.getItem('hindy-demo-mode') === 'true');
 
   // Demo Pair
   const [demoPair, setDemoPair] = useState<DemoPair | null>(null);
@@ -38,9 +41,11 @@ export function App() {
   const [loadingAnalysis, setLoadingAnalysis] = useState(false);
   const [loadingNoMemory, setLoadingNoMemory] = useState(false);
   const [showNoMemory, setShowNoMemory] = useState(false);
+  const [pendingReplayAnalysis, setPendingReplayAnalysis] = useState<AnalysisResult | null>(null);
 
   // Learning Pair Specific Baseline Analysis for ALRT-00687
   const [beforeLearningAnalysis, setBeforeLearningAnalysis] = useState<AnalysisResult | null>(null);
+  const [learningRecallStatus, setLearningRecallStatus] = useState<'waiting' | 'indexed' | 'timeout' | null>(null);
 
   // Highlighted section in InvestigationView
   const [highlightedSection, setHighlightedSection] = useState<string | null>(null);
@@ -66,6 +71,8 @@ export function App() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => { window.localStorage.setItem('hindy-demo-mode', String(demoMode)); }, [demoMode]);
+
   // Fetch Demo Pair metadata
   useEffect(() => {
     fetch(`${API_BASE}/api/demo-pair`)
@@ -73,6 +80,31 @@ export function App() {
       .then((data: DemoPair) => setDemoPair(data))
       .catch(() => setDemoPair(null));
   }, []);
+
+  // Capture the real second-alert baseline before any live decision is retained.
+  useEffect(() => {
+    const firstId = demoPair?.first_alert_id;
+    const secondId = demoPair?.second_alert_id;
+    if (!firstId || !secondId || selectedAlertId !== firstId || beforeLearningAnalysis) return;
+
+    let cancelled = false;
+    const captureBaseline = async () => {
+      try {
+        const res = await fetch(
+          `${API_BASE}/api/analyze/${secondId}?mode=memory&bypass_cache=true&allow_cached_fallback=false${demoMode ? '&cached_only=true' : ''}`,
+          { method: 'POST' },
+        );
+        if (!res.ok) return;
+        const result: AnalysisResult = await res.json();
+        if (!cancelled) setBeforeLearningAnalysis(result);
+      } catch (err) {
+        console.warn('Unable to capture the learning-pair baseline:', err);
+      }
+    };
+
+    captureBaseline();
+    return () => { cancelled = true; };
+  }, [beforeLearningAnalysis, demoMode, demoPair, selectedAlertId]);
 
   // Fetch alerts when logged in
   const fetchAlerts = async () => {
@@ -102,7 +134,7 @@ export function App() {
 
     const fetchDetail = async () => {
       setLoadingAlertDetail(true);
-      setMemoryAnalysis(null);
+      setMemoryAnalysis(pendingReplayAnalysis?.alert_id === selectedAlertId ? pendingReplayAnalysis : null);
       setNoMemoryAnalysis(null);
       setShowNoMemory(false);
 
@@ -120,7 +152,7 @@ export function App() {
     };
 
     fetchDetail();
-  }, [selectedAlertId]);
+  }, [pendingReplayAnalysis, selectedAlertId]);
 
   // Handler: Analyze with Hindy
   const handleAnalyze = async (bypassCache: boolean = false) => {
@@ -128,7 +160,7 @@ export function App() {
     setLoadingAnalysis(true);
 
     try {
-      const url = `${API_BASE}/api/analyze/${selectedAlertId}?mode=memory${bypassCache ? '&bypass_cache=true' : ''}`;
+      const url = `${API_BASE}/api/analyze/${selectedAlertId}?mode=memory${bypassCache ? '&bypass_cache=true' : ''}${demoMode ? '&cached_only=true' : ''}`;
       const res = await fetch(url, { method: 'POST' });
 
       if (!res.ok) {
@@ -158,7 +190,7 @@ export function App() {
     if (enabled && !noMemoryAnalysis && selectedAlertId) {
       setLoadingNoMemory(true);
       try {
-        const res = await fetch(`${API_BASE}/api/analyze/${selectedAlertId}?mode=nomemory`, {
+        const res = await fetch(`${API_BASE}/api/analyze/${selectedAlertId}?mode=nomemory${demoMode ? '&cached_only=true' : ''}`, {
           method: 'POST',
         });
         if (res.ok) {
@@ -181,6 +213,7 @@ export function App() {
     setAlerts((prev) =>
       prev.map((a) => (a.id === selectedAlertId ? { ...a, is_decided: true } : a))
     );
+    setLearningRecallStatus(null);
   };
 
   // Handler: Escalate to Tier 2 (Demo UI status only)
@@ -195,9 +228,14 @@ export function App() {
     setIsResetting(true);
     setResetNotification(null);
     try {
-      await fetch(`${API_BASE}/api/reset-demo`, { method: 'POST' });
-      setResetNotification('Local demo memory reset.');
+      const res = await fetch(`${API_BASE}/api/reset-demo${demoMode ? '?cached_only=true' : ''}`, { method: 'POST' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) {
+        throw new Error(data.detail || data.message || 'Reset failed.');
+      }
+      setResetNotification(data.message || 'Local demo memory reset.');
       setBeforeLearningAnalysis(null);
+      setLearningRecallStatus(null);
       fetchAlerts();
 
       setTimeout(() => {
@@ -205,80 +243,37 @@ export function App() {
       }, 4000);
     } catch (err) {
       console.error('Reset demo error:', err);
-      setResetNotification('Reset failed.');
+      setResetNotification(err instanceof Error ? err.message : 'Reset failed.');
     } finally {
       setIsResetting(false);
     }
   };
 
-  // Handler: Navigate to next similar alert in learning pair (ALRT-00687)
+  // Analyze the second alert only after a live record was successfully retained.
   const handleNavigateNextSimilar = async () => {
-    const secondId = demoPair?.second_alert_id || 'ALRT-00687';
+    const firstId = demoPair?.first_alert_id;
+    const secondId = demoPair?.second_alert_id;
+    if (!firstId || !secondId) return;
 
-    // 1. Capture baseline for before panel if not already captured
-    if (!beforeLearningAnalysis) {
-      // Pre-learning baseline was state: yellow, best_match ALRT-00137
-      setBeforeLearningAnalysis({
-        alert_id: secondId,
-        memory_used: true,
-        state: 'yellow',
-        recommended_action: 'Perform manual verification',
-        reasons: ['Context differences detected with historical baseline ALRT-00137'],
-        explanation: 'Baseline investigation without live human override memory.',
-        safety_overrides: [],
-        recalled_cases: [],
-        best_match_id: 'ALRT-00137',
-        best_match: {
-          alert_id: 'ALRT-00137',
-          title: 'Multiple failed sign-in attempts',
-          category: 'CredentialAccess',
-          severity: 'Low',
-          host: 'LT-0037',
-          user: 'anjali.singh',
-          verdict: 'FalsePositive',
-          outcome: 'Closed - benign user behavior',
-          investigation_note: 'User typo in password.',
-          analyst: 'A03 Manoj Singh',
-          matches: ['single_account', 'source_country_normal', 'then_success'],
-          differences: [
-            { signal: 'user', past: 'anjali.singh', current: 'deepa.joshi', is_key_signal: false },
-            { signal: 'host', past: 'LT-0037', current: 'LT-0056', is_key_signal: false },
-          ],
-          key_difference_count: 0,
-          total_difference_count: 2,
-        },
-        llm_result: {
-          state: 'yellow',
-          reasons: ['Context differences detected with baseline'],
-          recalled_case_ids: ['ALRT-00137'],
-          recommended_action: 'Manual review',
-          explanation: 'Baseline investigation without live human override memory.',
-        },
-        models_tried: ['openai/gpt-oss-120b'],
-      });
-    }
-
-    // 2. Select ALRT-00687
     setSelectedAlertId(secondId);
-
-    // 3. Poll recall for live memory ALRT-00602-live (timeout 30s)
+    setLearningRecallStatus('waiting');
     setLoadingAnalysis(true);
     const startTime = Date.now();
-    let pollCount = 0;
+    const liveId = `${firstId}-live`;
 
-    const pollRecall = async () => {
-      pollCount++;
+    const pollRecall = async (): Promise<void> => {
       try {
-        const res = await fetch(`${API_BASE}/api/analyze/${secondId}?mode=memory&bypass_cache=true`, {
+        const res = await fetch(`${API_BASE}/api/analyze/${secondId}?mode=memory&bypass_cache=true&allow_cached_fallback=false${demoMode ? '&cached_only=true' : ''}`, {
           method: 'POST',
         });
         if (res.ok) {
           const result: AnalysisResult = await res.json();
-          const hasLiveRecall = result.recalled_cases?.some((c) => c.alert_id === 'ALRT-00602-live') ||
-                                result.best_match_id === 'ALRT-00602-live';
+          setMemoryAnalysis(result);
+          const hasLiveRecall = result.recalled_cases?.some((c) => c.alert_id === liveId) ||
+                                result.best_match_id === liveId;
 
-          if (hasLiveRecall || (Date.now() - startTime > 30000)) {
-            setMemoryAnalysis(result);
+          if (hasLiveRecall) {
+            setLearningRecallStatus('indexed');
             setLoadingAnalysis(false);
             return;
           }
@@ -290,11 +285,12 @@ export function App() {
       if (Date.now() - startTime < 30000) {
         setTimeout(pollRecall, 3000);
       } else {
+        setLearningRecallStatus('timeout');
         setLoadingAnalysis(false);
       }
     };
 
-    setTimeout(pollRecall, 1000);
+    setTimeout(pollRecall, 3000);
   };
 
   // Handler: Hindy Panel quick buttons
@@ -313,6 +309,12 @@ export function App() {
     setTimeout(() => {
       setHighlightedSection(null);
     }, 2500);
+  };
+
+  const handleOpenReplayAlert = (entry: ReplayEntry) => {
+    setPendingReplayAnalysis(entry.analysis);
+    setActiveNav('alerts');
+    setSelectedAlertId(entry.alert_id);
   };
 
   const currentAlertInQueue = alerts.find((a) => a.id === selectedAlertId);
@@ -347,6 +349,8 @@ export function App() {
           onResetDemo={handleResetDemo}
           isResetting={isResetting}
           resetNotification={resetNotification}
+          demoMode={demoMode}
+          onDemoModeChange={setDemoMode}
         />
 
         {/* Workspace Body */}
@@ -360,6 +364,7 @@ export function App() {
                   selectedAlertId={selectedAlertId}
                   onSelectAlert={setSelectedAlertId}
                   loading={loadingAlerts}
+                  learningPairIds={demoPair ? [demoPair.first_alert_id, demoPair.second_alert_id] : []}
                 />
               </div>
 
@@ -381,9 +386,12 @@ export function App() {
                   isFirstLearningPair={isFirstLearningPair}
                   isSecondLearningPair={isSecondLearningPair}
                   beforeLearningAnalysis={beforeLearningAnalysis}
+                  learningRecallStatus={learningRecallStatus}
                   onDecisionSuccess={handleDecisionSuccess}
                   onEscalate={handleEscalate}
                   onNavigateNextSimilar={isFirstLearningPair ? handleNavigateNextSimilar : undefined}
+                  onRetryLearningRecall={isSecondLearningPair ? handleNavigateNextSimilar : undefined}
+                  cachedOnly={demoMode}
                 />
               </div>
 
@@ -394,9 +402,14 @@ export function App() {
                   hasAnalysis={memoryAnalysis !== null}
                   analysis={memoryAnalysis}
                   onAction={handleHindyPanelAction}
+                  cachedOnly={demoMode}
                 />
               </div>
             </div>
+          ) : activeNav === 'replay' ? (
+            <ReplayView onOpenAlert={handleOpenReplayAlert} />
+          ) : activeNav === 'evaluation' ? (
+            <EvaluationView />
           ) : (
             <PlaceholderView tab={activeNav} onBackToAlerts={() => setActiveNav('alerts')} />
           )}

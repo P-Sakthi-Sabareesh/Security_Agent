@@ -24,6 +24,8 @@ import {
 import { WhyThisMemoryModal } from './WhyThisMemoryModal';
 import { AnalystDecisionForm } from './AnalystDecisionForm';
 import { BeforeAfterPanel } from './BeforeAfterPanel';
+import { WhoKnowsPanel } from './WhoKnowsPanel';
+import { IncidentSummaryPanel } from './IncidentSummaryPanel';
 
 interface InvestigationViewProps {
   alert: AlertDetail | null;
@@ -41,9 +43,12 @@ interface InvestigationViewProps {
   isFirstLearningPair: boolean;
   isSecondLearningPair: boolean;
   beforeLearningAnalysis: AnalysisResult | null;
+  learningRecallStatus: 'waiting' | 'indexed' | 'timeout' | null;
   onDecisionSuccess: (resp: DecisionResponse) => void;
   onEscalate: (alertId: string) => void;
   onNavigateNextSimilar?: () => void;
+  onRetryLearningRecall?: () => void;
+  cachedOnly: boolean;
 }
 
 export const InvestigationView: React.FC<InvestigationViewProps> = ({
@@ -62,9 +67,12 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
   isFirstLearningPair,
   isSecondLearningPair,
   beforeLearningAnalysis,
+  learningRecallStatus,
   onDecisionSuccess,
   onEscalate,
   onNavigateNextSimilar,
+  onRetryLearningRecall,
+  cachedOnly,
 }) => {
   const [whyMemoryOpen, setWhyMemoryOpen] = useState(false);
   const [_selectedCaseDetail, setSelectedCaseDetail] = useState<ComparedCase | null>(null);
@@ -72,20 +80,24 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
   // Suggested checks for RED alert action area
   const [redChecks, setRedChecks] = useState<SuggestedChecksResponse | null>(null);
   const [loadingRedChecks, setLoadingRedChecks] = useState(false);
+  const alertId = alert?.alert_id;
 
   useEffect(() => {
     // If analysis is RED, fetch suggested checks for prominent action area
-    if (alert && memoryAnalysis?.state === 'red') {
+    if (alertId && memoryAnalysis?.state === 'red') {
       setLoadingRedChecks(true);
-      fetch(`http://127.0.0.1:8000/api/checks/${alert.alert_id}`, { method: 'POST' })
-        .then((res) => res.json())
+      fetch(`http://127.0.0.1:8000/api/checks/${alertId}${cachedOnly ? '?cached_only=true' : ''}`, { method: 'POST' })
+        .then(async (res) => {
+          if (!res.ok) throw new Error('Suggested checks unavailable.');
+          return res.json();
+        })
         .then((data: SuggestedChecksResponse) => setRedChecks(data))
         .catch(() => setRedChecks(null))
         .finally(() => setLoadingRedChecks(false));
     } else {
       setRedChecks(null);
     }
-  }, [alert?.alert_id, memoryAnalysis?.state]);
+  }, [alertId, cachedOnly, memoryAnalysis?.state]);
 
   if (loadingAlert) {
     return (
@@ -287,10 +299,31 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
 
       {/* 2. Before/After Panel if second learning pair */}
       {isSecondLearningPair && (
-        <BeforeAfterPanel
-          beforeAnalysis={beforeLearningAnalysis}
-          afterAnalysis={memoryAnalysis}
-        />
+        <>
+          <BeforeAfterPanel
+            secondAlertId={alert.alert_id}
+            beforeAnalysis={beforeLearningAnalysis}
+            afterAnalysis={memoryAnalysis}
+          />
+          {learningRecallStatus === 'waiting' && (
+            <div className="p-3 rounded-lg bg-cyan-950/40 border border-cyan-700/50 text-cyan-200 text-xs flex items-center space-x-2">
+              <div className="w-3.5 h-3.5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+              <span>Hindy is checking whether the stored experience is available for recall...</span>
+            </div>
+          )}
+          {learningRecallStatus === 'timeout' && (
+            <div className="p-3 rounded-lg bg-amber-950/40 border border-amber-700/50 text-amber-200 text-xs flex items-center justify-between gap-3">
+              <span>stored, still indexing</span>
+              <button
+                type="button"
+                onClick={onRetryLearningRecall}
+                className="px-2.5 py-1 rounded border border-amber-500/60 text-amber-200 hover:bg-amber-900/40 font-semibold whitespace-nowrap"
+              >
+                Retry recall
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* 3. Analysis Results Container */}
@@ -393,7 +426,12 @@ export const InvestigationView: React.FC<InvestigationViewProps> = ({
             isFirstLearningPair={isFirstLearningPair}
             onDecisionSuccess={onDecisionSuccess}
             onNavigateNextSimilar={onNavigateNextSimilar}
+            cachedOnly={cachedOnly}
           />
+
+          <IncidentSummaryPanel alert={alert} analysis={memoryAnalysis} cachedOnly={cachedOnly} />
+
+          <WhoKnowsPanel alert={alert} />
 
           {/* 8C. Context Match Meter */}
           {bestMatch && totalSignalsCount > 0 && (

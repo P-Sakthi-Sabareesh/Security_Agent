@@ -7,6 +7,7 @@ interface AlertQueueProps {
   selectedAlertId: string | null;
   onSelectAlert: (alertId: string) => void;
   loading: boolean;
+  learningPairIds: string[];
 }
 
 export const AlertQueue: React.FC<AlertQueueProps> = ({
@@ -14,10 +15,11 @@ export const AlertQueue: React.FC<AlertQueueProps> = ({
   selectedAlertId,
   onSelectAlert,
   loading,
+  learningPairIds,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Pin ALRT-00663 first, then learning pair ALRT-00602 and ALRT-00687
+  // Pin the Phase 1 demo alert, then the verified learning pair.
   const sortedAndFilteredAlerts = useMemo(() => {
     let filtered = alerts.filter((alert) => {
       if (!searchQuery.trim()) return true;
@@ -37,15 +39,18 @@ export const AlertQueue: React.FC<AlertQueueProps> = ({
       if (a.id === 'ALRT-00663') return -1;
       if (b.id === 'ALRT-00663') return 1;
 
-      // 2. Learning pair pinned next
-      if (a.id === 'ALRT-00602') return -1;
-      if (b.id === 'ALRT-00602') return 1;
-      if (a.id === 'ALRT-00687') return -1;
-      if (b.id === 'ALRT-00687') return 1;
+      // 2. Learning pair pinned next in the order supplied by the API.
+      const aPairIndex = learningPairIds.indexOf(a.id);
+      const bPairIndex = learningPairIds.indexOf(b.id);
+      if (aPairIndex !== -1 || bPairIndex !== -1) {
+        if (aPairIndex === -1) return 1;
+        if (bPairIndex === -1) return -1;
+        return aPairIndex - bPairIndex;
+      }
 
       return a.id.localeCompare(b.id);
     });
-  }, [alerts, searchQuery]);
+  }, [alerts, learningPairIds, searchQuery]);
 
   const getSeverityBadge = (severity: string) => {
     const sev = severity.toLowerCase();
@@ -119,7 +124,7 @@ export const AlertQueue: React.FC<AlertQueueProps> = ({
           sortedAndFilteredAlerts.map((alert) => {
             const isSelected = selectedAlertId === alert.id;
             const isDemoPinned = alert.id === 'ALRT-00663';
-            const isLearningPair = alert.id === 'ALRT-00602' || alert.id === 'ALRT-00687';
+            const isLearningPair = learningPairIds.includes(alert.id);
 
             return (
               <div

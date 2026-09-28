@@ -1,127 +1,74 @@
-# Hindy — Experience-Driven SOC Memory Agent
+# Hindy — SOC Memory Agent
 
-> *"Remembers everything. Verifies before trusting."*
+Hindy helps analysts investigate repetitive security alerts without treating a similar past case as automatic proof. Its core idea is simple: **memory found is not memory applies**. Every recalled case is checked against the current alert’s real context signals before it can influence the recommendation.
 
-Hindy is an experience-driven Security Operations Center (SOC) investigation assistant. It combines long-term episodic memory via **Hindsight Cloud** with deep analytical reasoning via **Groq LLM** to analyze incoming security alerts against historical analyst decisions, investigations, and context signals.
+## Architecture
 
----
-
-## 1. Project Overview
-
-Modern SOC teams face severe alert fatigue and repetitive triage. When an alert arrives, Hindy:
-1. **Recalls** relevant historical alert resolutions and senior analyst notes from the Hindsight memory bank.
-2. **Performs deterministic context verification**, comparing categorical and boolean environment signals (user role, destination host, subnet, device trust, authentication flags).
-3. **Identifies critical signal deviations** (e.g., lookalike domains, privilege mismatches, off-hours anomaly) before trusting past benign outcomes.
-4. **Synthesizes transparent reasoning** without automated closure or fabricated confidence percentages.
-
----
-
-## 2. Requirements
-
-- **Python**: 3.10+
-- **Node.js**: 18+ and `npm`
-- **Hindsight Cloud** account with API credentials
-- **Groq Cloud** API key for fast inference
-
----
-
-## 3. Environment Variables
-
-Create a `.env` file in the project root with your credentials:
-
-```env
-# Hindsight Cloud Configuration
-HINDSIGHT_API_KEY=your_hindsight_api_key_here
-HINDSIGHT_BANK_ID=your_hindsight_bank_id_here
-
-# Groq Cloud Configuration
-GROQ_API_KEY=your_groq_api_key_here
+```mermaid
+flowchart LR
+  A[Incoming alert] --> B[Hindsight recall]
+  B --> C[Lookup original history records]
+  C --> D[Context comparison]
+  D --> E[Groq reasoning]
+  E --> F[Safety rules]
+  F --> G[Analyst decision]
+  G --> H[Hindsight retain]
 ```
 
-> **Security Guarantee**: All API keys and authentication tokens are strictly backend-only. The FastAPI server acts as a secure boundary and never exposes any secret or credential to the browser client or frontend bundle.
+Hindsight stores 514 historical investigations with their original metadata and tags. Each incoming alert recalls relevant memories; the backend then looks up the original records and performs deterministic context comparison. Explicit analyst decisions create a live `<alert_id>-live` document only after Hindsight accepts the retain request. The live record is then saved locally in `data/analyst_overrides.json` for history lookup.
 
----
+## Run locally
 
-## 4. How to Run the Backend (FastAPI)
+Create `.env` with these names only: `HINDSIGHT_API_KEY`, `HINDSIGHT_BANK_ID`, `HINDSIGHT_API_URL`, and `GROQ_API_KEY`.
 
-From the project root:
-
-```bash
-uvicorn api.main:app --host 127.0.0.1 --port 8000 --reload
+```powershell
+.\.venv\Scripts\Activate.ps1
+python scripts\load_history.py --bulk
+python scripts\warm_cache.py
+python main.py
 ```
 
-The API will be available at `http://127.0.0.1:8000`.
+In another terminal:
 
----
-
-## 5. How to Run the Frontend (React + Vite + TypeScript + Tailwind CSS)
-
-From the project root:
-
-```bash
+```powershell
 cd frontend
 npm install
 npm run dev
 ```
 
-The frontend will start at `http://127.0.0.1:5173`.
+Build the replay view from saved results without model calls:
 
----
-
-## 6. Cache Warming Script
-
-To pre-compute and store cached analysis results for key demonstration alerts (`ALRT-00661`, `ALRT-00662`, `ALRT-00663`) across both memory and ablation modes:
-
-```bash
-python scripts/warm_cache.py
+```powershell
+python scripts\build_replay_cache.py
 ```
 
-Results are saved to `results/demo_cache.json`. When cached, subsequent requests return instantaneously with `"cached": true` and maintain resilience against external API hiccups.
+`python scripts\warm_replay.py` extends the recorded replay cache only when you explicitly choose to run it. It is sequential, resumable, paced at one request per three seconds, and records no classification for failures or quota exhaustion.
 
----
+## Demo, replay, and evaluation
 
-## 7. API Endpoints
+`results/demo_cache.json` stores recorded memory/no-memory analyses and suggested checks. “Demo mode: cached only” prevents Groq and Hindsight calls; missing entries report `Not recorded in demo cache`.
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/api/health` | Health status of the memory core and reasoning engine |
-| `GET` | `/api/alerts` | List all replay queue alerts (id, title, severity, host, user, cached_state) |
-| `GET` | `/api/alerts/{id}` | Full detail and context signals for a specific alert |
-| `POST` | `/api/analyze/{id}?mode=memory` | Run full memory recall, context verification, and reasoning |
-| `POST` | `/api/analyze/{id}?mode=nomemory` | Run isolated reasoning without historical memory recall |
+The Replay page reads `results/replay_cache.json`, a recorded agent run assembled from saved V2 memory results and demo cache entries. It does not create a learning curve or show labels not present in the recorded analysis.
 
----
+The Evaluation page renders saved V1/V2 summaries only. Read the results with these caveats:
 
-## 8. Demonstration Flow
+1. Measured on a synthetic dataset simulation, 94 replay alerts (10 attacks, 44 look-alikes, 40 benign, seed 42).
+2. V2 rules were designed after analysing V1 failures on the same sample. This is not a held-out test.
+3. V2 no-memory partly ran on smaller fallback models after the Groq quota ran out, so the memory vs no-memory comparison is confounded.
+4. Memory-mode had more unnecessary escalations on benign alerts. The sample contains 57% dangerous alerts, so review load is not a real-world rate.
 
-1. **Login Screen**:
-   - Status indicator displays `● Memory Core Online` when `/api/health` is verified.
-   - Pre-filled credentials (`analyst.priya` / `demo`) allow one-click entry into the workspace.
-2. **Alert Queue**:
-   - `ALRT-00663` is pinned at the top with a prominent `DEMO ALERT` tag.
-   - Real-time search enables filtering by ID, host, user, severity, and title.
-3. **Investigation & Analysis**:
-   - Click `Analyze with Hindy` to trigger live or cached analysis.
-   - **State Badge**: Shows honest SOC risk states:
-     - `GREEN`: "LOW RISK. Analyst quick-confirm recommended."
-     - `YELLOW`: "REVIEW REQUIRED"
-     - `RED`: "HIGH RISK. Human investigation required."
-   - **Memory Badges**: Highlights whether memory was found and whether memory applies based on zero key-signal differences.
-   - **Context Match Meter**: Segmented indicator displaying exact match count (e.g., `4 / 10 signals match`).
-   - **Git-Style Context Diff**: Highlighting exact signal divergence between historical cases and current alert.
-   - **Memory Trail**: Recalled cases with senior analyst notes and verdicts.
-   - **Why This Memory?**: Deterministic explanation breakdown without secondary LLM latency.
-   - **Compare Without Memory**: Side-by-side comparison illustrating how isolated reasoning lacks context.
-4. **Hindy Agent Panel (Right Side)**:
-   - Three quick-action focus buttons:
-     - *"Why did you decide this?"* → Scrolls to synthesized reasoning and recommendation.
-     - *"Show context differences"* → Highlights the git-style context diff.
-     - *"Show previous investigation"* → Focuses the historical memory trail.
+## Limits and safeguards
 
----
+The alert data is synthetic and carries its own context signals. Results come from a small sample, and V2 rules were tuned on that sample. Memory can be poisoned by incorrect analyst input, so live decisions require an explicit analyst choice and reason, retain before local persistence, are tagged as live overrides, and can be reset without touching historical documents. A single live confirmation only caps at YELLOW; low risk needs at least two matching benign precedents. Hindy drafts investigation assistance and does not create external tickets.
 
-## 9. Security & Architecture Integrity
+## Screenshots to capture
 
-- **Backend-Only Secrets**: Neither Groq nor Hindsight API keys are ever transmitted across browser requests or bundled into client assets.
-- **Ground Truth Isolation**: The API and Frontend never read, import, or reference `data/ground_truth.json`.
-- **No Fabricated Confidence**: All states, signals, and diffs reflect genuine engine outputs.
+Add these images under `docs/screenshots/`:
+
+- Login
+- Triage for `ALRT-00663` in RED
+- Context diff
+- Recalled memory cards
+- Learning-pair before/after
+- Replay
+- Evaluation
